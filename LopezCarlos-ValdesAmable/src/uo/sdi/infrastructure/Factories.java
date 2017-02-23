@@ -6,5 +6,4 @@ import uo.sdi.business.impl.ServicesFactoryImpl;
 public class Factories {
 
 	public static ServicesFactory services = new ServicesFactoryImpl();
-	public static PersistentFactory persistence = new PersistenceFactoryImpl;
 }

@@ -2,8 +2,8 @@ package uo.sdi.business;
 
 public interface ServicesFactory {
 
-	UserService createUserService();
-	TaskService createTaskService();
-	CategoryService createCategoryService();
+	public UserService createUserService();
+	public TaskService createTaskService();
+	public CategoryService createCategoryService();
 	
 }

@@ -1,15 +1,19 @@
 package uo.sdi.business;
 
+import uo.sdi.business.util.BusinessException;
+import uo.sdi.dto.UserDTO;
+
 public interface UserService {
 
 	//CRUD
-	public void addUser(User user);
-	public User findUser(User user);
-	public void updateUser(User user);
-	public void removeUser(User user);
+	public void addUser(UserDTO user) throws BusinessException;
+	public UserDTO findUser(UserDTO user) throws BusinessException;
+	public void updateUser(UserDTO user) throws BusinessException;
+	public void removeUser(UserDTO user) throws BusinessException;
 	
 	//Otras funciones
-	public void blockUser(User user);
-	public void enableUser(User user);
-	public User loginUser(String login, String password);
+	public void blockUser(UserDTO user) throws BusinessException;
+	public void enableUser(UserDTO user) throws BusinessException;
+	public UserDTO loginUser(String login, String password) 
+			throws BusinessException;
 }
