@@ -70,6 +70,20 @@ public class User {
 		this.password = password;
 	}
 	
+	public void setLogin(String login){
+		this.login = login;
+	}
+	
+	
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setTasks(Set<Task> tasks) {
+		this.tasks = tasks;
+	}
+
 	public UserStatus getStatus() {
 		return status;
 	}

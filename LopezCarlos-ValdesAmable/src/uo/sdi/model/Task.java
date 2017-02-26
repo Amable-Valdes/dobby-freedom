@@ -98,6 +98,26 @@ public class Task {
 		return category;
 	}
 	
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 	//Gets y Sets de relaciones
 	void _setUser(User user) {
 		this.user = user;

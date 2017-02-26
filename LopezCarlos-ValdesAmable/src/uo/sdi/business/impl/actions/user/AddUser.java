@@ -19,7 +19,7 @@ public class AddUser implements Command{
 		//Comprobaciones
 		assertLoginUsed( userDto.getLogin() );
 		//Lo guardamos en la BBDD
-//		Jpa.getManager().persist(usuarioX);
+		Jpa.getManager().persist(userDto);
 		return null;
 	}
 	
