@@ -19,9 +19,22 @@
 		<query>select t from Task t</query>
 	</named-query>
 	
+	<named-query name="Task.findByUserAndCategoryActive">
+		<query>
+				select t 
+				from Task t
+				where t.user.id = (?1) and t.title = (?2)
+				and t.finished = null
+		</query>
+	</named-query>
+	
 	<!-- Queries de Categorías --> 
-	<named-query name="Category.findAll">
-		<query>select c from Category c</query>
+	<named-query name="Category.findByUserAndName">
+		<query>
+				select c 
+				from Category c 
+				where c.user.id = (?1) and c.name = (?2)
+		</query>
 	</named-query>
 	
 </entity-mappings>

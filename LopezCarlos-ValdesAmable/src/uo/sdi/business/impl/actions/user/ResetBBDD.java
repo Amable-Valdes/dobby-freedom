@@ -163,11 +163,46 @@ public class ResetBBDD implements Command {
 			Task task30 = new Task(user, "tarea30");
 			task30.setPlanned(last6Days);
 			Association.Classifies.link(categoria3, task30);
+			
+			Jpa.getManager().persist(user);
+			
+			Jpa.getManager().persist(categoria1);
+			Jpa.getManager().persist(categoria2);
+			Jpa.getManager().persist(categoria3);
+			
+			Jpa.getManager().persist(task1);
+			Jpa.getManager().persist(task2);
+			Jpa.getManager().persist(task3);
+			Jpa.getManager().persist(task4);
+			Jpa.getManager().persist(task5);
+			Jpa.getManager().persist(task6);
+			Jpa.getManager().persist(task7);
+			Jpa.getManager().persist(task8);
+			Jpa.getManager().persist(task9);
+			Jpa.getManager().persist(task10);
+			Jpa.getManager().persist(task11);
+			Jpa.getManager().persist(task12);
+			Jpa.getManager().persist(task13);
+			Jpa.getManager().persist(task14);
+			Jpa.getManager().persist(task15);
+			Jpa.getManager().persist(task16);
+			Jpa.getManager().persist(task17);
+			Jpa.getManager().persist(task18);
+			Jpa.getManager().persist(task19);
+			Jpa.getManager().persist(task20);
+			Jpa.getManager().persist(task21);
+			Jpa.getManager().persist(task22);
+			Jpa.getManager().persist(task23);
+			Jpa.getManager().persist(task24);
+			Jpa.getManager().persist(task25);
+			Jpa.getManager().persist(task26);
+			Jpa.getManager().persist(task27);
+			Jpa.getManager().persist(task28);
+			Jpa.getManager().persist(task29);
+			Jpa.getManager().persist(task30);
 		}
 		
-		Jpa.getManager().persist(user1);
-		Jpa.getManager().persist(user2);
-		Jpa.getManager().persist(user3);
+		
 
 		return null;
 	}
