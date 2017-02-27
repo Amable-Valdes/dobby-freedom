@@ -1,6 +1,11 @@
 package uo.sdi.business.impl;
 
+import java.util.List;
+
+import uo.sdi.business.impl.actions.user.ListUsers;
 import uo.sdi.business.impl.actions.user.AddUser;
+import uo.sdi.business.impl.actions.user.ChangeUserState;
+import uo.sdi.business.impl.actions.user.RemoveUser;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.CommandExecutor;
 import uo.sdi.business.UserService;
@@ -15,40 +20,27 @@ public class UserServiceImpl implements UserService {
 		executor.execute(new AddUser( user ));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public UserDTO findUser(UserDTO user) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<UserDTO> listUsers(String login) throws BusinessException {
+		return (List<UserDTO>) executor.execute(new ListUsers());
 	}
 
-	@Override
-	public void updateUser(UserDTO user) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
-	public void removeUser(UserDTO user) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void blockUser(UserDTO user) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void enableUser(UserDTO user) {
-		// TODO Auto-generated method stub
-		
+	public void removeUser(String login) throws BusinessException {
+		executor.execute(new RemoveUser(login));
 	}
 
 	@Override
 	public UserDTO loginUser(String login, String password) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void changeUserStatus(UserDTO user) throws BusinessException {
+		executor.execute(new ChangeUserState(user));
 	}
 
 }
