@@ -52,14 +52,14 @@
 			<br></br>
 			<h:form>
 			<p:dataTable id="tablaTareas" var="tarea" styleClass="formTable"
-				value="#{tareas.listaTodasTareas}"  rows="5"
+				value="#{tareas.listaTodasTareas}"  rows="8"
 				paginator="true"
                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                rowsPerPageTemplate="8">
-			<p:column filterBy="#{tarea.titulo}" sortBy="#{tarea.titulo}" headerText="Titulo">
-					<h:outputText value="#{tarea.titulo}" /></p:column>
-				<p:column sortBy="#{tarea.categoriaId}">
-					<f:facet name="header">Categoria</f:facet>#{tarea.categoriaId}</p:column>
+                >
+			<p:column filterBy="#{tarea.title}" sortBy="#{tarea.title}" headerText="Titulo">
+					<h:outputText value="#{tarea.title}" /></p:column>
+				<p:column sortBy="#{tarea.categoryId}">
+					<f:facet name="header">Categoria</f:facet>#{tarea.categoryId}</p:column>
 				<p:column sortBy="#{tarea.planned}">
 					<f:facet name="header">Fecha planificada</f:facet>#{tarea.planned}</p:column>
 				<p:column sortBy="#{tarea.finished}">

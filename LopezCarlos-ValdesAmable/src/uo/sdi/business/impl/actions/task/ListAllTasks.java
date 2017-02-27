@@ -26,6 +26,7 @@ public class ListAllTasks implements Command{
 				//TODO Faltan todavia sets por poner
 				taskDTO.setCategoryId(task.getCategory().getId());
 				taskDTO.setUserId(task.getUser().getId());
+				list.add(taskDTO);
 			}
 		}
 		return list;
