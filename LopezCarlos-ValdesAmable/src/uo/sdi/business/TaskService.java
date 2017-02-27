@@ -22,4 +22,6 @@ public interface TaskService {
 
 	public List<TaskDTO> listTasks(String login, String categoryName)
 			throws BusinessException;
+
+	public List<TaskDTO> findAllTasks() throws BusinessException;
 }

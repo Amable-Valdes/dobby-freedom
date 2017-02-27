@@ -11,7 +11,7 @@ public class CommandExecutor {
 
 	public Object execute(Command command) throws BusinessException {
 		EntityManagerFactory emf = 
-				Persistence.createEntityManagerFactory("carworkshop");
+				Persistence.createEntityManagerFactory("taskmanager");
 		EntityManager em = Jpa.createEntityManager();
 		EntityTransaction trx = em.getTransaction();
 		trx.begin();

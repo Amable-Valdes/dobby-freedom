@@ -5,9 +5,36 @@
   	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
   	version="2.0">
   	
-  	<!-- Las queries vienen aquí --> 
+  	<!-- Queries de usuarios --> 
 	<named-query name="User.findByLogin">
 		<query>select u from User u where u.login = (?1)</query>
 	</named-query>
-
+	
+	<named-query name="User.findAll">
+		<query>select u from User u</query>
+	</named-query>
+	
+	<!-- Queries de tareas -->
+	<named-query name="Task.findAll">
+		<query>select t from Task t</query>
+	</named-query>
+	
+	<named-query name="Task.findByUserAndCategoryActive">
+		<query>
+				select t 
+				from Task t
+				where t.user.id = (?1) and t.title = (?2)
+				and t.finished = null
+		</query>
+	</named-query>
+	
+	<!-- Queries de Categorías --> 
+	<named-query name="Category.findByUserAndName">
+		<query>
+				select c 
+				from Category c 
+				where c.user.id = (?1) and c.name = (?2)
+		</query>
+	</named-query>
+	
 </entity-mappings>
