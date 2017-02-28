@@ -3,9 +3,7 @@ package uo.sdi.persistence;
 import java.util.List;
 
 import javax.persistence.NoResultException;
-
 import uo.sdi.model.Category;
-import uo.sdi.model.User;
 import uo.sdi.persistence.util.Jpa;
 
 public class CategoryFinder {

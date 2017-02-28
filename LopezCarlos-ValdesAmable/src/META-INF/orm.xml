@@ -19,12 +19,30 @@
 		<query>select t from Task t</query>
 	</named-query>
 	
+	<named-query name="Task.findToday">
+		<query>
+				select t 
+				from Task t 
+				where t.user.id = (?1) and t.planned = CURRENT_DATE
+				and t.finished = null
+		</query>
+	</named-query>
+	
 	<named-query name="Task.findByUserAndCategoryActive">
 		<query>
 				select t 
 				from Task t
-				where t.user.id = (?1) and t.title = (?2)
+				where t.user.id = (?1) and t.category.id = (?2)
 				and t.finished = null
+		</query>
+	</named-query>
+	
+	<named-query name="Task.findByUser_Category_CreatedDate_TaskName">
+		<query>
+				select t 
+				from Task t
+				where t.user.id = (?1) and t.category.id = (?2) 
+				and t.created = (?3) and t.title = (?4)
 		</query>
 	</named-query>
 	

@@ -5,8 +5,8 @@ import java.util.List;
 
 import uo.sdi.business.TaskService;
 import uo.sdi.business.impl.actions.task.FinishTask;
-import uo.sdi.business.impl.actions.task.ListAllTasks;
-import uo.sdi.business.impl.actions.task.ListTasks;
+import uo.sdi.business.impl.actions.task.list.ListAllTasks;
+import uo.sdi.business.impl.actions.task.list.ListTasksByCategory;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.CommandExecutor;
 import uo.sdi.dto.TaskDTO;
@@ -43,7 +43,7 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public List<TaskDTO> listTasks(String login, String categoryName)
 			throws BusinessException {
-		return (List<TaskDTO>) executor.execute(new ListTasks(login,
+		return (List<TaskDTO>) executor.execute(new ListTasksByCategory(login,
 				categoryName));
 	}
 

@@ -1,9 +1,11 @@
-package uo.sdi.business.impl.actions.task;
+package uo.sdi.business.impl.actions.task.list;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
+import uo.sdi.dto.TaskDTO;
 import uo.sdi.model.Category;
 import uo.sdi.model.Task;
 import uo.sdi.model.User;
@@ -11,19 +13,14 @@ import uo.sdi.persistence.CategoryFinder;
 import uo.sdi.persistence.TaskFinder;
 import uo.sdi.persistence.UserFinder;
 
-public class FinishTask implements Command {
-	
+public class ListTasksByCategory implements Command {
+
 	private String login;
 	private String categoryName;
-	private Date created;
-	private String taskName;
-	
-	public FinishTask(String login, String categoryName, Date created,
-			String taskName) {
+
+	public ListTasksByCategory(String login, String categoryName) {
 		this.login = login;
 		this.categoryName = categoryName;
-		this.created = created;
-		this.taskName = taskName;
 	}
 
 	@Override
@@ -33,14 +30,25 @@ public class FinishTask implements Command {
 		Category category = CategoryFinder.findByUserAndName(user.getId(),
 				categoryName);
 		assertCategoryExist(category);
-		Task task = TaskFinder.findByUser_Category_CreatedDate_TaskName(
-				user.getId(),category.getId(),created,taskName);
-		assertTaskExist(task);
-		assertTaskIsNotFinished(task);
-		task.setFinished(new Date());
-		return null;
+		List<Task> listTasks = TaskFinder.findByUserAndCategoryActive(
+				user.getId(),category.getId());
+		ArrayList<TaskDTO> listDTO = new ArrayList<TaskDTO>();
+		TaskDTO taskDTO;
+		for (Task task : listTasks) {
+			taskDTO = new TaskDTO();
+			taskDTO.setId(task.getId());
+			taskDTO.setCreated(task.getCreated());
+			taskDTO.setTitle(task.getTitle());
+			taskDTO.setPlanned(task.getPlanned());
+			taskDTO.setFinished(task.getFinished());
+			taskDTO.setComments(task.getComments());
+			taskDTO.setCategoryId(task.getCategory().getId());
+			taskDTO.setUserId(task.getUser().getId());
+			listDTO.add(taskDTO);
+		}
+		return listDTO;
 	}
-	
+
 	private void assertCategoryExist(Category category) 
 			throws BusinessException {
 		if (category != null) return;
@@ -51,15 +59,4 @@ public class FinishTask implements Command {
 		if (user != null) return;
 		throw new BusinessException("El usuario no existe");
 	}
-	
-	private void assertTaskExist(Task task) throws BusinessException {
-		if (task != null) return;
-		throw new BusinessException("La tearea no existe");
-	}
-	
-	private void assertTaskIsNotFinished(Task task) throws BusinessException {
-		if (task.getFinished() == null) return;
-		throw new BusinessException("La tearea ya estaba finalizada");
-	}
-
 }
