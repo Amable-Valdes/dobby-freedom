@@ -19,6 +19,11 @@
 		<query>select t from Task t</query>
 	</named-query>
 	
+	<named-query name="Task.findByUser">
+		<query>select t from Task t,User u where t.user.id = u.id and 
+		u.login = (?1)</query>
+	</named-query>
+	
 	<named-query name="Task.findToday">
 		<query>
 				select t 

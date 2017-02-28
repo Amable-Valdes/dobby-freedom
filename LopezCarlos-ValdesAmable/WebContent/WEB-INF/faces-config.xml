@@ -4,14 +4,69 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
-<managed-bean>
- <managed-bean-name>usuarios</managed-bean-name>
- <managed-bean-class>uo.sdi.presentation.UserBean</managed-bean-class>
- <managed-bean-scope>session</managed-bean-scope>
-</managed-bean>
-<managed-bean>
- <managed-bean-name>tareas</managed-bean-name>
- <managed-bean-class>uo.sdi.presentation.TaskBean</managed-bean-class>
- <managed-bean-scope>application</managed-bean-scope>
-</managed-bean>
+
+<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/error.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{usuarios.iniciarSesion}</from-action>
+			<from-outcome>usuario</from-outcome>
+			<to-view-id>/usuario.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarios.registrarse}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/registro.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarios.iniciarSesion}</from-action>
+			<from-outcome>administrador</from-outcome>
+			<to-view-id>/administrador.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/administrador.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{usuarios.listarUsuarios}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/listadoUsuarios.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarios.inicializarBBDD}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/administrador.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>		
+	<navigation-rule>
+		<from-view-id>/usuario.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{usuarios.crearTarea}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/crearTarea.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarios.editarTarea}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/crearTarea.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarios.cerrarSesion}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-action>#{usuarios.cerrarSesion}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

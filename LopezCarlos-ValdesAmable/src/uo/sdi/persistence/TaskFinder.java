@@ -15,6 +15,13 @@ public class TaskFinder {
 		return Jpa.getManager().createNamedQuery("Task.findAll", Task.class)
 				.getResultList();
 	}
+	
+	public static List<Task> findByLogin(String login) {
+		return Jpa.getManager()
+				.createNamedQuery("Task.findByUser", Task.class)
+				.setParameter(1, login)
+				.getResultList();
+	}
 
 	public static List<Task> findByUserAndCategoryActive(Long idUser,
 			Long idCategory) {

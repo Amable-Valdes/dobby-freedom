@@ -2,37 +2,44 @@ package uo.sdi.presentation;
 
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import alb.util.log.Log;
 import uo.sdi.business.UserService;
+import uo.sdi.business.util.BusinessException;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.dto.types.UserStatusDTO;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.model.User;
-import uo.sdi.model.types.UserStatus;
 
 @ManagedBean(name = "usuarios")
 @SessionScoped
-public class UserBean implements Serializable{
+public class UserBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@ManagedProperty("#{tareas}")
-	//private TaskBean tasks;
+	private TaskBean tasks;
 	
 	private String pass = "";
 	private String login = "";
 	private UserDTO user = new UserDTO();
+	private List<UserDTO> listaUsuarios = new ArrayList<UserDTO>();
+	private List<UserStatusDTO> estados = new ArrayList<UserStatusDTO>();
 
 	public UserBean() {
+		
 		iniciaUser(null);
+		estados.add(UserStatusDTO.ENABLED);
+		estados.add(UserStatusDTO.DISABLED);
 	}
-	
+
 	public void iniciaUser(ActionEvent event) {
 	    user.setId(null);
 	    user.setEmail("");
@@ -43,6 +50,15 @@ public class UserBean implements Serializable{
 
 	public UserDTO getUsuario() {
 		return user;
+	}
+	
+	public void inicializarBBDD(){
+		//iniciar base de datos
+		try {
+			Factories.services.createUserService().resetBBDD();
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setUser(UserDTO user) {
@@ -65,18 +81,44 @@ public class UserBean implements Serializable{
 		this.pass = pass;
 	}
 	
-	
+	public List<UserDTO> getListaUsuarios() {
+		return listaUsuarios;
+	}
 
-	/*public TaskBean getTasks() {
+	public void setListaUsuarios(List<UserDTO> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
+	}
+
+	public TaskBean getTasks() {
 		return tasks;
 	}
 
 	public void setTasks(TaskBean tasks) {
 		this.tasks = tasks;
-	}*/
+	}
 
 	public UserDTO getUser() {
 		return user;
+	}
+	
+	public String listarUsuarios(){
+		try {
+			listaUsuarios = Factories.services.createUserService().listAll();
+			return "exito";
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		return "fracaso";
+	}
+	
+	
+
+	public List<UserStatusDTO> getEstados() {
+		return estados;
+	}
+
+	public void setEstados(List<UserStatusDTO> estados) {
+		this.estados = estados;
 	}
 
 	/**
@@ -88,16 +130,22 @@ public class UserBean implements Serializable{
 	public String iniciarSesion() {
 		if (user != null) {
 			UserService us = Factories.services.createUserService();
-			/*UserDTO userByLogin = us.findUser(new UserDTO());
-			if (userByLogin != null && userByLogin.getPassword().equals(pass)) {
+			UserDTO userByLogin = null;
+			try {
+				userByLogin = us.loginUser(login, pass);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
+			if (userByLogin != null) {
 				Log.info("El usuario [%s] ha iniciado sesi�n",
 						user.getLogin());
 				user = userByLogin;
-				us.iniciaSesion(user);*/
 				rellenarLista();
-
-				return "exito";
-			//}
+				if(user.getIsAdmin()){
+					return "administrador";
+				}
+				return "usuario";
+			}
 		}
 		return "fracaso";
 	}
@@ -109,7 +157,7 @@ public class UserBean implements Serializable{
 	 */
 	public String rellenarLista() {
 		try {
-			//tasks.listar(user.getId());
+			tasks.listar(user.getLogin());
 			return "exito";
 		} catch (NullPointerException e) {
 			return "fracaso";
@@ -131,12 +179,12 @@ public class UserBean implements Serializable{
 	 * Cierra la sesi�n de usuario actual y deja el bean listo para aceptar
 	 * nuevos datos.
 	 */
-	public void cerrarSesion() {
+	public String cerrarSesion() {
 		setUser(new UserDTO());
 		pass = "";
 		login = "";
-		//Se cierra sesion
-		//Factories.services.createUserService().singOut(null);
+		rellenarLista();
+		return "exito";
 	}
 
 	/**

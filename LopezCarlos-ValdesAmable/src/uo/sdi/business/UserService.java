@@ -13,4 +13,6 @@ public interface UserService {
 	public void changeUserStatus(UserDTO user) throws BusinessException;
 	public UserDTO loginUser(String login, String password) 
 			throws BusinessException;
+	public void resetBBDD() throws BusinessException;
+	public List<UserDTO> listAll() throws BusinessException;
 }

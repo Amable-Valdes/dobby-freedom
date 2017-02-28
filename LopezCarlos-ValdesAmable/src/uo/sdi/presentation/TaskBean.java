@@ -16,7 +16,7 @@ import uo.sdi.model.Task;
 import uo.sdi.model.User;
 
 @ManagedBean(name = "tareas")
-@ApplicationScoped
+@SessionScoped
 public class TaskBean {
 	
 	private List<TaskDTO> listaTareas = new ArrayList<TaskDTO>();
@@ -40,7 +40,11 @@ public class TaskBean {
 	  }
 
 	public void listar(String login) {
-		//listaTareas = Factories.services.createTaskService().findTaskByLogin(login);
+		try {
+			listaTareas = Factories.services.createTaskService().listTasks(login);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void listaTodasTareas() {
