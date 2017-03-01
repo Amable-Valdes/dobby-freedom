@@ -20,8 +20,13 @@
 	</named-query>
 	
 	<named-query name="Task.findByUser">
-		<query>select t from Task t,User u where t.user.id = u.id and 
-		u.login = (?1)</query>
+		<query>
+			select t 
+			from Task t,User u 
+			where t.user.id = u.id 
+			and u.login = (?1)
+			and t.finished = null
+		</query>
 	</named-query>
 	
 	<named-query name="Task.findInbox">

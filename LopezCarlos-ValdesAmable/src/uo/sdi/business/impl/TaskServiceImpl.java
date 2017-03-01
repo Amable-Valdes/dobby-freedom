@@ -6,7 +6,6 @@ import java.util.List;
 import uo.sdi.business.TaskService;
 import uo.sdi.business.impl.actions.task.AddTask;
 import uo.sdi.business.impl.actions.task.FinishTask;
-import uo.sdi.business.impl.actions.task.ListAllTasks;
 import uo.sdi.business.impl.actions.task.ListTasksByCategory;
 import uo.sdi.business.impl.actions.task.ListTasksByLogin;
 import uo.sdi.business.impl.actions.task.ListTasksInbox;
@@ -41,17 +40,11 @@ public class TaskServiceImpl implements TaskService {
 				taskName));
 	}
 
-//	@SuppressWarnings("unchecked")
-//	@Override
-//	public List<TaskDTO> findAllTasks() throws BusinessException {
-//		return (List<TaskDTO>) executor.execute(new ListAllTasks());
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	@Override
-//	public List<TaskDTO> listTasks(String login) throws BusinessException {
-//		return (List<TaskDTO>) executor.execute(new ListTasksByLogin(login));
-//	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TaskDTO> listUserTasks(String login) throws BusinessException {
+		return (List<TaskDTO>) executor.execute(new ListTasksByLogin(login));
+	}
 	
 	@SuppressWarnings("unchecked")
 	@Override

@@ -4,16 +4,11 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.dto.TaskDTO;
 import uo.sdi.infrastructure.Factories;
-import uo.sdi.model.Task;
-import uo.sdi.model.User;
 
 @ManagedBean(name = "tareas")
 @SessionScoped
@@ -36,26 +31,24 @@ public class TaskBean {
 	    tarea.setComments("");
 	    tarea.setPlanned(new Date());
 	    tarea.setFinished(new Date());
-	    listaTodasTareas();
 	  }
 
 	public void listar(String login) {
 		try {
-			listaTareas = Factories.services.createTaskService().listTasks(login);
+			listaTareas = Factories.services.createTaskService().listUserTasks(login);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void listaTodasTareas() {
-		//lista de todas las tareas que hay
-		try {
-			listaTodasTareas = Factories.services.createTaskService().findAllTasks();
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public void listaTodasTareas() {
+//		//lista de todas las tareas que hay
+//		try {
+//			listaTodasTareas = Factories.services.createTaskService().findAllTasks();
+//		} catch (BusinessException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	public TaskDTO getTarea() {
 		return tarea;

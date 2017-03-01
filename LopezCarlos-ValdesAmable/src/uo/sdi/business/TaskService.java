@@ -10,13 +10,13 @@ import uo.sdi.dto.TaskDTO;
 public interface TaskService {
 
 	// CRUD
-	public void addTask(String login, CategoryDTO categoryDTO, TaskDTO taskDTO)
+	void addTask(String login, CategoryDTO categoryDTO, TaskDTO taskDTO)
 			throws BusinessException;
 
-	public void updateTask(TaskDTO taskDTO_Old, TaskDTO taskDTO_Update) 
+	void updateTask(TaskDTO taskDTO_Old, TaskDTO taskDTO_Update) 
 			throws BusinessException;
 
-	public void finishTask(String login, String categoryName, Date created,
+	void finishTask(String login, String categoryName, Date created,
 			String taskName) throws BusinessException;
 
 	List<TaskDTO> listTasksInbox(String login) throws BusinessException;
@@ -27,4 +27,6 @@ public interface TaskService {
 
 	List<TaskDTO> listTasksByCategory(String login, String categoryName)
 			throws BusinessException;
+
+	List<TaskDTO> listUserTasks(String login) throws BusinessException;
 }
