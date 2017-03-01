@@ -7,6 +7,7 @@ import uo.sdi.business.impl.actions.user.ListAllUsers;
 import uo.sdi.business.impl.actions.user.ListUsers;
 import uo.sdi.business.impl.actions.user.AddUser;
 import uo.sdi.business.impl.actions.user.BlockUser;
+import uo.sdi.business.impl.actions.user.LoginUser;
 import uo.sdi.business.impl.actions.user.RemoveUser;
 import uo.sdi.business.impl.actions.user.ResetBBDD;
 import uo.sdi.business.util.BusinessException;
@@ -36,9 +37,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO loginUser(String login, String password) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserDTO loginUser(String login, String password) 
+			throws BusinessException {
+		return (UserDTO) executor.execute(new LoginUser(login,password));
 	}
 
 	@Override

@@ -47,16 +47,27 @@ public class TaskFinder {
 			return null;
 		}
 	}
+	
+	public static List<Task> findInbox(Long idUser) {
+		return Jpa.getManager().createNamedQuery("Task.findInbox", Task.class)
+				.setParameter(1, idUser)
+				.getResultList();
+	}
 
 	public static List<Task> findToday(Long idUser) {
-		return Jpa.getManager().createNamedQuery("Task.findToday", 
-					Task.class)
+		return Jpa.getManager().createNamedQuery("Task.findToday", Task.class)
 				.setParameter(1, idUser)
 				//.setParameter(2, new Date())
 				.getResultList();
 	}
-	
-	//Proxima consulta, tareas de la semana. Pedazo de codigo de stackoverflow
-	//SELECT e from Employee e WHERE e.startDate BETWEEN ?1 AND ?2
 
+	public static List<Task> findBetween(Long idUser, Date dateBegin, 
+			Date dateEnd) {
+		return Jpa.getManager().createNamedQuery("Task.findBetween", 
+				Task.class)
+			.setParameter(1, idUser)
+			.setParameter(2, dateBegin)
+			.setParameter(3, dateEnd)
+			.getResultList();
+	}
 }
