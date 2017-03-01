@@ -4,6 +4,6 @@ public interface ServicesFactory {
 
 	public UserService createUserService();
 	public TaskService createTaskService();
-	public CategoryService createCategoryService();
+//	public CategoryService createCategoryService();
 	
 }

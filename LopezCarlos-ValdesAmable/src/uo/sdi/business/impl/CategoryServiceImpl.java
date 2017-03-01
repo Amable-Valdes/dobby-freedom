@@ -1,32 +1,16 @@
-package uo.sdi.business.impl;
-
-import uo.sdi.business.CategoryService;
-import uo.sdi.dto.CategoryDTO;
-
-public class CategoryServiceImpl implements CategoryService {
-
-	@Override
-	public void addCategory() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public CategoryDTO findCategory() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateCategory() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeCategory() {
-		// TODO Auto-generated method stub
-		
-	}
-
-}
+//package uo.sdi.business.impl;
+//
+//import uo.sdi.business.CategoryService;
+//import uo.sdi.business.util.CommandExecutor;
+//import uo.sdi.dto.CategoryDTO;
+//
+//public class CategoryServiceImpl implements CategoryService {
+//	
+//	private CommandExecutor executor = new CommandExecutor();
+//	
+//	@Override
+//	public CategoryDTO findCategory() {
+//		return executor.execute(FindCategory()));
+//	}
+//
+//}

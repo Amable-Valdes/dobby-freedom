@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.NoResultException;
 
 import uo.sdi.model.Task;
-import uo.sdi.model.User;
 import uo.sdi.persistence.util.Jpa;
 
 public class TaskFinder {

@@ -15,7 +15,7 @@ public class ListAllTasks implements Command{
 	@Override
 	public Object execute() throws BusinessException {
 		List<User> lista = UserFinder.findAll();
-		ArrayList<TaskDTO> list = new ArrayList<TaskDTO>();
+		ArrayList<TaskDTO> listDTO = new ArrayList<TaskDTO>();
 		TaskDTO taskDTO;
 		for(User user : lista){
 			for(Task task : user.getTasks()){
@@ -23,13 +23,15 @@ public class ListAllTasks implements Command{
 				taskDTO.setId(task.getId());
 				taskDTO.setCreated(task.getCreated());
 				taskDTO.setTitle(task.getTitle());
-				//TODO Faltan todavia sets por poner
+				taskDTO.setPlanned(task.getPlanned());
+				taskDTO.setFinished(task.getFinished());
+				taskDTO.setComments(task.getComments());
 				taskDTO.setCategoryId(task.getCategory().getId());
 				taskDTO.setUserId(task.getUser().getId());
-				list.add(taskDTO);
+				listDTO.add(taskDTO);
 			}
 		}
-		return list;
+		return listDTO;
 	}
 
 }

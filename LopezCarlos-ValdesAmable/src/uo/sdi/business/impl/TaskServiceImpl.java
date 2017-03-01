@@ -4,22 +4,25 @@ import java.util.Date;
 import java.util.List;
 
 import uo.sdi.business.TaskService;
+import uo.sdi.business.impl.actions.task.AddTask;
 import uo.sdi.business.impl.actions.task.FinishTask;
+import uo.sdi.business.impl.actions.task.ListAllTasks;
+import uo.sdi.business.impl.actions.task.ListTasksByCategory;
 import uo.sdi.business.impl.actions.task.ListTasksByLogin;
-import uo.sdi.business.impl.actions.task.list.ListAllTasks;
-import uo.sdi.business.impl.actions.task.list.ListTasksByCategory;
+import uo.sdi.business.impl.actions.task.UpdateTask;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.CommandExecutor;
+import uo.sdi.dto.CategoryDTO;
 import uo.sdi.dto.TaskDTO;
 
 public class TaskServiceImpl implements TaskService {
 
-	CommandExecutor executor = new CommandExecutor();
+	private CommandExecutor executor = new CommandExecutor();
 
 	@Override
-	public void addTask() {
-		// TODO Auto-generated method stub
-
+	public void addTask(String login,CategoryDTO categoryDTO, TaskDTO taskDTO) 
+			throws BusinessException {
+		executor.execute(new AddTask(login,categoryDTO,taskDTO));
 	}
 
 	@Override
@@ -29,15 +32,9 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void updateTask() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeTask() {
-		// TODO Auto-generated method stub
-
+	public void updateTask(TaskDTO taskDTO_Old, TaskDTO taskDTO_Update) 
+			throws BusinessException{
+		executor.execute(new UpdateTask(taskDTO_Old, taskDTO_Update));
 	}
 
 	@SuppressWarnings("unchecked")

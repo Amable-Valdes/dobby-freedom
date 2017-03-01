@@ -2,7 +2,10 @@ package uo.sdi.business.impl.actions.user;
 
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
+import uo.sdi.business.util.Encriptator;
 import uo.sdi.dto.UserDTO;
+import uo.sdi.model.User;
+import uo.sdi.model.types.UserStatus;
 import uo.sdi.persistence.UserFinder;
 import uo.sdi.persistence.util.Jpa;
 
@@ -10,16 +13,19 @@ public class AddUser implements Command{
 
 	private UserDTO userDto;
 	
-	public AddUser(UserDTO user){
-		this.userDto = user;
+	public AddUser(UserDTO userDTO){
+		this.userDto = userDTO;
 	}
 	
 	@Override
 	public Object execute() throws BusinessException {
-		//Comprobaciones
-		assertLoginUsed( userDto.getLogin() );
-		//Lo guardamos en la BBDD
-//		Jpa.getManager().persist(usuarioX);
+		assertLoginUsed(userDto.getLogin());
+		User newUser = new User(userDto.getLogin());
+		newUser.setEmail(userDto.getEmail());
+		newUser.setIsAdmin(false);
+		newUser.setStatus(UserStatus.ENABLED);
+		newUser.setPassword(Encriptator.encrypt(userDto.getPassword()));
+		Jpa.getManager().persist(newUser);
 		return null;
 	}
 	

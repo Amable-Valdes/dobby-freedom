@@ -6,10 +6,8 @@ import java.util.List;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.TaskDTO;
-import uo.sdi.model.Category;
 import uo.sdi.model.Task;
 import uo.sdi.model.User;
-import uo.sdi.persistence.CategoryFinder;
 import uo.sdi.persistence.TaskFinder;
 import uo.sdi.persistence.UserFinder;
 
@@ -41,12 +39,6 @@ public class ListTasksByLogin implements Command {
 			taskDTO.setUserId(task.getUser().getId());
 		}
 		return list;
-	}
-
-	private void assertCategoryExist(Category category) 
-			throws BusinessException {
-		if (category != null) return;
-		throw new BusinessException("La categoria no existe");
 	}
 
 	private void assertUserExist(User user) throws BusinessException {
