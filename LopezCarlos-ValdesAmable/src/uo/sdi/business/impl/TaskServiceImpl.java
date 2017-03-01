@@ -9,6 +9,9 @@ import uo.sdi.business.impl.actions.task.FinishTask;
 import uo.sdi.business.impl.actions.task.ListAllTasks;
 import uo.sdi.business.impl.actions.task.ListTasksByCategory;
 import uo.sdi.business.impl.actions.task.ListTasksByLogin;
+import uo.sdi.business.impl.actions.task.ListTasksInbox;
+import uo.sdi.business.impl.actions.task.ListTasksToday;
+import uo.sdi.business.impl.actions.task.ListTasksWeek;
 import uo.sdi.business.impl.actions.task.UpdateTask;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.CommandExecutor;
@@ -26,23 +29,9 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public TaskDTO findTask() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void updateTask(TaskDTO taskDTO_Old, TaskDTO taskDTO_Update) 
 			throws BusinessException{
 		executor.execute(new UpdateTask(taskDTO_Old, taskDTO_Update));
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<TaskDTO> listTasks(String login, String categoryName)
-			throws BusinessException {
-		return (List<TaskDTO>) executor.execute(new ListTasksByCategory(login,
-				categoryName));
 	}
 
 	@Override
@@ -52,16 +41,42 @@ public class TaskServiceImpl implements TaskService {
 				taskName));
 	}
 
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public List<TaskDTO> findAllTasks() throws BusinessException {
+//		return (List<TaskDTO>) executor.execute(new ListAllTasks());
+//	}
+//
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public List<TaskDTO> listTasks(String login) throws BusinessException {
+//		return (List<TaskDTO>) executor.execute(new ListTasksByLogin(login));
+//	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<TaskDTO> findAllTasks() throws BusinessException {
-		return (List<TaskDTO>) executor.execute(new ListAllTasks());
+	public List<TaskDTO> listTasksInbox(String login) throws BusinessException {
+		return (List<TaskDTO>) executor.execute(new ListTasksInbox(login));
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<TaskDTO> listTasks(String login) throws BusinessException {
-		return (List<TaskDTO>) executor.execute(new ListTasksByLogin(login));
+	public List<TaskDTO> listTasksToday(String login) throws BusinessException {
+		return (List<TaskDTO>) executor.execute(new ListTasksToday(login));
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TaskDTO> listTasksWeek(String login) throws BusinessException {
+		return (List<TaskDTO>) executor.execute(new ListTasksWeek(login));
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TaskDTO> listTasksByCategory(String login, String categoryName)
+			throws BusinessException {
+		return (List<TaskDTO>) executor.execute(new ListTasksByCategory(login,
+				categoryName));
 	}
 
 }

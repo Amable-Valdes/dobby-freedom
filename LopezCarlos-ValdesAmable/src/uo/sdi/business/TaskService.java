@@ -13,18 +13,18 @@ public interface TaskService {
 	public void addTask(String login, CategoryDTO categoryDTO, TaskDTO taskDTO)
 			throws BusinessException;
 
-	public TaskDTO findTask() throws BusinessException;
-
 	public void updateTask(TaskDTO taskDTO_Old, TaskDTO taskDTO_Update) 
 			throws BusinessException;
 
 	public void finishTask(String login, String categoryName, Date created,
 			String taskName) throws BusinessException;
 
-	public List<TaskDTO> listTasks(String login, String categoryName)
+	List<TaskDTO> listTasksInbox(String login) throws BusinessException;
+
+	List<TaskDTO> listTasksToday(String login) throws BusinessException;
+
+	List<TaskDTO> listTasksWeek(String login) throws BusinessException;
+
+	List<TaskDTO> listTasksByCategory(String login, String categoryName)
 			throws BusinessException;
-
-	public List<TaskDTO> findAllTasks() throws BusinessException;
-
-	public List<TaskDTO> listTasks(String login) throws BusinessException;
 }
