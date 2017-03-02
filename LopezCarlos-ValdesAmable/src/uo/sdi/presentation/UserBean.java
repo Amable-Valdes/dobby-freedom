@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -16,7 +15,6 @@ import uo.sdi.business.util.BusinessException;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.dto.types.UserStatusDTO;
 import uo.sdi.infrastructure.Factories;
-import uo.sdi.model.User;
 
 @ManagedBean(name = "usuarios")
 @SessionScoped
@@ -194,7 +192,7 @@ public class UserBean implements Serializable {
 	 */
 	public String crearViaje() {
 		try {
-			User u = new User(user.getLogin());
+			//User u = new User(user.getLogin());
 			//Factories.services.createTaskService().addTask(tasks.getTarea(), u);
 			//tasks.listar(user.getId());
 			return "exito";

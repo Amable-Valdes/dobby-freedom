@@ -4,10 +4,14 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
 import uo.sdi.business.util.BusinessException;
+import uo.sdi.dto.CategoryDTO;
 import uo.sdi.dto.TaskDTO;
+import uo.sdi.dto.UserDTO;
 import uo.sdi.infrastructure.Factories;
 
 @ManagedBean(name = "tareas")
@@ -15,7 +19,6 @@ import uo.sdi.infrastructure.Factories;
 public class TaskBean {
 	
 	private List<TaskDTO> listaTareas = new ArrayList<TaskDTO>();
-	private List<TaskDTO> listaTodasTareas = new ArrayList<TaskDTO>();
 	//tarea sin valores que servira para poder trabajar con la tarea obtenida
 	//de un formulario
 	private TaskDTO tarea = new TaskDTO();
@@ -35,20 +38,48 @@ public class TaskBean {
 
 	public void listar(String login) {
 		try {
-			listaTareas = Factories.services.createTaskService().listUserTasks(login);
+			listaTareas = Factories.services.createTaskService()
+					.listUserTasks(login);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
 	}
 
-//	public void listaTodasTareas() {
-//		//lista de todas las tareas que hay
-//		try {
-//			listaTodasTareas = Factories.services.createTaskService().findAllTasks();
-//		} catch (BusinessException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public void listarTaskInbox(UserDTO user) {
+		try {
+			listaTareas = Factories.services.createTaskService()
+					.listTasksInbox(user.getLogin());
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void listarTaskHoy(UserDTO user) {
+		try {
+			listaTareas = Factories.services.createTaskService()
+					.listTasksToday(user.getLogin());
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void listarTasksSemana(UserDTO user) {
+		try {
+			listaTareas = Factories.services.createTaskService()
+					.listTasksWeek(user.getLogin());
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void listarByCategory(UserDTO user,CategoryDTO category) {
+		try {
+			listaTareas = Factories.services.createTaskService()
+					.listTasksByCategory(user.getLogin(), category.getName());
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public TaskDTO getTarea() {
 		return tarea;
@@ -65,15 +96,4 @@ public class TaskBean {
 	public void setListaTareas(List<TaskDTO> listaTareas) {
 		this.listaTareas = listaTareas;
 	}
-
-	public List<TaskDTO> getListaTodasTareas() {
-		return listaTodasTareas;
-	}
-
-	public void setListaTodasTareas(List<TaskDTO> listaTodasTareas) {
-		this.listaTodasTareas = listaTodasTareas;
-	}
-	
-	
-
 }
