@@ -13,25 +13,27 @@ import uo.sdi.model.types.UserStatus;
 public class Cloner {
 
 	public static UserDTO clone(UserDTO u) {
-		return new UserDTO()
-			.setId( 		u.getId() )
-			.setEmail( 		u.getEmail() )
-			.setIsAdmin(	u.getIsAdmin() )
-			.setLogin( 		u.getLogin() )
-			.setPassword( 	u.getPassword() )
-			.setStatus( 	u.getStatus() );
+		UserDTO user = new UserDTO()
+		.setId( 		u.getId() )
+		.setEmail( 		u.getEmail() )
+		.setIsAdmin(	u.getIsAdmin() )
+		.setLogin( 		u.getLogin() )
+		.setPassword( 	u.getPassword() );
+		user.setStatus(u.getStatus());
+		return user;
 	}
 	
 	public static TaskDTO clone(TaskDTO t) {
-		return new TaskDTO()
-			.setCategoryId( t.getCategoryId() )
-			.setComments( 	t.getComments() )
-			.setCreated( 	t.getCreated() )
-			.setFinished( 	t.getFinished() )
-			.setId( 		t.getId() )
-			.setPlanned( 	t.getPlanned() )
-			.setTitle( 		t.getTitle() )
+		TaskDTO task = new TaskDTO()
+		.setCategoryId( t.getCategoryId() )
+		.setComments( 	t.getComments() )
+		.setId( 		t.getId() )
+		.setTitle( 		t.getTitle() )
 			.setUserId( 	t.getUserId() );
+		task.setCreated(t.getCreated());
+		task.setFinished(t.getFinished());
+		task.setPlanned(t.getPlanned());
+		return task;
 	}
 
 	public static CategoryDTO clone(CategoryDTO c) {
@@ -41,26 +43,28 @@ public class Cloner {
 	}
 	
 	public static UserDTO clone(User u) {
-		return new UserDTO()
-			.setId( 		u.getId() )
-			.setEmail( 		u.getEmail() )
-			.setIsAdmin(	u.getIsAdmin() )
-			.setLogin( 		u.getLogin() )
-			.setPassword( 	u.getPassword() )
-			.setStatus( 	(u.getStatus() == UserStatus.ENABLED) ? 
+		UserDTO user = new UserDTO()
+		.setId( 		u.getId() )
+		.setEmail( 		u.getEmail() )
+		.setIsAdmin(	u.getIsAdmin() )
+		.setLogin( 		u.getLogin() )
+		.setPassword( 	u.getPassword() );
+		user.setStatus( 	(u.getStatus() == UserStatus.ENABLED) ? 
 							UserStatusDTO.ENABLED : UserStatusDTO.DISABLED);
+		return user;
 	}
 	
 	public static TaskDTO clone(Task t) {
-		return new TaskDTO()
-			.setCategoryId( t.getCategory().getId() )
-			.setComments( 	t.getComments() )
-			.setCreated( 	t.getCreated() )
-			.setFinished( 	t.getFinished() )
-			.setId( 		t.getId() )
-			.setPlanned( 	t.getPlanned() )
-			.setTitle( 		t.getTitle() )
+		TaskDTO task = new TaskDTO()
+		.setCategoryId( t.getCategory().getId() )
+		.setComments( 	t.getComments() )
+		.setId( 		t.getId() )
+		.setTitle( 		t.getTitle() )
 			.setUserId( 	t.getUser().getId() );
+		task.setCreated(t.getCreated());
+		task.setFinished(t.getFinished());
+		task.setPlanned(t.getPlanned());
+		return task;
 	}
 
 	public static CategoryDTO clone(Category c) {

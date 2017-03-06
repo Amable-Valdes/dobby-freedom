@@ -10,6 +10,7 @@ import uo.sdi.business.impl.actions.user.BlockUser;
 import uo.sdi.business.impl.actions.user.LoginUser;
 import uo.sdi.business.impl.actions.user.RemoveUser;
 import uo.sdi.business.impl.actions.user.ResetBBDD;
+import uo.sdi.business.impl.actions.user.Update;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.CommandExecutor;
 import uo.sdi.business.UserService;
@@ -61,6 +62,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserDTO> listAll() throws BusinessException {
 		return (List<UserDTO>) executor.execute(new ListAllUsers());
+	}
+
+	@Override
+	public void update(UserDTO v) throws BusinessException {
+		executor.execute(new Update(v));
 	}
 
 }

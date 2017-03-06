@@ -47,9 +47,8 @@ public class TaskDTO {
 		return created;
 	}
 	
-	public TaskDTO setCreated(Date created) {
+	public void setCreated(Date created) {
 		this.created = created;
-		return this;
 	}
 	
 	public Date getPlanned() {

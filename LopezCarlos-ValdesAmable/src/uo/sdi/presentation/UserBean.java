@@ -9,7 +9,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.event.RowEditEvent;
+
 import alb.util.log.Log;
+import uo.sdi.business.ServicesFactory;
 import uo.sdi.business.UserService;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.dto.UserDTO;
@@ -117,10 +120,11 @@ public class UserBean implements Serializable {
 				Log.info("El usuario [%s] ha iniciado sesi�n",
 						user.getLogin());
 				user = userByLogin;
-				rellenarLista();
 				if(user.getIsAdmin()){
 					return "administrador";
 				}
+				rellenarLista();
+				tasks.setUsuario(user);
 				return "usuario";
 			}
 		}
@@ -191,7 +195,6 @@ public class UserBean implements Serializable {
 		setUser(new UserDTO());
 		pass = "";
 		login = "";
-		rellenarLista();
 		return "exito";
 	}
 
@@ -212,4 +215,28 @@ public class UserBean implements Serializable {
 			return "fracaso";
 		}
 	}
+	
+	/**
+	 * Método que registra un evento RowEdit y actualiza un viaje al modificarse su estado
+	 * en dicho evento
+	 * @param event
+	 */
+	public void actualizar(RowEditEvent event){
+		UserDTO v = (UserDTO) event.getObject();
+		try {
+			Factories.services.createUserService().update(v);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+	} 
+	
+	public void cancelarActualizar(RowEditEvent event) {
+
+	}
+	
+	public String creacionTarea(){
+		return "exito";
+	}
+	
+	
 }

@@ -20,7 +20,7 @@ public class BlockUser implements Command {
 		User user = UserFinder.findByLogin(userDTO.getLogin());
 		assertUserExist(user);
 		assertIsEnabled(user);
-		user.setStatus(UserStatus.ENABLED);
+		user.setStatus(UserStatus.DISABLED);
 		return null;
 	}
 

@@ -1,6 +1,5 @@
 package uo.sdi.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -43,7 +42,7 @@ public class Task {
 	}
 	
 	public Task(User user){
-		this(user,new Timestamp(System.currentTimeMillis()));
+		this(user,new Date(System.currentTimeMillis()));
 	}
 	
 	public Task(User user, String title){
@@ -85,6 +84,10 @@ public class Task {
 
 	public Date getCreated() {
 		return created;
+	}
+	
+	public void setCreated(Date created){
+		this.created = created;
 	}
 
 	public Date getPlanned() {

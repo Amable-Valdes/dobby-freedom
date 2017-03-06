@@ -46,7 +46,7 @@
 	<navigation-rule>
 		<from-view-id>/usuario.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{usuarios.crearTarea}</from-action>
+			<from-action>#{usuarios.creacionTarea}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/crearTarea.xhtml</to-view-id>
 		</navigation-case>
@@ -66,6 +66,19 @@
 		<navigation-case>
 			<from-action>#{usuarios.cerrarSesion}</from-action>
 			<from-outcome>exito</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>crearTarea.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{tareas.crearTask}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/usuario.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tareas.crearTask}</from-action>
+			<from-outcome>fracaso</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>

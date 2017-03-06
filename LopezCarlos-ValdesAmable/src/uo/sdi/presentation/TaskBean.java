@@ -22,6 +22,11 @@ public class TaskBean {
 	//tarea sin valores que servira para poder trabajar con la tarea obtenida
 	//de un formulario
 	private TaskDTO tarea = new TaskDTO();
+	private String title;
+	private String comments;
+	private Date planned;
+	private CategoryDTO category;
+	private UserDTO user;
 	
 	public TaskBean(){
 		iniciaTask(null);
@@ -36,8 +41,36 @@ public class TaskBean {
 	    tarea.setFinished(new Date());
 	}
 	
-	public String crearTask(UserDTO user,CategoryDTO category, TaskDTO task) {
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	public Date getPlanned() {
+		return planned;
+	}
+
+	public void setPlanned(Date planned) {
+		this.planned = planned;
+	}
+
+	public String crearTask() {
 		try {
+			TaskDTO task = new TaskDTO();
+			task.setTitle(title);
+			task.setComments(comments);
+			task.setPlanned(planned);
 			Factories.services.createTaskService().addTask(
 					user.getLogin(), category, task);
 			return "exito";
@@ -125,4 +158,21 @@ public class TaskBean {
 	public void setListaTareas(List<TaskDTO> listaTareas) {
 		this.listaTareas = listaTareas;
 	}
+
+	public void setUsuario(UserDTO user) {
+		this.user = user;
+	}
+	
+	public UserDTO getUsuario(){
+		return user;
+	}
+
+	public CategoryDTO getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryDTO category) {
+		this.category = category;
+	}
+	
 }

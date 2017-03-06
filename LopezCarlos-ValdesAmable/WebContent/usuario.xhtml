@@ -12,38 +12,26 @@
 		<h:body>
 			<h:form id = "menu1">
 				<p:menubar>
-					<p:menuitem value="#{msgs.botonMenu}">
-					</p:menuitem>
-					<p:submenu id = "registro" label="Gestion de usuarios">
-						<p:menuitem id = "registroUsuario" value="Registrarse" action="registro">
+				
+					<p:submenu id = "gestionSesion" label="Sesion">
+						<p:menuitem id = "cerrarSesion" value="Cerrar Sesion" 
+						action="#{usuarios.cerrarSesion}">
 						</p:menuitem>
 					</p:submenu>
+					
+					<p:submenu label="Gestion de tareas">
+					<p:menuitem id="tareas" value="Crear Tarea"
+						action="#{usuarios.creacionTarea}">
+					</p:menuitem>
+					</p:submenu>
+					
 				</p:menubar>
 
 			</h:form>
 			<h:form>
 				<center>
-					<h1>Inicio de sesión</h1>
+					<h1>#{usuarios.login}</h1>
 				</center>
-				<p:panelGrid id="grid" columns="3" cellPadding="5"
-					style="margin: 0 auto;">
-					<p:outputLabel for="user" value="Usuario:" />
-					<p:inputText id="user" type="text" value="#{usuarios.login}"
-						required="true"></p:inputText>
-					<p:message for="user" />
-
-					<p:outputLabel for="pass" value="Contraseña" />
-					<p:inputText id="pass" type="password" required="true"
-						value="#{usuarios.pass}"></p:inputText>
-					<p:message for="pass" />
-
-				</p:panelGrid>
-				<div align="center">
-					<p:commandButton id = "enviarUser" value="Login"
-						action="#{usuarios.iniciarSesion}" update="grid" ajax="false">
-					</p:commandButton>
-				</div>
-
 			</h:form>
 			<br></br>
 			<br></br>
@@ -51,9 +39,9 @@
 			<br></br>
 			<br></br>
 			<h:form>
-			<p:dataTable id="tablaTareas" var="tarea" styleClass="formTable" filteredValue="#{tareas.listaTodasTareas}"
-				value="#{tareas.listaTodasTareas}"  rows="8"
-				paginator="true"
+			<p:dataTable id="tablaTareas" var="tarea" styleClass="formTable" filteredValue="#{tareas.listaTareas}"
+				value="#{tareas.listaTareas}"  rows="8"
+				paginator="true" 
                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                 >
 			<p:column filterBy="#{tarea.title}" sortBy="#{tarea.title}" headerText="Titulo">

@@ -12,10 +12,8 @@
 		<h:body>
 			<h:form id = "menu1">
 				<p:menubar>
-					<p:menuitem value="#{msgs.botonMenu}">
-					</p:menuitem>
-					<p:submenu id = "registro" label="Gestion de usuarios">
-						<p:menuitem id = "registroUsuario" value="Registrarse" action="registro">
+					<p:submenu id = "gestionSesion" label="Sesion">
+						<p:menuitem id = "cerrarSesion" value="Cerrar Sesion" action="#{usuarios.cerrarSesion}">
 						</p:menuitem>
 					</p:submenu>
 				</p:menubar>
@@ -37,7 +35,10 @@
 				value="#{usuarios.listaUsuarios}"  rows="8"
 				paginator="true"
                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                >
+                editable="true">
+                <p:ajax event="rowEdit" listener="#{usuarios.actualizar}" />
+				<p:ajax event="rowEditCancel"
+					listener="#{usuarios.cancelarActualizar}" />
 			<p:column filterBy="#{usuario.login}" sortBy="#{usuario.login}" headerText="Login">
 					<h:outputText value="#{usuario.login}" /></p:column>
 				<p:column sortBy="#{usuario.email}">

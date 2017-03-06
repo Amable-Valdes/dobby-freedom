@@ -74,9 +74,8 @@ public class UserDTO {
 		return status;
 	}
 
-	public UserDTO setStatus(UserStatusDTO status) {
+	public void setStatus(UserStatusDTO status) {
 		this.status = status;
-		return this;
 	}
 
 	@Override

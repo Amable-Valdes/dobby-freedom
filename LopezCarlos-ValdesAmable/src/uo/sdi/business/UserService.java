@@ -16,4 +16,5 @@ public interface UserService {
 			throws BusinessException;
 	void resetBBDD() throws BusinessException;
 	List<UserDTO> listAll() throws BusinessException;
+	void update(UserDTO v) throws BusinessException;
 }

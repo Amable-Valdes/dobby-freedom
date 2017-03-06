@@ -20,6 +20,7 @@ public class AddTask implements Command {
 	public AddTask(String login, CategoryDTO categoryDTO, TaskDTO taskDTO) {
 		this.login = login;
 		this.categoryDTO = categoryDTO;
+		this.taskDTO = taskDTO;
 	}
 
 	@Override
@@ -29,7 +30,7 @@ public class AddTask implements Command {
 		//Por defecto Null -> Inbox
 		Category category = null;
 		//Si tiene nombre
-		if(categoryDTO.getName() != null){
+		if(categoryDTO != null){
 			//Buscamos si existe la categoria
 			category = CategoryFinder.findByUserAndName(user.getId(),
 				categoryDTO.getName());
@@ -42,6 +43,7 @@ public class AddTask implements Command {
 			task = new Task(user, category, taskDTO.getTitle());
 		else
 			task = new Task(user, taskDTO.getTitle());
+		task.setCreated(taskDTO.getCreated());
 		task.setPlanned(taskDTO.getPlanned());
 		task.setFinished(null);
 		task.setComments(taskDTO.getComments());
