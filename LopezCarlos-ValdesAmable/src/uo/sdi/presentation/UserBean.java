@@ -29,6 +29,15 @@ public class UserBean implements Serializable {
 	private TaskBean tasks;
 	
 	private String pass = "";
+	private String passRew="";
+	public String getPassRew() {
+		return passRew;
+	}
+
+	public void setPassRew(String passRew) {
+		this.passRew = passRew;
+	}
+
 	private String login = "";
 	private UserDTO user = new UserDTO();
 	private List<UserDTO> listaUsuarios = new ArrayList<UserDTO>();
@@ -171,6 +180,22 @@ public class UserBean implements Serializable {
 			return "exito";
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "fracaso";
+		}
+	}
+	
+	public String registraUsuario() {
+		try {
+			if(pass.equals(passRew)){
+				user.setLogin(login);
+				user.setPassword(pass);
+				Factories.services.createUserService().addUser(user);
+				user=new UserDTO();
+				return "exito";
+			}
+			return "fracaso";
+		} catch (BusinessException e) {
 			e.printStackTrace();
 			return "fracaso";
 		}

@@ -22,6 +22,7 @@ public class CommandExecutor {
 			
 			trx.commit();
 		} catch(RuntimeException rex) {
+			rex.printStackTrace();
 			if( trx.isActive() ) trx.rollback();
 			throw rex;
 		}

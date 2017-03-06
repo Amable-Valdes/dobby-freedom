@@ -82,4 +82,17 @@
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>registro.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{usuarios.registraUsuario}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarios.registraUsuario}</from-action>
+			<from-outcome>fracaso</from-outcome>
+			<to-view-id>/registro.xhtml.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>
