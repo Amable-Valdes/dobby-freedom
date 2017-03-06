@@ -7,13 +7,13 @@ import uo.sdi.dto.UserDTO;
 
 public interface UserService {
 
-	public void addUser(UserDTO user) throws BusinessException;
-	public List<UserDTO> listUsers(String login) throws BusinessException;
-	public void removeUser(String login) throws BusinessException;
-	public void blockUser(UserDTO user) throws BusinessException;
-	public void enableUser(UserDTO user) throws BusinessException;
-	public UserDTO loginUser(String login, String password) 
+	void addUser(UserDTO user) throws BusinessException;
+	List<UserDTO> listUsers(String login) throws BusinessException;
+	void removeUser(String login) throws BusinessException;
+	void blockUser(UserDTO user) throws BusinessException;
+	void enableUser(UserDTO user) throws BusinessException;
+	UserDTO loginUser(String login, String password) 
 			throws BusinessException;
-	public void resetBBDD() throws BusinessException;
-	public List<UserDTO> listAll() throws BusinessException;
+	void resetBBDD() throws BusinessException;
+	List<UserDTO> listAll() throws BusinessException;
 }

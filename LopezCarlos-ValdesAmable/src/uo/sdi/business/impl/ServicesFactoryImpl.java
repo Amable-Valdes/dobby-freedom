@@ -1,5 +1,6 @@
 package uo.sdi.business.impl;
 
+import uo.sdi.business.CategoryService;
 import uo.sdi.business.ServicesFactory;
 import uo.sdi.business.TaskService;
 import uo.sdi.business.UserService;
@@ -16,9 +17,9 @@ public class ServicesFactoryImpl implements ServicesFactory {
 		return new TaskServiceImpl();
 	}
 
-//	@Override
-//	public CategoryService createCategoryService() {
-//		return new CategoryServiceImpl();
-//	}
+	@Override
+	public CategoryService createCategoryService() {
+		return new CategoryServiceImpl();
+	}
 
 }

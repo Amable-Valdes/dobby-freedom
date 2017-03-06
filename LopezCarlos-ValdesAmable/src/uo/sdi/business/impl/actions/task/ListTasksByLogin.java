@@ -6,6 +6,7 @@ import java.util.List;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.TaskDTO;
+import uo.sdi.dto.util.Cloner;
 import uo.sdi.model.Task;
 import uo.sdi.model.User;
 import uo.sdi.persistence.TaskFinder;
@@ -23,22 +24,12 @@ public class ListTasksByLogin implements Command {
 	public Object execute() throws BusinessException {
 		User user = UserFinder.findByLogin(login);
 		assertUserExist(user);
-		List<Task> listTasks = TaskFinder.findByLogin(
-				user.getLogin());
-		ArrayList<TaskDTO> list = new ArrayList<TaskDTO>();
-		TaskDTO taskDTO;
+		List<Task> listTasks = TaskFinder.findByLogin(user.getLogin());
+		ArrayList<TaskDTO> listDTO = new ArrayList<TaskDTO>();
 		for (Task task : listTasks) {
-			taskDTO = new TaskDTO();
-			taskDTO.setId(task.getId());
-			taskDTO.setCreated(task.getCreated());
-			taskDTO.setTitle(task.getTitle());
-			taskDTO.setPlanned(task.getPlanned());
-			taskDTO.setFinished(task.getFinished());
-			taskDTO.setComments(task.getComments());
-			taskDTO.setCategoryId(task.getCategory().getId());
-			taskDTO.setUserId(task.getUser().getId());
+			listDTO.add(Cloner.clone(task));
 		}
-		return list;
+		return listDTO;
 	}
 
 	private void assertUserExist(User user) throws BusinessException {

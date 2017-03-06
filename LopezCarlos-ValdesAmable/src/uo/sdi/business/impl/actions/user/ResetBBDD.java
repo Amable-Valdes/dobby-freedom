@@ -1,5 +1,7 @@
 package uo.sdi.business.impl.actions.user;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
 
@@ -18,6 +20,8 @@ import uo.sdi.persistence.util.Jpa;
 
 public class ResetBBDD implements Command {
 
+	Date timeCreation;
+	
 	@Override
 	public Object execute() throws BusinessException {
 		// Borramos todos los datos de la base de datos
@@ -75,92 +79,93 @@ public class ResetBBDD implements Command {
 				break;
 			}
 			// 3 Categorias
-			Category categoria1 = new Category(user);
+			timeCreation = new Timestamp(System.currentTimeMillis());
+			Category categoria1 = new Category(user, newTime());
 			categoria1.setName("Categoria1");
-
-			Category categoria2 = new Category(user);
+			
+			Category categoria2 = new Category(user, newTime());
 			categoria2.setName("Categoria2");
 
-			Category categoria3 = new Category(user);
+			Category categoria3 = new Category(user, newTime());
 			categoria3.setName("Categoria3");
 			
 			// 30 tareas
 			// Tareas para dentro de 6 días
 			Date next6Days = new Date(System.currentTimeMillis() + 518400000);
-			Task task1 = new Task(user, "tarea1");
+			Task task1 = new Task(user, "tarea1", newTime());
 			task1.setPlanned(next6Days);
-			Task task2 = new Task(user, "tarea2");
+			Task task2 = new Task(user, "tarea2", newTime());
 			task2.setPlanned(next6Days);
-			Task task3 = new Task(user, "tarea3");
+			Task task3 = new Task(user, "tarea3", newTime());
 			task3.setPlanned(next6Days);
-			Task task4 = new Task(user, "tarea4");
+			Task task4 = new Task(user, "tarea4", newTime());
 			task4.setPlanned(next6Days);
-			Task task5 = new Task(user, "tarea5");
+			Task task5 = new Task(user, "tarea5", newTime());
 			task5.setPlanned(next6Days);
-			Task task6 = new Task(user, "tarea6");
+			Task task6 = new Task(user, "tarea6", newTime());
 			task6.setPlanned(next6Days);
-			Task task7 = new Task(user, "tarea7");
+			Task task7 = new Task(user, "tarea7", newTime());
 			task7.setPlanned(next6Days);
-			Task task8 = new Task(user, "tarea8");
+			Task task8 = new Task(user, "tarea8", newTime());
 			task8.setPlanned(next6Days);
-			Task task9 = new Task(user, "tarea9");
+			Task task9 = new Task(user, "tarea9", newTime());
 			task9.setPlanned(next6Days);
-			Task task10 = new Task(user, "tarea10");
+			Task task10 = new Task(user, "tarea10", newTime());
 			task10.setPlanned(next6Days);
 
 			// Tareas para hoy
 			Date today = new Date();
-			Task task11 = new Task(user, "tarea11");
+			Task task11 = new Task(user, "tarea11", newTime());
 			task11.setPlanned(today);
-			Task task12 = new Task(user, "tarea12");
+			Task task12 = new Task(user, "tarea12", newTime());
 			task12.setPlanned(today);
-			Task task13 = new Task(user, "tarea13");
+			Task task13 = new Task(user, "tarea13", newTime());
 			task13.setPlanned(today);
-			Task task14 = new Task(user, "tarea14");
+			Task task14 = new Task(user, "tarea14", newTime());
 			task14.setPlanned(today);
-			Task task15 = new Task(user, "tarea15");
+			Task task15 = new Task(user, "tarea15", newTime());
 			task15.setPlanned(today);
-			Task task16 = new Task(user, "tarea16");
+			Task task16 = new Task(user, "tarea16", newTime());
 			task16.setPlanned(today);
-			Task task17 = new Task(user, "tarea17");
+			Task task17 = new Task(user, "tarea17", newTime());
 			task17.setPlanned(today);
-			Task task18 = new Task(user, "tarea18");
+			Task task18 = new Task(user, "tarea18", newTime());
 			task18.setPlanned(today);
-			Task task19 = new Task(user, "tarea19");
+			Task task19 = new Task(user, "tarea19", newTime());
 			task19.setPlanned(today);
-			Task task20 = new Task(user, "tarea20");
+			Task task20 = new Task(user, "tarea20", newTime());
 			task20.setPlanned(today);
 
 			// Tareas retrasadas (de hace 6 días)
 			Date last6Days = new Date(System.currentTimeMillis() - 518400000);
-			Task task21 = new Task(user, "tarea21");
+			Task task21 = new Task(user, "tarea21", newTime());
 			task21.setPlanned(last6Days);
 			Association.Classifies.link(categoria1, task21);
-			Task task22 = new Task(user, "tarea22");
+			Task task22 = new Task(user, "tarea22", newTime());
 			task22.setPlanned(last6Days);
 			Association.Classifies.link(categoria1, task22);
-			Task task23 = new Task(user, "tarea23");
+			Task task23 = new Task(user, "tarea23", newTime());
 			task23.setPlanned(last6Days);
 			Association.Classifies.link(categoria1, task23);
-			Task task24 = new Task(user, "tarea24");
+			Task task24 = new Task(user, "tarea24", newTime());
 			task24.setPlanned(last6Days);
 			Association.Classifies.link(categoria2, task24);
-			Task task25 = new Task(user, "tarea25");
+			Task task25 = new Task(user, "tarea25", newTime());
 			task25.setPlanned(last6Days);
 			Association.Classifies.link(categoria2, task25);
-			Task task26 = new Task(user, "tarea26");
+			Task task26 = new Task(user, "tarea26", newTime());
 			task26.setPlanned(last6Days);
 			Association.Classifies.link(categoria2, task26);
-			Task task27 = new Task(user, "tarea27");
+			Task task27 = new Task(user, "tarea27", newTime());
 			task27.setPlanned(last6Days);
 			Association.Classifies.link(categoria3, task27);
-			Task task28 = new Task(user, "tarea28");
+			Task task28 = new Task(user, "tarea28", newTime());
 			task28.setPlanned(last6Days);
 			Association.Classifies.link(categoria3, task28);
-			Task task29 = new Task(user, "tarea29");
+			Task task29 = new Task(user, "tarea29", newTime());
 			task29.setPlanned(last6Days);
 			Association.Classifies.link(categoria3, task29);
-			Task task30 = new Task(user, "tarea30");
+			Task task30 = new Task(user, "tarea30", newTime());
 			task30.setPlanned(last6Days);
 			Association.Classifies.link(categoria3, task30);
 			
@@ -205,5 +210,13 @@ public class ResetBBDD implements Command {
 		
 
 		return null;
+	}
+	
+	private Date newTime(){
+		Calendar c = Calendar.getInstance();
+		c.setTime(timeCreation);
+		c.add(Calendar.DAY_OF_MONTH, -1);
+		timeCreation = c.getTime();
+		return timeCreation;
 	}
 }

@@ -34,7 +34,36 @@ public class TaskBean {
 	    tarea.setComments("");
 	    tarea.setPlanned(new Date());
 	    tarea.setFinished(new Date());
-	  }
+	}
+	
+	public String crearTask(UserDTO user,CategoryDTO category, TaskDTO task) {
+		try {
+			Factories.services.createTaskService().addTask(
+					user.getLogin(), category, task);
+			return "exito";
+		} catch (Exception e) { 
+			return "fracaso";
+		}
+	}
+	
+	public String finalizarTask(UserDTO user,CategoryDTO category, TaskDTO task) {
+		try {
+			Factories.services.createTaskService().finishTask(user.getLogin(), 
+					category.getName(), task.getCreated(), task.getTitle());
+			return "exito";
+		} catch (Exception e) { 
+			return "fracaso";
+		}
+	}
+	
+	public String editarTask(TaskDTO task_Old, TaskDTO task_New) {
+		try {
+			Factories.services.createTaskService().updateTask(task_Old, task_New);
+			return "exito";
+		} catch (Exception e) { 
+			return "fracaso";
+		}
+	}
 
 	public void listar(String login) {
 		try {

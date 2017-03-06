@@ -37,13 +37,22 @@ public class Task {
 	
 	//Claves en Task: User (la tarea no puede existir sin usuario) y
 	//la fecha de creación (que será new Timestamp, así que no se pide).
-	public Task(User user){
-		this.created = new Timestamp(System.currentTimeMillis());
+	public Task(User user, Date createdTime){
+		this.created = createdTime;
 		Association.Perform.link(user, this);
+	}
+	
+	public Task(User user){
+		this(user,new Timestamp(System.currentTimeMillis()));
 	}
 	
 	public Task(User user, String title){
 		this(user);
+		this.title = title;
+	}
+	
+	public Task(User user, String title, Date createdTime){
+		this(user,createdTime);
 		this.title = title;
 	}
 	

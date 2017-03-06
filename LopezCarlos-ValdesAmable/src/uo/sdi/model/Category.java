@@ -34,9 +34,13 @@ public class Category {
 	Category(){}
 	
 	//Claves de Category: par de valores User y fecha de creación
-	public Category(User user){
+	public Category(User user, Date created){
 		this.created = new Timestamp(System.currentTimeMillis());
 		Association.Organizes.link(user, this);
+	}
+	
+	public Category(User user){
+		this(user,new Timestamp(System.currentTimeMillis()));
 	}
 	
 	public Category(User user, String name){
@@ -55,6 +59,10 @@ public class Category {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public User getUser() {
+		return user;
 	}
 	
 	//Gets y Sets relaciones

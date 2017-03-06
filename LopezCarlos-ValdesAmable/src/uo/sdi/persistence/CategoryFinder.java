@@ -38,4 +38,10 @@ public class CategoryFinder {
 		}
 	}
 
+	public static List<Category> findByUser(String loginUser) {
+		return Jpa.getManager()
+				.createNamedQuery("Category.findByUser", Category.class)
+				.getResultList();
+	}
+
 }

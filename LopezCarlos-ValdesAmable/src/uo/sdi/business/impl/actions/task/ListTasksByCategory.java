@@ -6,6 +6,7 @@ import java.util.List;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.TaskDTO;
+import uo.sdi.dto.util.Cloner;
 import uo.sdi.model.Category;
 import uo.sdi.model.Task;
 import uo.sdi.model.User;
@@ -33,18 +34,8 @@ public class ListTasksByCategory implements Command {
 		List<Task> listTasks = TaskFinder.findByUserAndCategoryActive(
 				user.getId(),category.getId());
 		ArrayList<TaskDTO> listDTO = new ArrayList<TaskDTO>();
-		TaskDTO taskDTO;
 		for (Task task : listTasks) {
-			taskDTO = new TaskDTO();
-			taskDTO.setId(task.getId());
-			taskDTO.setCreated(task.getCreated());
-			taskDTO.setTitle(task.getTitle());
-			taskDTO.setPlanned(task.getPlanned());
-			taskDTO.setFinished(task.getFinished());
-			taskDTO.setComments(task.getComments());
-			taskDTO.setCategoryId(task.getCategory().getId());
-			taskDTO.setUserId(task.getUser().getId());
-			listDTO.add(taskDTO);
+			listDTO.add(Cloner.clone(task));
 		}
 		return listDTO;
 	}

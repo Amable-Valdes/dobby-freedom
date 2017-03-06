@@ -77,6 +77,10 @@
 	</named-query>
 	
 	<!-- Queries de Categorías --> 
+	<named-query name="Category.findAll">
+		<query>select c from Category c</query>
+	</named-query>
+	
 	<named-query name="Category.findByUserAndName">
 		<query>
 				select c 
@@ -90,6 +94,14 @@
 				select c 
 				from Category c 
 				where c.id = (?1)
+		</query>
+	</named-query>
+	
+	<named-query name="Category.findByUser">
+		<query>
+				select c 
+				from Category c 
+				where c.user.login = (?1)
 		</query>
 	</named-query>
 	

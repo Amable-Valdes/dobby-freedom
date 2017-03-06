@@ -7,6 +7,7 @@ import java.util.List;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.TaskDTO;
+import uo.sdi.dto.util.Cloner;
 import uo.sdi.model.Task;
 import uo.sdi.model.User;
 import uo.sdi.persistence.TaskFinder;
@@ -27,18 +28,8 @@ public class ListTasksWeek implements Command{
 		List<Task> listTasks = TaskFinder.findBetween(user.getId(),new Date(),
 				new Date(System.currentTimeMillis() + 518400000));
 		ArrayList<TaskDTO> listDTO = new ArrayList<TaskDTO>();
-		TaskDTO taskDTO;
 		for (Task task : listTasks) {
-			taskDTO = new TaskDTO();
-			taskDTO.setId(task.getId());
-			taskDTO.setCreated(task.getCreated());
-			taskDTO.setTitle(task.getTitle());
-			taskDTO.setPlanned(task.getPlanned());
-			taskDTO.setFinished(task.getFinished());
-			taskDTO.setComments(task.getComments());
-			taskDTO.setCategoryId(task.getCategory().getId());
-			taskDTO.setUserId(task.getUser().getId());
-			listDTO.add(taskDTO);
+			listDTO.add(Cloner.clone(task));
 		}
 		return listDTO;
 	}

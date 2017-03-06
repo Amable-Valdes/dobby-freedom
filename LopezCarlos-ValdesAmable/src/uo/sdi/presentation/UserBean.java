@@ -45,20 +45,11 @@ public class UserBean implements Serializable {
 	    user.setPassword("");
 	    user.setStatus(UserStatusDTO.ENABLED);
 	  }
-
+	
 	public UserDTO getUsuario() {
 		return user;
 	}
 	
-	public void inicializarBBDD(){
-		//iniciar base de datos
-		try {
-			Factories.services.createUserService().resetBBDD();
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void setUser(UserDTO user) {
 		this.user = user;
 	}
@@ -98,18 +89,6 @@ public class UserBean implements Serializable {
 	public UserDTO getUser() {
 		return user;
 	}
-	
-	public String listarUsuarios(){
-		try {
-			listaUsuarios = Factories.services.createUserService().listAll();
-			return "exito";
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-		return "fracaso";
-	}
-	
-	
 
 	public List<UserStatusDTO> getEstados() {
 		return estados;
@@ -147,6 +126,25 @@ public class UserBean implements Serializable {
 		}
 		return "fracaso";
 	}
+	
+	public void inicializarBBDD(){
+		//iniciar base de datos
+		try {
+			Factories.services.createUserService().resetBBDD();
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String listarUsuarios(){
+		try {
+			listaUsuarios = Factories.services.createUserService().listAll();
+			return "exito";
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		return "fracaso";
+	}
 
 	/**
 	 * Crea la lista de las tareas del usuario
@@ -163,14 +161,26 @@ public class UserBean implements Serializable {
 
 	}
 
-	/**
-	 * Env�a a la BD el objeto User de este bean que ya ha sido previamente
-	 * modificado
-	 */
-	public void modificarUsuario() {
-		//Factories.services.createUserService().updateUser(new UserDTO());
-		//Actualizar el usuario
-		//Factories.services.createUserService().updateUser(user);
+	public String bloquearUsuario(UserDTO user) {
+		try {
+			Factories.services.createUserService().blockUser(user);
+			return "exito";
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "fracaso";
+		}
+	}
+	
+	public String desbloquearUsuario(UserDTO user) {
+		try {
+			Factories.services.createUserService().enableUser(user);
+			return "exito";
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "fracaso";
+		}
 	}
 
 	/**
@@ -183,22 +193,6 @@ public class UserBean implements Serializable {
 		login = "";
 		rellenarLista();
 		return "exito";
-	}
-
-	/**
-	 * Introduce a la BD el viaje con los datos proporcionados
-	 * 
-	 * @return exito si se introdujo adecuadamente y fracaso si hubo alg�n error
-	 */
-	public String crearViaje() {
-		try {
-			//User u = new User(user.getLogin());
-			//Factories.services.createTaskService().addTask(tasks.getTarea(), u);
-			//tasks.listar(user.getId());
-			return "exito";
-		} catch (Exception e) {
-			return "fracaso";
-		}
 	}
 
 	/**
@@ -217,6 +211,5 @@ public class UserBean implements Serializable {
 			setUser(new UserDTO());
 			return "fracaso";
 		}
-
 	}
 }
