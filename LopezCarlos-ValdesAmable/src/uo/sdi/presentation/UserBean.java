@@ -9,10 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-import org.primefaces.event.RowEditEvent;
 
 import alb.util.log.Log;
-import uo.sdi.business.ServicesFactory;
 import uo.sdi.business.UserService;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.dto.UserDTO;
@@ -30,24 +28,18 @@ public class UserBean implements Serializable {
 	
 	private String pass = "";
 	private String passRew="";
-	public String getPassRew() {
-		return passRew;
-	}
-
-	public void setPassRew(String passRew) {
-		this.passRew = passRew;
-	}
-
 	private String login = "";
+	private String email="";
+	private boolean isAdmin=false;
+	
+	
 	private UserDTO user = new UserDTO();
 	private List<UserDTO> listaUsuarios = new ArrayList<UserDTO>();
-	private List<UserStatusDTO> estados = new ArrayList<UserStatusDTO>();
+	private List<UserDTO> listaUsuariosCopia = new ArrayList<UserDTO>();
 
 	public UserBean() {
 		
 		iniciaUser(null);
-		estados.add(UserStatusDTO.ENABLED);
-		estados.add(UserStatusDTO.DISABLED);
 	}
 
 	public void iniciaUser(ActionEvent event) {
@@ -58,12 +50,44 @@ public class UserBean implements Serializable {
 	    user.setStatus(UserStatusDTO.ENABLED);
 	  }
 	
+	public List<UserDTO> getListaUsuariosCopia() {
+		return listaUsuariosCopia;
+	}
+
+	public void setListaUsuariosCopia(List<UserDTO> listaUsuariosCopia) {
+		this.listaUsuariosCopia = listaUsuariosCopia;
+	}
+
 	public UserDTO getUsuario() {
 		return user;
 	}
 	
 	public void setUser(UserDTO user) {
 		this.user = user;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public String getPassRew() {
+		return passRew;
+	}
+
+	public void setPassRew(String passRew) {
+		this.passRew = passRew;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getLogin() {
@@ -102,14 +126,6 @@ public class UserBean implements Serializable {
 		return user;
 	}
 
-	public List<UserStatusDTO> getEstados() {
-		return estados;
-	}
-
-	public void setEstados(List<UserStatusDTO> estados) {
-		this.estados = estados;
-	}
-
 	/**
 	 * Este m�todo comprueba que los datos de inicio sean correctos y carga los
 	 * datos necesarios para la vista principal (lista de tareas)
@@ -129,7 +145,9 @@ public class UserBean implements Serializable {
 				Log.info("El usuario [%s] ha iniciado sesi�n",
 						user.getLogin());
 				user = userByLogin;
+				isAdmin = user.getIsAdmin();
 				if(user.getIsAdmin()){
+					listarUsuarios();
 					return "administrador";
 				}
 				rellenarLista();
@@ -192,6 +210,8 @@ public class UserBean implements Serializable {
 				user.setPassword(pass);
 				Factories.services.createUserService().addUser(user);
 				user=new UserDTO();
+				login="";
+				pass="";
 				return "exito";
 			}
 			return "fracaso";
@@ -207,6 +227,17 @@ public class UserBean implements Serializable {
 			return "exito";
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "fracaso";
+		}
+	}
+	
+	public String eliminarUsuario(UserDTO u){
+		try{
+			Factories.services.createUserService().removeUser(u.getLogin());
+			listarUsuarios();
+			return "exito";
+		}catch(BusinessException e){
 			e.printStackTrace();
 			return "fracaso";
 		}
@@ -240,28 +271,33 @@ public class UserBean implements Serializable {
 			return "fracaso";
 		}
 	}
-	
-	/**
-	 * Método que registra un evento RowEdit y actualiza un viaje al modificarse su estado
-	 * en dicho evento
-	 * @param event
-	 */
-	public void actualizar(RowEditEvent event){
-		UserDTO v = (UserDTO) event.getObject();
+
+	public void activarDesactivar(UserDTO u){
 		try {
-			Factories.services.createUserService().update(v);
+			if(u.getStatus().equals(UserStatusDTO.ENABLED)){
+				Factories.services.createUserService().blockUser(u);
+			}
+			else{
+				Factories.services.createUserService().enableUser(u);
+			}
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
-	} 
-	
-	public void cancelarActualizar(RowEditEvent event) {
-
 	}
 	
-	public String creacionTarea(){
+	public String inbox(){
+		tasks.listarTaskInbox(user);
 		return "exito";
 	}
 	
+	public String hoy(){
+		tasks.listarTaskHoy(user);
+		return "exito";
+	}
+	
+	public String semana(){
+		tasks.listarTasksSemana(user);
+		return "exito";
+	}
 	
 }

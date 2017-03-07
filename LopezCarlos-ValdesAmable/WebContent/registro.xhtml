@@ -20,6 +20,11 @@
 					<p:inputText id="user" type="text" value="#{usuarios.login}"
 						required="true"></p:inputText>
 					<p:message for="user" />
+					
+					<p:outputLabel for="email" value="Email:" />
+					<p:inputText id="email" type="email" value="#{usuarios.email}"
+						required="true"></p:inputText>
+					<p:message for="email" />
 
 					<p:outputLabel for="pass" value="Contraseña" />
 					<p:inputText id="pass" type="password" required="true"

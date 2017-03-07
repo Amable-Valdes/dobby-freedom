@@ -55,16 +55,23 @@ public class Cloner {
 	}
 	
 	public static TaskDTO clone(Task t) {
-		TaskDTO task = new TaskDTO()
-		.setCategoryId( t.getCategory().getId() )
-		.setComments( 	t.getComments() )
-		.setId( 		t.getId() )
-		.setTitle( 		t.getTitle() )
-			.setUserId( 	t.getUser().getId() );
-		task.setCreated(t.getCreated());
-		task.setFinished(t.getFinished());
-		task.setPlanned(t.getPlanned());
-		return task;
+		if (t.getCategory() == null) {
+			TaskDTO task = new TaskDTO().setCategoryId(null)
+					.setComments(t.getComments()).setId(t.getId())
+					.setTitle(t.getTitle()).setUserId(t.getUser().getId());
+			task.setCreated(t.getCreated());
+			task.setFinished(t.getFinished());
+			task.setPlanned(t.getPlanned());
+			return task;
+		} else {
+			TaskDTO task = new TaskDTO().setCategoryId(t.getCategory().getId())
+					.setComments(t.getComments()).setId(t.getId())
+					.setTitle(t.getTitle()).setUserId(t.getUser().getId());
+			task.setCreated(t.getCreated());
+			task.setFinished(t.getFinished());
+			task.setPlanned(t.getPlanned());
+			return task;
+		}
 	}
 
 	public static CategoryDTO clone(Category c) {

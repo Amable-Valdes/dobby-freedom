@@ -17,12 +17,13 @@
 					<p:menuitem value="#{msgs.botonMenu}">
 					</p:menuitem>
 					<p:submenu id = "registro" label="Gestion de usuarios">
-						<p:menuitem id = "registroUsuario" value="Registrarse" action="registro">
+						<p:menuitem id = "registroUsuario" value="Registrarse" 
+						outcome="registro.xhtml">
 						</p:menuitem>
 					</p:submenu>
 				</p:menubar>
 			</h:form>
-			<h:form>
+			<h:form id="loginForm">
 				<center>
 				<br></br>
 			<br></br>

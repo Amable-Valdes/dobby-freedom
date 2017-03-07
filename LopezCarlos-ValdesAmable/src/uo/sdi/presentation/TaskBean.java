@@ -19,6 +19,7 @@ import uo.sdi.infrastructure.Factories;
 public class TaskBean {
 	
 	private List<TaskDTO> listaTareas = new ArrayList<TaskDTO>();
+	private List<TaskDTO> listaTareasCopia = new ArrayList<TaskDTO>();
 	//tarea sin valores que servira para poder trabajar con la tarea obtenida
 	//de un formulario
 	private TaskDTO tarea = new TaskDTO();
@@ -41,6 +42,23 @@ public class TaskBean {
 	    tarea.setFinished(new Date());
 	}
 	
+	
+	public List<TaskDTO> getListaTareasCopia() {
+		return listaTareasCopia;
+	}
+
+	public void setListaTareasCopia(List<TaskDTO> listaTareasCopia) {
+		this.listaTareasCopia = listaTareasCopia;
+	}
+
+	public UserDTO getUser() {
+		return user;
+	}
+
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
+
 	public String getTitle() {
 		return title;
 	}

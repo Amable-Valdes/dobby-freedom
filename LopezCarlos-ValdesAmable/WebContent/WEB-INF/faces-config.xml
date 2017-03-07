@@ -33,11 +33,6 @@
 	<navigation-rule>
 		<from-view-id>/administrador.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{usuarios.listarUsuarios}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/listadoUsuarios.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
 			<from-action>#{usuarios.inicializarBBDD}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/administrador.xhtml</to-view-id>
@@ -46,14 +41,24 @@
 	<navigation-rule>
 		<from-view-id>/usuario.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{usuarios.creacionTarea}</from-action>
+			<from-action>#{usuarios.editarTarea}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/crearTarea.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{usuarios.editarTarea}</from-action>
+			<from-action>#{usuarios.inbox}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/crearTarea.xhtml</to-view-id>
+			<to-view-id>/listadoInbox.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarios.hoy}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/listadoHoy.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarios.semana}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/listadoSemana.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{usuarios.cerrarSesion}</from-action>
@@ -92,7 +97,7 @@
 		<navigation-case>
 			<from-action>#{usuarios.registraUsuario}</from-action>
 			<from-outcome>fracaso</from-outcome>
-			<to-view-id>/registro.xhtml.xhtml</to-view-id>
+			<to-view-id>/registro.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>

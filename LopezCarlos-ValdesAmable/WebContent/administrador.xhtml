@@ -16,6 +16,10 @@
 						<p:menuitem id = "cerrarSesion" value="Cerrar Sesion" action="#{usuarios.cerrarSesion}">
 						</p:menuitem>
 					</p:submenu>
+					<p:submenu id = "BBDD" label="BBDD">
+						<p:menuitem id = "ReiniciarBBDD" value="Reiniciar BBDD" action="#{usuarios.inicializarBBDD}">
+						</p:menuitem>
+					</p:submenu>
 				</p:menubar>
 
 			</h:form>
@@ -29,13 +33,24 @@
 				<br></br>
 				<br></br>
 				<br></br>
-				<div align="center">
-					<p:commandLink value="Listado de los usuarios" action="#{usuarios.listarUsuarios}" />
-				</div>
-				<div align="center">
-					<p:commandLink value="Inicializar Base de Datos" action="#{usuarios.inicializarBBDD}" />
-				</div>
 
+			</h:form>
+			<h:form id="form-listado">
+			<center>
+					<h1>Listado usuarios</h1>
+				</center>
+			<p:dataTable id="tabla" var="usuario" styleClass="formTable" filteredValue="#{usuarios.listaUsuariosCopia}"
+				value="#{usuarios.listaUsuarios}"  rows="8"
+				paginator="true"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+               >
+			<p:column filterBy="#{usuario.login}" sortBy="#{usuario.login}" headerText="Login">
+					<h:outputText value="#{usuario.login}" /></p:column>
+				<p:column  sortBy="#{usuario.email}">
+					<f:facet name="header">Email</f:facet>#{usuario.email}</p:column>
+				<p:column sortBy="#{usuario.status}">
+					<f:facet name="header">Estado</f:facet>#{usuario.status}</p:column>
+			</p:dataTable>
 			</h:form>
 		</h:body>
 	</h:head>

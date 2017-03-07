@@ -38,7 +38,7 @@ public class ResetBBDD implements Command {
 		// Borramos los Usuarios (excepto Admin)
 		List<User> users = UserFinder.findAll();
 		for (User user : users) {
-			if (user.getLogin() != "admin1") {
+			if (!user.getIsAdmin()) {
 				Jpa.getManager().remove(user);
 			}
 		}
