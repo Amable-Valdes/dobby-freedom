@@ -8,16 +8,18 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:head>
+	<h:outputStylesheet name="css/styles.css"/>
 		<title>Gestor de tareas</title>
 		<h:body>
 			<h:form id = "menu1">
-				<p:menubar>
+				<p:menubar class="w3-pink">
 					<p:submenu id = "gestionSesion" label="Sesion">
 						<p:menuitem id = "cerrarSesion" value="Cerrar Sesion" action="#{usuarios.cerrarSesion}">
 						</p:menuitem>
 					</p:submenu>
 					<p:submenu id = "BBDD" label="BBDD">
-						<p:menuitem id = "ReiniciarBBDD" value="Reiniciar BBDD" action="#{usuarios.inicializarBBDD}">
+						<p:menuitem id = "ReiniciarBBDD" value="Reiniciar BBDD" action="#{usuarios.inicializarBBDD}"
+						update="form-listado:tabla" immediate="true" type="submit">
 						</p:menuitem>
 					</p:submenu>
 				</p:menubar>
@@ -35,11 +37,11 @@
 				<br></br>
 
 			</h:form>
-			<h:form id="form-listado">
+			<h:form id="form-listado" class="w3-pink">
 			<center>
 					<h1>Listado usuarios</h1>
 				</center>
-			<p:dataTable id="tabla" var="usuario" styleClass="formTable" filteredValue="#{usuarios.listaUsuariosCopia}"
+			<p:dataTable id="tabla" var="usuario" styleClass="formTable"
 				value="#{usuarios.listaUsuarios}"  rows="8"
 				paginator="true"
                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -50,7 +52,12 @@
 					<f:facet name="header">Email</f:facet>#{usuario.email}</p:column>
 				<p:column sortBy="#{usuario.status}">
 					<f:facet name="header">Estado</f:facet>#{usuario.status}</p:column>
+				<p:column>
+								<p:commandButton class="w3-pink" value="actdesact" action="#{usuarios.activarDesactivar(usuario)}" type="submit" 
+					immediate="true" update="tabla"/>
+				</p:column>
 			</p:dataTable>
+
 			</h:form>
 		</h:body>
 	</h:head>

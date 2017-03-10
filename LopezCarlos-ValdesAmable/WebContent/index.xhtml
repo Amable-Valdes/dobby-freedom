@@ -13,7 +13,7 @@
 		<title>Gestor de tareas</title>
 		<h:body>
 			<h:form id = "menu1">
-				<p:menubar>
+				<p:menubar class="w3-pink">
 					<p:menuitem value="#{msgs.botonMenu}">
 					</p:menuitem>
 					<p:submenu id = "registro" label="Gestion de usuarios">
@@ -39,7 +39,7 @@
 					<p:outputLabel for="user" value="Usuario:" />
 					<p:inputText id="user" type="text" value="#{usuarios.login}"
 						required="true"></p:inputText>
-					<p:message for="user" />
+					<p:message for="user"/>
 
 					<p:outputLabel for="pass" value="Contraseña" />
 					<p:inputText id="pass" type="password" required="true"

@@ -162,6 +162,7 @@ public class UserBean implements Serializable {
 		//iniciar base de datos
 		try {
 			Factories.services.createUserService().resetBBDD();
+			listarUsuarios();
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
@@ -280,6 +281,7 @@ public class UserBean implements Serializable {
 			else{
 				Factories.services.createUserService().enableUser(u);
 			}
+			listarUsuarios();
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
