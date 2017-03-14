@@ -2,7 +2,6 @@ package uo.sdi.business.impl.actions.user;
 
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
-import uo.sdi.business.util.Encriptator;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.dto.types.UserStatusDTO;
 import uo.sdi.model.User;

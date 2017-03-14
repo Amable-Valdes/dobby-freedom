@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<h:outputStylesheet name="css/styles.css"/>
+		<title>Gestor de tareas</title>
+		<h:body>
+			<h:form id = "menu1">
+				<p:menubar class="w3-pink">
+				
+					<p:submenu id = "gestionSesion" label="Sesion">
+						<p:menuitem id = "cerrarSesion" value="Cerrar Sesion" 
+						action="#{usuarios.cerrarSesion}">
+						</p:menuitem>
+					</p:submenu>
+					
+					<p:submenu label="Gestion de tareas">
+					<p:menuitem id="tareas" value="Crear Tarea"
+						outcome="crearTarea.xhtml">
+					</p:menuitem>
+					</p:submenu>
+					
+				</p:menubar>
+
+			</h:form>
+			
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<h:form>
+			<div align="center">
+					<p:commandButton id ="theInbox" value="Lista Inbox"
+						action="#{usuarios.inbox}" update="grid" ajax="false">
+					</p:commandButton>
+				</div> 
+				<div align="center">
+					<p:commandButton id = "hoy" value="Lista Hoy"
+						action="#{usuarios.hoy}" update="grid" ajax="false">
+					</p:commandButton>
+				</div>
+				<div align="center">
+					<p:commandButton id = "semana" value="Lista Semana"
+						action="#{usuarios.semana}" update="grid" ajax="false">
+					</p:commandButton>
+				</div>
+				</h:form>
+			
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<h:form>
+			<center>
+					<h1>#{usuarios.login}</h1>
+				</center>
+			<p:dataTable id="tablaTareas" var="tarea" styleClass="formTable" filteredValue="#{tareas.listaTareasCopia}"
+				value="#{tareas.listaTareas}"  rows="8"
+				paginator="true" 
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="8"
+                >
+			<p:column filterBy="#{tarea.title}"  sortBy="#{tarea.title}" >
+				<f:facet name="header">Titulo</f:facet>#{tarea.title}</p:column>
+				<p:column filterBy="#{tarea.categoryId}" sortBy="#{tarea.categoryId}">
+					<f:facet name="header">Categoria</f:facet>#{tarea.categoryId}</p:column>
+				<p:column filterBy="#{tarea.planned}" sortBy="#{tarea.planned}">
+					<f:facet name="header">Fecha planificada</f:facet>#{tarea.planned}</p:column>
+				<p:column sortBy="#{tarea.finished}">
+					<f:facet name="header">Fecha de finalizacion</f:facet>#{tarea.finished}</p:column>
+				<p:column>
+					<f:facet name="header">Comentario</f:facet>#{tarea.comments}</p:column>
+			</p:dataTable>
+			</h:form>
+		</h:body>
+	</h:head>
+
+</html>

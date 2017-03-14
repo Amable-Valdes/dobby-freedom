@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
 
-<navigation-rule>
+	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>error</from-outcome>
@@ -17,7 +17,7 @@
 		<navigation-case>
 			<from-action>#{usuarios.iniciarSesion}</from-action>
 			<from-outcome>usuario</from-outcome>
-			<to-view-id>/usuario.xhtml</to-view-id>
+			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{usuarios.registrarse}</from-action>
@@ -27,38 +27,38 @@
 		<navigation-case>
 			<from-action>#{usuarios.iniciarSesion}</from-action>
 			<from-outcome>administrador</from-outcome>
-			<to-view-id>/administrador.xhtml</to-view-id>
+			<to-view-id>/restricted/admin/administrador.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<from-view-id>/administrador.xhtml</from-view-id>
+		<from-view-id>/restricted/admin/administrador.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{usuarios.inicializarBBDD}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/administrador.xhtml</to-view-id>
+			<to-view-id>/restricted/admin/administrador.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>		
 	<navigation-rule>
-		<from-view-id>/usuario.xhtml</from-view-id>
+		<from-view-id>/restricted/user/usuario.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{usuarios.editarTarea}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/crearTarea.xhtml</to-view-id>
+			<to-view-id>/restricted/user/crearTarea.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{usuarios.inbox}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/listadoInbox.xhtml</to-view-id>
+			<to-view-id>/restricted/user/listadoInbox.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{usuarios.hoy}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/listadoHoy.xhtml</to-view-id>
+			<to-view-id>/restricted/user/listadoHoy.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{usuarios.semana}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/listadoSemana.xhtml</to-view-id>
+			<to-view-id>/restricted/user/listadoSemana.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{usuarios.cerrarSesion}</from-action>
@@ -75,11 +75,11 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<from-view-id>crearTarea.xhtml</from-view-id>
+		<from-view-id>/restricted/user/crearTarea.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{tareas.crearTask}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/usuario.xhtml</to-view-id>
+			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{tareas.crearTask}</from-action>
@@ -88,7 +88,7 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<from-view-id>registro.xhtml</from-view-id>
+		<from-view-id>/registro.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{usuarios.registraUsuario}</from-action>
 			<from-outcome>exito</from-outcome>

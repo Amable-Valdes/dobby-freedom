@@ -4,11 +4,13 @@ import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import javax.faces.context.FacesContext;
 
 import alb.util.log.Log;
 import uo.sdi.business.UserService;
@@ -25,31 +27,30 @@ public class UserBean implements Serializable {
 
 	@ManagedProperty("#{tareas}")
 	private TaskBean tasks;
-	
+
 	private String pass = "";
-	private String passRew="";
+	private String passRew = "";
 	private String login = "";
-	private String email="";
-	private boolean isAdmin=false;
-	
-	
+	private String email = "";
+	private boolean isAdmin = false;
+
 	private UserDTO user = new UserDTO();
 	private List<UserDTO> listaUsuarios = new ArrayList<UserDTO>();
 	private List<UserDTO> listaUsuariosCopia = new ArrayList<UserDTO>();
 
 	public UserBean() {
-		
+
 		iniciaUser(null);
 	}
 
 	public void iniciaUser(ActionEvent event) {
-	    user.setId(null);
-	    user.setEmail("");
-	    user.setIsAdmin(false);
-	    user.setPassword("");
-	    user.setStatus(UserStatusDTO.ENABLED);
-	  }
-	
+		user.setId(null);
+		user.setEmail("");
+		user.setIsAdmin(false);
+		user.setPassword("");
+		user.setStatus(UserStatusDTO.ENABLED);
+	}
+
 	public List<UserDTO> getListaUsuariosCopia() {
 		return listaUsuariosCopia;
 	}
@@ -61,7 +62,7 @@ public class UserBean implements Serializable {
 	public UserDTO getUsuario() {
 		return user;
 	}
-	
+
 	public void setUser(UserDTO user) {
 		this.user = user;
 	}
@@ -81,7 +82,7 @@ public class UserBean implements Serializable {
 	public void setPassRew(String passRew) {
 		this.passRew = passRew;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -97,15 +98,15 @@ public class UserBean implements Serializable {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	
-	public String getPass(){
+
+	public String getPass() {
 		return user.getPassword();
 	}
-	
-	public void setPass(String pass){
+
+	public void setPass(String pass) {
 		this.pass = pass;
 	}
-	
+
 	public List<UserDTO> getListaUsuarios() {
 		return listaUsuarios;
 	}
@@ -142,11 +143,11 @@ public class UserBean implements Serializable {
 				e.printStackTrace();
 			}
 			if (userByLogin != null) {
-				Log.info("El usuario [%s] ha iniciado sesi�n",
-						user.getLogin());
+				Log.info("El usuario [%s] ha iniciado sesi�n", user.getLogin());
 				user = userByLogin;
+				putUserInSession(user);
 				isAdmin = user.getIsAdmin();
-				if(user.getIsAdmin()){
+				if (user.getIsAdmin()) {
 					listarUsuarios();
 					return "administrador";
 				}
@@ -157,9 +158,25 @@ public class UserBean implements Serializable {
 		}
 		return "fracaso";
 	}
+
+	private void putUserInSession(UserDTO user) {
+		Map<String, Object> session = FacesContext
+				.getCurrentInstance()
+				.getExternalContext()
+				.getSessionMap();
+		session.put("LOGGEDIN_USER", user);
+	}
 	
-	public void inicializarBBDD(){
-		//iniciar base de datos
+	private void removeUserInSession(UserDTO user) {
+		Map<String, Object> session = FacesContext
+				.getCurrentInstance()
+				.getExternalContext()
+				.getSessionMap();
+		session.remove("LOGGEDIN_USER");
+	}
+
+	public void inicializarBBDD() {
+		// iniciar base de datos
 		try {
 			Factories.services.createUserService().resetBBDD();
 			listarUsuarios();
@@ -167,8 +184,8 @@ public class UserBean implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
-	public String listarUsuarios(){
+
+	public String listarUsuarios() {
 		try {
 			listaUsuarios = Factories.services.createUserService().listAll();
 			return "exito";
@@ -203,16 +220,16 @@ public class UserBean implements Serializable {
 			return "fracaso";
 		}
 	}
-	
+
 	public String registraUsuario() {
 		try {
-			if(pass.equals(passRew)){
+			if (pass.equals(passRew)) {
 				user.setLogin(login);
 				user.setPassword(pass);
 				Factories.services.createUserService().addUser(user);
-				user=new UserDTO();
-				login="";
-				pass="";
+				user = new UserDTO();
+				login = "";
+				pass = "";
 				return "exito";
 			}
 			return "fracaso";
@@ -221,7 +238,7 @@ public class UserBean implements Serializable {
 			return "fracaso";
 		}
 	}
-	
+
 	public String desbloquearUsuario(UserDTO user) {
 		try {
 			Factories.services.createUserService().enableUser(user);
@@ -232,13 +249,13 @@ public class UserBean implements Serializable {
 			return "fracaso";
 		}
 	}
-	
-	public String eliminarUsuario(UserDTO u){
-		try{
+
+	public String eliminarUsuario(UserDTO u) {
+		try {
 			Factories.services.createUserService().removeUser(u.getLogin());
 			listarUsuarios();
 			return "exito";
-		}catch(BusinessException e){
+		} catch (BusinessException e) {
 			e.printStackTrace();
 			return "fracaso";
 		}
@@ -252,6 +269,7 @@ public class UserBean implements Serializable {
 		setUser(new UserDTO());
 		pass = "";
 		login = "";
+		removeUserInSession(user);
 		return "exito";
 	}
 
@@ -267,18 +285,17 @@ public class UserBean implements Serializable {
 			Factories.services.createUserService().addUser(new UserDTO());
 			setUser(new UserDTO());
 			return "exito";
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			setUser(new UserDTO());
 			return "fracaso";
 		}
 	}
 
-	public void activarDesactivar(UserDTO u){
+	public void activarDesactivar(UserDTO u) {
 		try {
-			if(u.getStatus().equals(UserStatusDTO.ENABLED)){
+			if (u.getStatus().equals(UserStatusDTO.ENABLED)) {
 				Factories.services.createUserService().blockUser(u);
-			}
-			else{
+			} else {
 				Factories.services.createUserService().enableUser(u);
 			}
 			listarUsuarios();
@@ -286,20 +303,20 @@ public class UserBean implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
-	public String inbox(){
+
+	public String inbox() {
 		tasks.listarTaskInbox(user);
 		return "exito";
 	}
-	
-	public String hoy(){
+
+	public String hoy() {
 		tasks.listarTaskHoy(user);
 		return "exito";
 	}
-	
-	public String semana(){
+
+	public String semana() {
 		tasks.listarTasksSemana(user);
 		return "exito";
 	}
-	
+
 }

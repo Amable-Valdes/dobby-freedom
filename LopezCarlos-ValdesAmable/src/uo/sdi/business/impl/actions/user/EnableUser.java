@@ -1,6 +1,5 @@
 package uo.sdi.business.impl.actions.user;
 
-import alb.util.log.Log;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.UserDTO;
