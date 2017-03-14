@@ -152,7 +152,8 @@ public class UserBean implements Serializable {
 					return "administrador";
 				}
 				rellenarLista();
-				tasks.setUsuario(user);
+				FacesContext.getCurrentInstance().getExternalContext()
+				.getSessionMap().put("login", user.getLogin());
 				return "usuario";
 			}
 		}

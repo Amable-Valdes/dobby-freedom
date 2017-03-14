@@ -1,12 +1,14 @@
 package uo.sdi.presentation;
 
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.dto.CategoryDTO;
@@ -16,7 +18,7 @@ import uo.sdi.infrastructure.Factories;
 
 @ManagedBean(name = "tareas")
 @SessionScoped
-public class TaskBean {
+public class TaskBean implements Serializable {
 	
 	private List<TaskDTO> listaTareas = new ArrayList<TaskDTO>();
 	private List<TaskDTO> listaTareasCopia = new ArrayList<TaskDTO>();
@@ -27,10 +29,15 @@ public class TaskBean {
 	private String comments;
 	private Date planned;
 	private CategoryDTO category;
-	private UserDTO user;
+	private String user;
 	
 	public TaskBean(){
 		iniciaTask(null);
+	}
+	
+	public void init(){
+		user = (String) FacesContext.getCurrentInstance().getExternalContext()
+				.getSessionMap().get("login");
 	}
 	
 	public void iniciaTask(ActionEvent event) {
@@ -51,11 +58,11 @@ public class TaskBean {
 		this.listaTareasCopia = listaTareasCopia;
 	}
 
-	public UserDTO getUser() {
+	public String getUser() {
 		return user;
 	}
 
-	public void setUser(UserDTO user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 
@@ -90,7 +97,7 @@ public class TaskBean {
 			task.setComments(comments);
 			task.setPlanned(planned);
 			Factories.services.createTaskService().addTask(
-					user.getLogin(), category, task);
+					user, category, task);
 			return "exito";
 		} catch (Exception e) { 
 			return "fracaso";
@@ -175,14 +182,6 @@ public class TaskBean {
 
 	public void setListaTareas(List<TaskDTO> listaTareas) {
 		this.listaTareas = listaTareas;
-	}
-
-	public void setUsuario(UserDTO user) {
-		this.user = user;
-	}
-	
-	public UserDTO getUsuario(){
-		return user;
 	}
 
 	public CategoryDTO getCategory() {

@@ -40,33 +40,27 @@
 					<p:commandButton id ="theInbox" value="Lista Inbox"
 						action="#{usuarios.inbox}" update="grid" ajax="false">
 					</p:commandButton>
-				</div> 
-				<div align="center">
 					<p:commandButton id = "hoy" value="Lista Hoy"
 						action="#{usuarios.hoy}" update="grid" ajax="false">
 					</p:commandButton>
-				</div>
-				<div align="center">
 					<p:commandButton id = "semana" value="Lista Semana"
 						action="#{usuarios.semana}" update="grid" ajax="false">
 					</p:commandButton>
-				</div>
+				</div> 
+
 				</h:form>
 			
-			<br></br>
-			<br></br>
-			<br></br>
 			<br></br>
 			<br></br>
 			<h:form>
 			<center>
 					<h1>#{usuarios.login}</h1>
 				</center>
-			<p:dataTable id="tablaTareas" var="tarea" styleClass="formTable" filteredValue="#{tareas.listaTareasCopia}"
+			<p:dataTable id="tablaTareas" var="tarea"
 				value="#{tareas.listaTareas}"  rows="8"
 				paginator="true" 
                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                rowsPerPageTemplate="8"
+                rowsPerPageTemplate="8,10,15"
                 >
 			<p:column filterBy="#{tarea.title}"  sortBy="#{tarea.title}" >
 				<f:facet name="header">Titulo</f:facet>#{tarea.title}</p:column>

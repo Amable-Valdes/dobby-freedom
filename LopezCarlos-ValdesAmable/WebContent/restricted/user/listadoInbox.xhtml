@@ -46,7 +46,7 @@
                 >
 			<p:column filterBy="#{tarea.title}"  sortBy="#{tarea.title}" >
 				<f:facet name="header">Titulo</f:facet>#{tarea.title}</p:column>
-				<p:column filterBy="#{tarea.categoryId}" sortBy="#{tarea.categoryId}">
+				<p:column filterBy="#{tarea.categoryId}" sortBy="#{tarea.categoryId}" rendered="#{not empty tarea.categoryId }">
 					<f:facet name="header">Categoria</f:facet>#{tarea.categoryId}</p:column>
 				<p:column filterBy="#{tarea.planned}" sortBy="#{tarea.planned}">
 					<f:facet name="header">Fecha planificada</f:facet>#{tarea.planned}</p:column>

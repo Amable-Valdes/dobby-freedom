@@ -34,7 +34,6 @@
 				select t 
 				from Task t 
 				where t.user.id = (?1) 
-				and t.planned = CURRENT_DATE
 				and t.category = null
 				and t.finished = null
 		</query>
@@ -44,7 +43,7 @@
 		<query>
 				select t 
 				from Task t 
-				where t.user.id = (?1) and t.planned = CURRENT_DATE
+				where t.user.id = (?1) and t.planned = CURRENT_TIMESTAMP
 				and t.finished = null
 		</query>
 	</named-query>
