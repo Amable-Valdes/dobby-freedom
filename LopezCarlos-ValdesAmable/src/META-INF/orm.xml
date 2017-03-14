@@ -39,16 +39,6 @@
 		</query>
 	</named-query>
 	
-	<named-query name="Task.findPlannedDay">
-		<query>
-				select t 
-				from Task t 
-				where t.user.id = (?1) 
-				and t.planned = (?2)
-				and t.finished = null
-		</query>
-	</named-query>
-	
 	<named-query name="Task.findBetween">
 		<query>
 				select t 

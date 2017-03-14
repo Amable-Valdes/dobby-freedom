@@ -20,6 +20,8 @@ import uo.sdi.infrastructure.Factories;
 @SessionScoped
 public class TaskBean implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private List<TaskDTO> listaTareas = new ArrayList<TaskDTO>();
 	private List<TaskDTO> listaTareasCopia = new ArrayList<TaskDTO>();
 	//tarea sin valores que servira para poder trabajar con la tarea obtenida

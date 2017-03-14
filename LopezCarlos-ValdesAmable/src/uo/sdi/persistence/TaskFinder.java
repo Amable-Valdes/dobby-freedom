@@ -54,14 +54,6 @@ public class TaskFinder {
 				.getResultList();
 	}
 
-	public static List<Task> findPlannedDay(Long idUser,Date plannedDay) {
-		return Jpa.getManager().createNamedQuery("Task.findPlannedDay", 
-				Task.class)
-				.setParameter(1, idUser)
-				.setParameter(2, plannedDay)
-				.getResultList();
-	}
-
 	public static List<Task> findBetween(Long idUser, Date dateBegin, 
 			Date dateEnd) {
 		return Jpa.getManager().createNamedQuery("Task.findBetween", 
