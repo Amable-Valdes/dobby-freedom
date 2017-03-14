@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import alb.util.date.DateUtil;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.TaskDTO;
@@ -25,7 +26,8 @@ public class ListTasksWeek implements Command{
 	public Object execute() throws BusinessException {
 		User user = UserFinder.findByLogin(login);
 		assertUserExist(user);
-		List<Task> listTasks = TaskFinder.findBetween(user.getId(),new Date(),
+		List<Task> listTasks = TaskFinder.findBetween(user.getId(),
+				DateUtil.today(),
 				new Date(System.currentTimeMillis() + 518400000));
 		ArrayList<TaskDTO> listDTO = new ArrayList<TaskDTO>();
 		for (Task task : listTasks) {

@@ -1,8 +1,10 @@
 package uo.sdi.business.impl.actions.task;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import alb.util.date.DateUtil;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.TaskDTO;
@@ -24,7 +26,9 @@ public class ListTasksToday implements Command{
 	public Object execute() throws BusinessException {
 		User user = UserFinder.findByLogin(login);
 		assertUserExist(user);
-		List<Task> listTasks = TaskFinder.findToday(user.getId());
+		Date tomorrow = new Date(DateUtil.tomorrow().getTime());
+		List<Task> listTasks = TaskFinder.findBetween(user.getId(), 
+				DateUtil.today(), tomorrow);
 		ArrayList<TaskDTO> listDTO = new ArrayList<TaskDTO>();
 		for (Task task : listTasks) {
 			listDTO.add(Cloner.clone(task));

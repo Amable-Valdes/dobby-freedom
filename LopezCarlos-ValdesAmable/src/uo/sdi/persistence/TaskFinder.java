@@ -54,10 +54,11 @@ public class TaskFinder {
 				.getResultList();
 	}
 
-	public static List<Task> findToday(Long idUser) {
-		return Jpa.getManager().createNamedQuery("Task.findToday", Task.class)
+	public static List<Task> findPlannedDay(Long idUser,Date plannedDay) {
+		return Jpa.getManager().createNamedQuery("Task.findPlannedDay", 
+				Task.class)
 				.setParameter(1, idUser)
-				//.setParameter(2, new Date())
+				.setParameter(2, plannedDay)
 				.getResultList();
 	}
 

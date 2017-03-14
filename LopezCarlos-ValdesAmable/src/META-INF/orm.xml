@@ -33,17 +33,18 @@
 		<query>
 				select t 
 				from Task t 
-				where t.user.id = (?1) 
+				where t.user.id = (?1)
 				and t.category = null
 				and t.finished = null
 		</query>
 	</named-query>
 	
-	<named-query name="Task.findToday">
+	<named-query name="Task.findPlannedDay">
 		<query>
 				select t 
 				from Task t 
-				where t.user.id = (?1) and t.planned = CURRENT_TIMESTAMP
+				where t.user.id = (?1) 
+				and t.planned = (?2)
 				and t.finished = null
 		</query>
 	</named-query>
@@ -52,7 +53,8 @@
 		<query>
 				select t 
 				from Task t 
-				where t.user.id = (?1) and t.planned between (?2) and (?3)
+				where t.user.id = (?1) 
+				and t.planned between (?2) and (?3)
 				and t.finished = null
 		</query>
 	</named-query>
