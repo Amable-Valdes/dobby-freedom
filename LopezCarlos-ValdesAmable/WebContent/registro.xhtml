@@ -17,7 +17,7 @@
 				</center>
 				<p:panelGrid id="grid" columns="3" cellPadding="5"
 					style="margin: 0 auto;">
-					<p:outputLabel for="user" value="Usuario:" />
+					<p:outputLabel for="user" value="#{msgs.usuario}" />
 					<p:inputText id="user" type="text" value="#{usuarios.login}"
 						required="true"></p:inputText>
 					<p:message for="user" />
@@ -27,19 +27,19 @@
 						required="true"></p:inputText>
 					<p:message for="email" />
 
-					<p:outputLabel for="pass" value="Contraseña" />
+					<p:outputLabel for="pass" value="#{msgs.contraseña}" />
 					<p:inputText id="pass" type="password" required="true"
 						value="#{usuarios.pass}"></p:inputText>
 					<p:message for="pass" />
 					
-					<p:outputLabel for="passRew" value="Escriba de nuevo la contraseña" />
+					<p:outputLabel for="passRew" value="#{msgs.reContraseña}" />
 					<p:inputText id="passRew" type="password" required="true"
 						value="#{usuarios.passRew}"></p:inputText> 
 					<p:message for="passRew" />
 
 				</p:panelGrid>
 				<div align="center">
-					<p:commandButton id = "enviarUser" value="Login"
+					<p:commandButton id = "enviarUser" value="#{msgs.iniciarSesion}"
 						action="#{usuarios.registraUsuario}" update="grid" ajax="false">
 					</p:commandButton>
 				</div>

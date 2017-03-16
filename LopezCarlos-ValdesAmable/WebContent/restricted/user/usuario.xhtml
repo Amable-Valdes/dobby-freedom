@@ -14,14 +14,14 @@
 			<h:form id = "menu1">
 				<p:menubar class="w3-pink">
 				
-					<p:submenu id = "gestionSesion" label="Sesion">
+					<p:submenu id = "gestionSesion" label="#{msgs.sesion}">
 						<p:menuitem id = "cerrarSesion" value="Cerrar Sesion" 
 						action="#{usuarios.cerrarSesion}">
 						</p:menuitem>
 					</p:submenu>
 					
-					<p:submenu label="Gestion de tareas">
-					<p:menuitem id="tareas" value="Crear Tarea"
+					<p:submenu label="#{msgs.gestionTareas}">
+					<p:menuitem id="tareas" value="#{msgs.crearTarea}"
 						outcome="crearTarea.xhtml">
 					</p:menuitem>
 					</p:submenu>
@@ -37,13 +37,13 @@
 			<br></br>
 			<h:form>
 			<div align="center">
-					<p:commandButton id ="theInbox" value="Lista Inbox"
+					<p:commandButton id ="theInbox" value="#{msgs.listaInbox}"
 						action="#{usuarios.inbox}" update="grid" ajax="false">
 					</p:commandButton>
-					<p:commandButton id = "hoy" value="Lista Hoy"
+					<p:commandButton id = "hoy" value="#{msgs.listaHoy}"
 						action="#{usuarios.hoy}" update="grid" ajax="false">
 					</p:commandButton>
-					<p:commandButton id = "semana" value="Lista Semana"
+					<p:commandButton id = "semana" value="#{msgs.listaSemana}"
 						action="#{usuarios.semana}" update="grid" ajax="false">
 					</p:commandButton>
 				</div> 
@@ -63,15 +63,15 @@
                 rowsPerPageTemplate="8,10,15"
                 >
 			<p:column filterBy="#{tarea.title}"  sortBy="#{tarea.title}" >
-				<f:facet name="header">Titulo</f:facet>#{tarea.title}</p:column>
+				<f:facet name="header">#{msgs.titulo}</f:facet>#{tarea.title}</p:column>
 				<p:column filterBy="#{tarea.categoryId}" sortBy="#{tarea.categoryId}">
-					<f:facet name="header">Categoria</f:facet>#{tarea.categoryId}</p:column>
+					<f:facet name="header">#{msgs.categoria}</f:facet>#{tarea.categoryId}</p:column>
 				<p:column filterBy="#{tarea.planned}" sortBy="#{tarea.planned}">
-					<f:facet name="header">Fecha planificada</f:facet>#{tarea.planned}</p:column>
+					<f:facet name="header">#{msgs.fechaPlanificada}</f:facet>#{tarea.planned}</p:column>
 				<p:column sortBy="#{tarea.finished}">
-					<f:facet name="header">Fecha de finalizacion</f:facet>#{tarea.finished}</p:column>
+					<f:facet name="header">#{msgs.fechaFinalizacion}</f:facet>#{tarea.finished}</p:column>
 				<p:column>
-					<f:facet name="header">Comentario</f:facet>#{tarea.comments}</p:column>
+					<f:facet name="header">#{msgs.comentario}</f:facet>#{tarea.comments}</p:column>
 			</p:dataTable>
 			</h:form>
 		</h:body>

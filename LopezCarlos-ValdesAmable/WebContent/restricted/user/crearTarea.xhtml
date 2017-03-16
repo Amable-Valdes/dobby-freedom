@@ -13,8 +13,8 @@
 		<h:body>
 			<h:form id = "menu1">
 				<p:menubar class="w3-pink">
-					<p:submenu id = "gestionSesion" label="Sesion">
-						<p:menuitem id = "cerrarSesion" value="Cerrar Sesion" action="#{usuarios.cerrarSesion}">
+					<p:submenu id = "gestionSesion" label="#{msgs.sesion}">
+						<p:menuitem id = "cerrarSesion" value="#{msgs.cerrarSesion}" action="#{usuarios.cerrarSesion}">
 						</p:menuitem>
 					</p:submenu>
 				</p:menubar>
@@ -29,28 +29,28 @@
 	<p:panelGrid class=".w3-panel" id = "grid" columns="3" cellPadding = "4"
 				style="margin: 0 auto;">
 				
-				<p:outputLabel for="Title" value="Titulo" />
+				<p:outputLabel for="Title" value="#{msgs.titulo}" />
 				<p:inputText id="Title" type="text" value="#{tareas.title}"
 					required="true"/>
 				<p:message for="Title" />
 				
-				<p:outputLabel for="Comment" value="Comentario" />
+				<p:outputLabel for="Comment" value="#{msgs.comentario}" />
 				<p:inputText id="Comment" type="text" value="#{tareas.comments}"
 					required="true"/>
 				<p:message for="Comment" />
 				
 				
 				
-				<p:outputLabel for="Planned" value="Fecha planificada" />
+				<p:outputLabel for="Planned" value="#{msgs.fechaPlanificada}" />
 				<p:inputText id="Planned" type="date" pattern="MM/dd/yyyy" 
 				value="#{tareas.planned}"	required="true" />
 				<p:message for="Planned" />
 				
-				<p:outputLabel for="Category" value="Categoria" />
+				<p:outputLabel for="Category" value="#{msgs.categoria}" />
 				<p:inputText id="Category" type="text" value="#{tareas.category}"/>
 </p:panelGrid>
 				<div align="center">
-					<p:commandButton id="botonSalvarTarea" value="Salvar" 
+					<p:commandButton id="botonSalvarTarea" value="#{msgs.salvar}" 
 					action="#{tareas.crearTask}" update = "grid" ajax = "false"/>
 				</div>
 
