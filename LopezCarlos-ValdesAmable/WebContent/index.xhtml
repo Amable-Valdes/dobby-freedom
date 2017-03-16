@@ -7,28 +7,34 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">	
 
-
+<f:view locale="#{settings.locale}">
 	<h:head>
 		<h:outputStylesheet name="css/styles.css"/>
-		<title>Gestor de tareas</title>
+		<title>#{msgs.gestorTareas}</title>
 		<h:body>
 			<h:form id = "menu1">
 				<p:menubar class="w3-pink">
-					<p:menuitem value="#{msgs.botonMenu}">
-					</p:menuitem>
-					<p:submenu id = "registro" label="Gestion de usuarios">
-						<p:menuitem id = "registroUsuario" value="Registrarse" 
+					<p:submenu id = "registro" label="#{msgs.gestionUsuarios}">
+						<p:menuitem id = "registroUsuario" value="#{msgs.registrarse}" 
 						outcome="registro.xhtml">
 						</p:menuitem>
 					</p:submenu>
+					<f:facet name="options">
+							<p:selectOneMenu id="languages" value="#{settings.option}" style="width:150px" class="w3-pink">
+                				<f:ajax render="@all" listener="#{settings.setIdioma()}"/>
+                				<f:selectItem itemLabel="Select One" itemValue="" />
+                				<f:selectItems value="#{settings.nButtons}" />
+            				</p:selectOneMenu>
+					</f:facet>
 				</p:menubar>
+				
 			</h:form>
 			<h:form id="loginForm">
 				<center>
 				<br></br>
 			<br></br>
 			<br></br>
-					<h1>Inicio de sesión</h1>
+					<h1>#{msgs.tituloLogin}</h1>
 				</center>
 				<br></br>
 			<br></br>
@@ -36,19 +42,19 @@
 			<br></br>
 				<p:panelGrid id="grid" columns="3" cellPadding="5"
 					style="margin: 0 auto;">
-					<p:outputLabel for="user" value="Usuario:" />
+					<p:outputLabel for="user" value="#{msgs.usuario}" />
 					<p:inputText id="user" type="text" value="#{usuarios.login}"
 						required="true"></p:inputText>
 					<p:message for="user"/>
 
-					<p:outputLabel for="pass" value="Contraseña" />
+					<p:outputLabel for="pass" value="#{msgs.contraseña}" />
 					<p:inputText id="pass" type="password" required="true"
 						value="#{usuarios.pass}"></p:inputText>
 					<p:message for="pass" />
 
 				</p:panelGrid>
 				<div align="center">
-					<p:commandButton id = "enviarUser" value="Login"
+					<p:commandButton id = "enviarUser" value="#{msgs.iniciarSesion}"
 						action="#{usuarios.iniciarSesion}" update="grid" ajax="false">
 					</p:commandButton>
 				</div>
@@ -62,5 +68,5 @@
 			
 		</h:body>
 	</h:head>
-
+	</f:view>
 </html>

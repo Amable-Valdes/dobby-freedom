@@ -5,6 +5,29 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
 
+<application>
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>msgs</var>
+		</resource-bundle>
+	</application>
+
+<managed-bean>
+		<managed-bean-name>usuarios</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.UserBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>tareas</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.TaskBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+<managed-bean>
+		<managed-bean-name>settings</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.SettingsBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
