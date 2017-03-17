@@ -63,6 +63,7 @@ public class ResetBBDD implements Command {
 		user3.setPassword(Encriptator.encrypt("user3"));
 		user3.setStatus(UserStatus.ENABLED);
 
+		timeCreation = new Timestamp(System.currentTimeMillis());
 		//Para cada usuario
 		for (int i = 1; i <= 3; i++) {
 			User user = null;
@@ -79,7 +80,6 @@ public class ResetBBDD implements Command {
 				break;
 			}
 			// 3 Categorias
-			timeCreation = new Timestamp(System.currentTimeMillis());
 			Category categoria1 = new Category(user, newTime());
 			categoria1.setName("Categoria1");
 			

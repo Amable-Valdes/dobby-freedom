@@ -22,13 +22,13 @@ public class RemoveUser implements Command{
 		User user = UserFinder.findByLogin(login);
 		//¿El usuario existe?
 		assertUserExist(user);
+		// Borramos sus tareas
+		for (Task task : user.getTasks()) {
+				Jpa.getManager().remove(task);
+		}
 		//Borramos sus categorias
 		for( Category category : user.getCategories() ){
 			Jpa.getManager().remove(category);
-		}
-		// Borramos sus tareas
-		for (Task task : user.getTasks()) {
-			Jpa.getManager().remove(task);
 		}
 		//Borramos el usuario
 		Jpa.getManager().remove(user);

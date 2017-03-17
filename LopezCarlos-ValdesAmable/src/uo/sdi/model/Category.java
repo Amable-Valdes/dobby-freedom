@@ -36,7 +36,7 @@ public class Category {
 	
 	//Claves de Category: par de valores User y fecha de creación
 	public Category(User user, Date created){
-		this.created = new Timestamp(System.currentTimeMillis());
+		this.created = created;
 		Association.Organizes.link(user, this);
 	}
 	
