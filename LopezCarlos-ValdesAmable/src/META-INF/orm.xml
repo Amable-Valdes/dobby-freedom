@@ -34,7 +34,7 @@
 				select t 
 				from Task t 
 				where t.user.id = (?1)
-				and t.category = null
+				and t.category.id is null
 				and t.finished = null
 		</query>
 	</named-query>
@@ -45,6 +45,7 @@
 				from Task t 
 				where t.user.id = (?1) 
 				and t.planned between (?2) and (?3)
+				and t.category.id is not null
 				and t.finished = null
 		</query>
 	</named-query>

@@ -11,24 +11,8 @@
 	<h:outputStylesheet name="css/styles.css"/>
 		<title>Gestor de tareas</title>
 		<h:body>
-			<h:form id = "menu1">
-				<p:menubar class="w3-pink">
-				
-					<p:submenu id = "gestionSesion" label="#{msgs.sesion}">
-						<p:menuitem id = "cerrarSesion" value="Cerrar Sesion" 
-						action="#{usuarios.cerrarSesion}">
-						</p:menuitem>
-					</p:submenu>
-					
-					<p:submenu label="#{msgs.gestionTareas}">
-					<p:menuitem id="tareas" value="#{msgs.crearTarea}"
-						outcome="crearTarea.xhtml">
-					</p:menuitem>
-					</p:submenu>
-					
-				</p:menubar>
-
-			</h:form>
+		<ui:include src="/snippets/menu-bar-usuario.xhtml" />
+			
 			
 			<br></br>
 			<br></br>
@@ -38,13 +22,13 @@
 			<h:form>
 			<div align="center">
 					<p:commandButton id ="theInbox" value="#{msgs.listaInbox}"
-						action="#{usuarios.inbox}" update="grid" ajax="false">
+						action="#{usuarios.inbox}" update="@all" rendered="#{!usuarios.listaInbox}">
 					</p:commandButton>
 					<p:commandButton id = "hoy" value="#{msgs.listaHoy}"
-						action="#{usuarios.hoy}" update="grid" ajax="false">
+						action="#{usuarios.hoy}" update="@all" rendered="#{!usuarios.listaHoy}">
 					</p:commandButton>
 					<p:commandButton id = "semana" value="#{msgs.listaSemana}"
-						action="#{usuarios.semana}" update="grid" ajax="false">
+						action="#{usuarios.semana}" update="@all" rendered="#{!usuarios.listaSemana}">
 					</p:commandButton>
 				</div> 
 
@@ -64,7 +48,7 @@
                 >
 			<p:column filterBy="#{tarea.title}"  sortBy="#{tarea.title}" >
 				<f:facet name="header">#{msgs.titulo}</f:facet>#{tarea.title}</p:column>
-				<p:column filterBy="#{tarea.categoryId}" sortBy="#{tarea.categoryId}">
+				<p:column filterBy="#{tarea.categoryId}" sortBy="#{tarea.categoryId}" rendered="#{!usuarios.listaInbox }">
 					<f:facet name="header">#{msgs.categoria}</f:facet>#{tarea.categoryId}</p:column>
 				<p:column filterBy="#{tarea.planned}" sortBy="#{tarea.planned}">
 					<f:facet name="header">#{msgs.fechaPlanificada}</f:facet>#{tarea.planned}</p:column>

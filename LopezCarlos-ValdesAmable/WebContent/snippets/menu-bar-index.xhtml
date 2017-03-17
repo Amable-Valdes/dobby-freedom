@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:form id = "menu1">
+				<p:menubar class="w3-pink">
+					<p:submenu id = "registro" label="#{msgs.gestionUsuarios}">
+						<p:menuitem id = "registroUsuario" value="#{msgs.registrarse}" 
+						outcome="registro.xhtml">
+						</p:menuitem>
+					</p:submenu>
+					<f:facet name="options">
+							<p:selectOneMenu id="languages" value="#{settings.option}" style="width:150px" class="w3-pink">
+                				<f:ajax render="@all" listener="#{settings.setIdioma()}"/>
+                				<f:selectItem itemLabel="Select One" itemValue="" />
+                				<f:selectItems value="#{settings.nButtons}" />
+            				</p:selectOneMenu>
+					</f:facet>
+				</p:menubar>
+				
+			</h:form>
+</ui:composition>

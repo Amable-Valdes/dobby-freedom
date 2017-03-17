@@ -6,10 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
+import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-
 import javax.faces.context.FacesContext;
 
 import alb.util.log.Log;
@@ -36,11 +40,33 @@ public class UserBean implements Serializable {
 
 	private UserDTO user = new UserDTO();
 	private List<UserDTO> listaUsuarios = new ArrayList<UserDTO>();
-	private List<UserDTO> listaUsuariosCopia = new ArrayList<UserDTO>();
+	private boolean listaInbox = true;
+	private boolean listaHoy = false;;
+	private boolean listaSemana = false;;
 
 	public UserBean() {
 
 		iniciaUser(null);
+	}
+	
+	@PostConstruct
+	public void init(){
+		if(tasks == null){
+			FacesContext context = FacesContext.getCurrentInstance();
+			ELContext contextoEL = context.getELContext();
+			Application apli = context.getApplication();
+			ExpressionFactory ef = apli.getExpressionFactory();
+			ValueExpression ve = ef.createValueExpression(contextoEL,
+					"#{tareas}", TaskBean.class);
+			tasks = (TaskBean) ve.getValue(contextoEL);
+		}
+	}
+	
+	
+	
+	private Object putInSession(String key, Object value) {
+		return FacesContext.getCurrentInstance().getExternalContext()
+				.getSessionMap().put(key, value);
 	}
 
 	public void iniciaUser(ActionEvent event) {
@@ -49,14 +75,6 @@ public class UserBean implements Serializable {
 		user.setIsAdmin(false);
 		user.setPassword("");
 		user.setStatus(UserStatusDTO.ENABLED);
-	}
-
-	public List<UserDTO> getListaUsuariosCopia() {
-		return listaUsuariosCopia;
-	}
-
-	public void setListaUsuariosCopia(List<UserDTO> listaUsuariosCopia) {
-		this.listaUsuariosCopia = listaUsuariosCopia;
 	}
 
 	public UserDTO getUsuario() {
@@ -154,6 +172,7 @@ public class UserBean implements Serializable {
 				rellenarLista();
 				FacesContext.getCurrentInstance().getExternalContext()
 				.getSessionMap().put("login", user.getLogin());
+				putInSession("login", user.getLogin());
 				return "usuario";
 			}
 		}
@@ -208,7 +227,6 @@ public class UserBean implements Serializable {
 		} catch (NullPointerException e) {
 			return "fracaso";
 		}
-
 	}
 
 	public String bloquearUsuario(UserDTO user) {
@@ -306,18 +324,51 @@ public class UserBean implements Serializable {
 	}
 
 	public String inbox() {
+		listaInbox = true;
+		listaHoy = false;
+		listaSemana = false;
 		tasks.listarTaskInbox(user);
 		return "exito";
 	}
 
 	public String hoy() {
+		listaInbox = false;
+		listaHoy = true;
+		listaSemana = false;
 		tasks.listarTaskHoy(user);
 		return "exito";
 	}
 
 	public String semana() {
+		listaInbox = false;
+		listaHoy = false;
+		listaSemana = true;
 		tasks.listarTasksSemana(user);
 		return "exito";
+	}
+
+	public boolean isListaInbox() {
+		return listaInbox;
+	}
+
+	public void setListaInbox(boolean listaInbox) {
+		this.listaInbox = listaInbox;
+	}
+
+	public boolean isListaHoy() {
+		return listaHoy;
+	}
+
+	public void setListaHoy(boolean listaHoy) {
+		this.listaHoy = listaHoy;
+	}
+
+	public boolean isListaSemana() {
+		return listaSemana;
+	}
+
+	public void setListaSemana(boolean listaSemana) {
+		this.listaSemana = listaSemana;
 	}
 
 }

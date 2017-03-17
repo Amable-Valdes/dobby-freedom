@@ -38,8 +38,12 @@ public class TaskBean implements Serializable {
 	}
 	
 	public void init(){
-		user = (String) FacesContext.getCurrentInstance().getExternalContext()
-				.getSessionMap().get("login");
+		user = (String) getFromSession("login");
+	}
+	
+	private Object getFromSession(String key) {
+		return FacesContext.getCurrentInstance().getExternalContext()
+				.getSessionMap().get(key);
 	}
 	
 	public void iniciaTask(ActionEvent event) {
@@ -128,7 +132,7 @@ public class TaskBean implements Serializable {
 	public void listar(String login) {
 		try {
 			listaTareas = Factories.services.createTaskService()
-					.listUserTasks(login);
+					.listTasksInbox(login);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}

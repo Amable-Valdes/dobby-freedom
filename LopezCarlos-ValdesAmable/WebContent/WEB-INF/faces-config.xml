@@ -69,21 +69,6 @@
 			<to-view-id>/restricted/user/crearTarea.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{usuarios.inbox}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/user/listadoInbox.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{usuarios.hoy}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/user/listadoHoy.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{usuarios.semana}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/user/listadoSemana.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
 			<from-action>#{usuarios.cerrarSesion}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
