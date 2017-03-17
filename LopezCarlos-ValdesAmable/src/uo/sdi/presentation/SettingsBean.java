@@ -31,7 +31,7 @@ public class SettingsBean implements Serializable {
 		setIdiomas(new HashMap<String, String>());
 		setnButtons(new ArrayList<String>());
 		setLocales(new ArrayList<Locale>());
-		search("S:/work/LopezCarlos-ValdesAmable/src");
+		search("C:/Users/admin/Desktop/dobby-freedom");
 	}
 
 	public Map<String, String> getIdiomas() {

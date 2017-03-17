@@ -38,6 +38,7 @@
 
 				</p:panelGrid>
 				<div align="center">
+					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 					<p:commandButton id = "enviarUser" value="#{msgs.iniciarSesion}"
 						action="#{usuarios.iniciarSesion}" update="grid" ajax="false">
 					</p:commandButton>

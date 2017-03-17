@@ -2,10 +2,13 @@ package uo.sdi.presentation;
 
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -29,7 +32,7 @@ public class TaskBean implements Serializable {
 	private TaskDTO tarea = new TaskDTO();
 	private String title;
 	private String comments;
-	private Date planned;
+	private String planned;
 	private CategoryDTO category;
 	private String user;
 	
@@ -88,12 +91,18 @@ public class TaskBean implements Serializable {
 		this.comments = comments;
 	}
 
-	public Date getPlanned() {
+	public String getPlanned() {
 		return planned;
 	}
 
-	public void setPlanned(Date planned) {
-		this.planned = planned;
+	public void setPlanned(String planned) {
+            this.planned = planned;
+	}
+	
+	public void exitoCrearTarea(){
+		FacesContext.getCurrentInstance().addMessage(
+				null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+						"Crear Tarea", "La tarea se ha creado con exito"));
 	}
 
 	public String crearTask() {
@@ -101,11 +110,15 @@ public class TaskBean implements Serializable {
 			TaskDTO task = new TaskDTO();
 			task.setTitle(title);
 			task.setComments(comments);
-			task.setPlanned(planned);
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			 Date date = formatter.parse(planned);
+			task.setPlanned(date);
 			Factories.services.createTaskService().addTask(
 					user, category, task);
+			exitoCrearTarea();
 			return "exito";
 		} catch (Exception e) { 
+			e.printStackTrace();
 			return "fracaso";
 		}
 	}

@@ -11,6 +11,7 @@ import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -144,6 +145,13 @@ public class UserBean implements Serializable {
 	public UserDTO getUser() {
 		return user;
 	}
+	
+	public void errorLogin(){
+		FacesContext.getCurrentInstance().addMessage(
+				null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+						"login", "El usuario introducido es erroneo, "
+								+ "intentelo de nuevo"));
+	}
 
 	/**
 	 * Este m�todo comprueba que los datos de inicio sean correctos y carga los
@@ -158,7 +166,8 @@ public class UserBean implements Serializable {
 			try {
 				userByLogin = us.loginUser(login, pass);
 			} catch (BusinessException e) {
-				e.printStackTrace();
+				errorLogin();
+				return "";
 			}
 			if (userByLogin != null) {
 				Log.info("El usuario [%s] ha iniciado sesi�n", user.getLogin());
@@ -239,7 +248,13 @@ public class UserBean implements Serializable {
 			return "fracaso";
 		}
 	}
-
+	
+	public void exitoRegistro(){
+		FacesContext.getCurrentInstance().addMessage(
+				null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+						"Registro", "El usuario introducido ha sido registrado"));
+	}
+	
 	public String registraUsuario() {
 		try {
 			if (pass.equals(passRew)) {
@@ -249,12 +264,12 @@ public class UserBean implements Serializable {
 				user = new UserDTO();
 				login = "";
 				pass = "";
+				exitoRegistro();
 				return "exito";
 			}
 			return "fracaso";
 		} catch (BusinessException e) {
-			e.printStackTrace();
-			return "fracaso";
+			return "registro";
 		}
 	}
 
