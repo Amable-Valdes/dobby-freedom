@@ -9,9 +9,10 @@
 
 <f:view locale="#{settings.locale}">
 	<h:head>
+		
 		<h:outputStylesheet name="css/styles.css"/>
 		<title>#{msgs.gestorTareas}</title>
-		<h:body>
+		<h:body >
 			<ui:include src="/snippets/menu-bar-index.xhtml" />
 			<h:form id="loginForm">
 				<center>
@@ -24,7 +25,7 @@
 			<br></br>
 			<br></br>
 			<br></br>
-				<p:panelGrid id="grid" columns="3" cellPadding="5"
+				<p:panelGrid class="w3-container w3-light-blue" id="grid" columns="3" cellPadding="5"
 					style="margin: 0 auto;">
 					<p:outputLabel for="user" value="#{msgs.usuario}" />
 					<p:inputText id="user" type="text" value="#{usuarios.login}"

@@ -8,7 +8,7 @@ import uo.sdi.dto.UserDTO;
 public interface UserService {
 
 	void addUser(UserDTO user) throws BusinessException;
-	List<UserDTO> listUsers(String login) throws BusinessException;
+	List<UserDTO> listUsers() throws BusinessException;
 	void removeUser(String login) throws BusinessException;
 	void blockUser(UserDTO user) throws BusinessException;
 	void enableUser(UserDTO user) throws BusinessException;

@@ -16,7 +16,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "settings")
-@SessionScoped
+@ApplicationScoped
 public class SettingsBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -31,8 +31,8 @@ public class SettingsBean implements Serializable {
 		setIdiomas(new HashMap<String, String>());
 		setnButtons(new ArrayList<String>());
 		setLocales(new ArrayList<Locale>());
-		//search("C:/Users/admin/Desktop/dobby-freedom/LopezCarlos-ValdesAmable/src");
-		search("S:/work/AlperiCarlos-ValdesAmable/src");
+		search("C:/Users/admin/Desktop/dobby-freedom/LopezCarlos-ValdesAmable/src");
+		//search("S:/work/AlperiCarlos-ValdesAmable/src");
 	}
 
 	public Map<String, String> getIdiomas() {

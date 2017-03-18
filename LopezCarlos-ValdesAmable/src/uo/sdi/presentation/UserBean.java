@@ -41,9 +41,10 @@ public class UserBean implements Serializable {
 
 	private UserDTO user = new UserDTO();
 	private List<UserDTO> listaUsuarios = new ArrayList<UserDTO>();
-	private boolean listaInbox = true;
+	private boolean listaInbox = false;
 	private boolean listaHoy = false;;
 	private boolean listaSemana = false;;
+	private boolean finalizadas = false;
 
 	public UserBean() {
 
@@ -76,6 +77,14 @@ public class UserBean implements Serializable {
 		user.setIsAdmin(false);
 		user.setPassword("");
 		user.setStatus(UserStatusDTO.ENABLED);
+	}
+
+	public boolean isFinalizadas() {
+		return finalizadas;
+	}
+
+	public void setFinalizadas(boolean finalizadas) {
+		this.finalizadas = finalizadas;
 	}
 
 	public UserDTO getUsuario() {
@@ -185,7 +194,15 @@ public class UserBean implements Serializable {
 				return "usuario";
 			}
 		}
-		return "fracaso";
+		errorBloqueadoLogin();
+		return "";
+	}
+	
+	public void errorBloqueadoLogin(){
+		FacesContext.getCurrentInstance().addMessage(
+				null, new FacesMessage(FacesMessage.SEVERITY_FATAL, 
+						"login", "Su cuenta ha sido bloqueada, "
+								+ "mejor suerte en otra vida"));
 	}
 
 	private void putUserInSession(UserDTO user) {
@@ -243,7 +260,6 @@ public class UserBean implements Serializable {
 			Factories.services.createUserService().blockUser(user);
 			return "exito";
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "fracaso";
 		}
@@ -344,28 +360,41 @@ public class UserBean implements Serializable {
 		}
 	}
 
-	public String inbox() {
+	public void inbox() {
 		listaInbox = true;
 		listaHoy = false;
 		listaSemana = false;
-		tasks.listarTaskInbox(user);
-		return "exito";
+		tasks.listarTaskInbox(user,true);
+	}
+	
+	public void inboxTerminadas() {
+		finalizadas = true;
+		listaInbox = true;
+		listaHoy = false;
+		listaSemana = false;
+		tasks.listarTaskInbox(user,finalizadas);
+	}
+	
+	public void inboxNoTerminadas() {
+		finalizadas = false;
+		listaInbox = true;
+		listaHoy = false;
+		listaSemana = false;
+		tasks.listarTaskInbox(user,finalizadas);
 	}
 
-	public String hoy() {
+	public void hoy() {
 		listaInbox = false;
 		listaHoy = true;
 		listaSemana = false;
 		tasks.listarTaskHoy(user);
-		return "exito";
 	}
 
-	public String semana() {
+	public void semana() {
 		listaInbox = false;
 		listaHoy = false;
 		listaSemana = true;
 		tasks.listarTasksSemana(user);
-		return "exito";
 	}
 
 	public boolean isListaInbox() {

@@ -31,16 +31,16 @@
 				</center>
 				
 				<h:form id="form-registro">
-	<p:panelGrid class=".w3-panel" id = "grid" columns="3" cellPadding = "5"
+	<p:panelGrid class=".w3-panel" id = "grid" columns="3" cellPadding = "3"
 				style="margin: 0 auto;">
 				
 				<p:outputLabel for="Title" value="#{msgs.titulo}" />
 				<p:inputText id="Title" type="text" value="#{tareas.title}"
 					required="true"/>
-				<p:message for="Title" />			
+				<p:message for="Title" />
 				
 				<p:outputLabel for="Planned" value="#{msgs.fechaPlanificada}" />
-				<p:calendar id="Planned" pattern="dd/MM/yyyy  HH:mm:ss" 
+				<p:calendar id="Planned" pattern="dd/MM/yyyy HH:mm:ss" 
 				value="#{tareas.planned}"	required="true" effect="fold"/>
 				<p:message for="Planned" />
 				
@@ -50,11 +50,10 @@
 				
 				<p:outputLabel for="Category" value="#{msgs.categoria}" />
 				<p:inputText id="Category" type="text" value="#{tareas.category}"/>
-				
 </p:panelGrid>
 				<div align="center">
 					<p:commandButton id="botonSalvarTarea" value="#{msgs.salvar}" 
-					action="#{tareas.crearTask}" update = "grid" ajax = "false"/>
+					action="#{tareas.editarTask}" update = "grid" ajax = "false"/>
 				</div>
 
 	</h:form>

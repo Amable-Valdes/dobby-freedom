@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<UserDTO> listUsers(String login) throws BusinessException {
+	public List<UserDTO> listUsers() throws BusinessException {
 		return (List<UserDTO>) executor.execute(new ListUsers());
 	}
 

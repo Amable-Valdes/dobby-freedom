@@ -13,8 +13,7 @@ public interface TaskService {
 	void addTask(String login, CategoryDTO categoryDTO, TaskDTO taskDTO)
 			throws BusinessException;
 
-	void updateTask(TaskDTO taskDTO_Old, TaskDTO taskDTO_Update) 
-			throws BusinessException;
+	void updateTask(TaskDTO task, String login) throws BusinessException;
 
 	void finishTask(String login, String categoryName, Date created,
 			String taskName) throws BusinessException;
@@ -30,4 +29,6 @@ public interface TaskService {
 			throws BusinessException;
 
 	List<TaskDTO> listUserTasks(String login) throws BusinessException;
+
+	TaskDTO getTaskById(Long id) throws BusinessException;
 }

@@ -31,9 +31,11 @@ public class TaskBean implements Serializable {
 	private TaskDTO tarea = new TaskDTO();
 	private String title;
 	private String comments;
-	private String planned;
+	private Date planned;
 	private String category;
 	private String user;
+	
+	private Long id;
 	
 	public TaskBean(){
 		iniciaTask(null);
@@ -43,6 +45,14 @@ public class TaskBean implements Serializable {
 		user = (String) getFromSession("login");
 	}
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	private Object getFromSession(String key) {
 		return FacesContext.getCurrentInstance().getExternalContext()
 				.getSessionMap().get(key);
@@ -90,11 +100,11 @@ public class TaskBean implements Serializable {
 		this.comments = comments;
 	}
 
-	public String getPlanned() {
+	public Date getPlanned() {
 		return planned;
 	}
 
-	public void setPlanned(String planned) {
+	public void setPlanned(Date planned) {
             this.planned = planned;
 	}
 	
@@ -112,7 +122,6 @@ public class TaskBean implements Serializable {
 
 	public String crearTask() {
 		try {
-			
 			TaskDTO task = new TaskDTO();
 			user = (String) getFromSession("login");
 			task.setTitle(title);
@@ -121,9 +130,7 @@ public class TaskBean implements Serializable {
 				errorCrearTarea();
 				return "usuario";
 			}
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			 Date date = formatter.parse(planned);
-			task.setPlanned(date);
+			task.setPlanned(planned);
 			CategoryDTO c = new CategoryDTO();
 			if(!category.equals("")){
 				c.setName(category);
@@ -135,6 +142,7 @@ public class TaskBean implements Serializable {
 					user, c, task);
 			exitoCrearTarea();
 			listar(user);
+			vaciar();
 			return "exito";
 		} catch (Exception e) { 
 			e.printStackTrace();
@@ -152,17 +160,65 @@ public class TaskBean implements Serializable {
 		}
 	}
 	
-	public String editarTask(TaskDTO task_Old, TaskDTO task_New) {
+	public String editar(TaskDTO t){
+		tarea = t;
+		title = tarea.getTitle();
+		comments = tarea.getComments();
+		planned = tarea.getPlanned();
+		id = tarea.getId();
+		return "editarTarea";
+	}
+	
+	public String editarTask() {
 		try {
-			Factories.services.createTaskService().updateTask(task_Old, task_New);
-			return "exito";
+			user = (String) getFromSession("login");
+			TaskDTO task = Factories.services.createTaskService().getTaskById(id);
+			TaskDTO t = task;
+			t.setTitle(title);
+			t.setComments(comments);
+
+			t.setPlanned(planned);
+			List<UserDTO> lu = Factories.services.createUserService().listUsers();
+			UserDTO u = null;
+			for(UserDTO us : lu){
+				if(us.getLogin().equals(user)){
+					u = us;
+				}
+			}
+			List<CategoryDTO> l = Factories.services.createCategoryService().
+					findCategoriesByUser(u);
+			for(CategoryDTO c : l){
+				if(c.getName().equals(category)){
+					t.setCategoryId(c.getId());
+				}
+			}
+			Factories.services.createTaskService().updateTask(t,user);
+			exitoEditarTarea();
+			listar(user);
+			return "usuario";
 		} catch (Exception e) { 
 			return "fracaso";
 		}
 	}
-
+	
+	public void exitoEditarTarea(){
+		FacesContext.getCurrentInstance().addMessage(
+				null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
+						"Editar Tarea", "La tarea se ha editado con exito"));
+	}
+//TODO
+	/*public void listar(String login) {
+		try {
+			listaTareas = Factories.services.createTaskService()
+					.listTasksNotFinished(login);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+	}*/
+	
 	public void listar(String login) {
 		try {
+
 			listaTareas = Factories.services.createTaskService()
 					.listTasksInbox(login,true);
 		} catch (BusinessException e) {
@@ -170,10 +226,10 @@ public class TaskBean implements Serializable {
 		}
 	}
 
-	public void listarTaskInbox(UserDTO user) {
+	public void listarTaskInbox(UserDTO user,boolean fin) {
 		try {
 			listaTareas = Factories.services.createTaskService()
-					.listTasksInbox(user.getLogin(),true);
+					.listTasksInbox(user.getLogin(),fin);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
@@ -234,7 +290,7 @@ public class TaskBean implements Serializable {
 		category = "";
 		comments="";
 		title="";
-		planned="mm/dd/yyyy";
+		planned= new Date();
 	}
 	
 }
