@@ -53,6 +53,13 @@ public class TaskFinder {
 				.setParameter(1, idUser)
 				.getResultList();
 	}
+	
+	public static List<Task> findInboxFinished(Long idUser) {
+		return Jpa.getManager().createNamedQuery("Task.findInboxFinished", 
+				Task.class)
+				.setParameter(1, idUser)
+				.getResultList();
+	}
 
 	public static List<Task> findBetween(Long idUser, Date dateBegin, 
 			Date dateEnd) {
@@ -63,4 +70,5 @@ public class TaskFinder {
 			.setParameter(3, dateEnd)
 			.getResultList();
 	}
+
 }

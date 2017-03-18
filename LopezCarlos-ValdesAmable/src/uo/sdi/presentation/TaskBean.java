@@ -2,7 +2,6 @@ package uo.sdi.presentation;
 
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -165,7 +164,7 @@ public class TaskBean implements Serializable {
 	public void listar(String login) {
 		try {
 			listaTareas = Factories.services.createTaskService()
-					.listTasksInbox(login);
+					.listTasksInbox(login,true);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
@@ -174,7 +173,7 @@ public class TaskBean implements Serializable {
 	public void listarTaskInbox(UserDTO user) {
 		try {
 			listaTareas = Factories.services.createTaskService()
-					.listTasksInbox(user.getLogin());
+					.listTasksInbox(user.getLogin(),true);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}

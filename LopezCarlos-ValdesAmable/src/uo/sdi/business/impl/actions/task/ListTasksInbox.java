@@ -15,9 +15,11 @@ import uo.sdi.persistence.UserFinder;
 public class ListTasksInbox implements Command{
 
 	private String login;
+	private boolean finished;
 
-	public ListTasksInbox(String login) {
+	public ListTasksInbox(String login, boolean finished) {
 		this.login = login;
+		this.finished = finished;
 	}
 
 	@Override
@@ -28,6 +30,12 @@ public class ListTasksInbox implements Command{
 		ArrayList<TaskDTO> listDTO = new ArrayList<TaskDTO>();
 		for (Task task : listTasks) {
 			listDTO.add(Cloner.clone(task));
+		}
+		if(finished){
+			listTasks = TaskFinder.findInboxFinished(user.getId());
+			for (Task task : listTasks) {
+				listDTO.add(Cloner.clone(task));
+			}
 		}
 		return listDTO;
 	}

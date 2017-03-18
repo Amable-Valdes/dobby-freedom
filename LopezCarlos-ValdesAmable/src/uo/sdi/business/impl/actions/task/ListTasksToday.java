@@ -28,7 +28,7 @@ public class ListTasksToday implements Command{
 		assertUserExist(user);
 		Date tomorrow = new Date(DateUtil.tomorrow().getTime());
 		List<Task> listTasks = TaskFinder.findBetween(user.getId(), 
-				DateUtil.today(), tomorrow);
+				new Date(0), tomorrow);
 		ArrayList<TaskDTO> listDTO = new ArrayList<TaskDTO>();
 		for (Task task : listTasks) {
 			listDTO.add(Cloner.clone(task));

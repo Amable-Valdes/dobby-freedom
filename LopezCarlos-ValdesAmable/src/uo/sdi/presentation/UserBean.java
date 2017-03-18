@@ -259,6 +259,7 @@ public class UserBean implements Serializable {
 		try {
 			if (pass.equals(passRew)) {
 				user.setLogin(login);
+				user.setEmail(email);
 				user.setPassword(pass);
 				Factories.services.createUserService().addUser(user);
 				user = new UserDTO();

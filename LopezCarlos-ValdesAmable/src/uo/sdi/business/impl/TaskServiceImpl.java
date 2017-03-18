@@ -48,8 +48,10 @@ public class TaskServiceImpl implements TaskService {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<TaskDTO> listTasksInbox(String login) throws BusinessException {
-		return (List<TaskDTO>) executor.execute(new ListTasksInbox(login));
+	public List<TaskDTO> listTasksInbox(String login, boolean finished) 
+			throws BusinessException {
+		return (List<TaskDTO>) executor.execute(new ListTasksInbox(login,
+				finished));
 	}
 	
 	@SuppressWarnings("unchecked")

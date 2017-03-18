@@ -19,7 +19,8 @@ public interface TaskService {
 	void finishTask(String login, String categoryName, Date created,
 			String taskName) throws BusinessException;
 
-	List<TaskDTO> listTasksInbox(String login) throws BusinessException;
+	List<TaskDTO> listTasksInbox(String login, boolean finished) 
+			throws BusinessException;
 
 	List<TaskDTO> listTasksToday(String login) throws BusinessException;
 
