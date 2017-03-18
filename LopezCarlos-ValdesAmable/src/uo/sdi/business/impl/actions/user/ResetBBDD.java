@@ -18,9 +18,16 @@ import uo.sdi.persistence.TaskFinder;
 import uo.sdi.persistence.UserFinder;
 import uo.sdi.persistence.util.Jpa;
 
+/**
+ * Este Action nos permite borrar todos los datos de la BBDD y añadir los datos
+ * que tenía por defecto.
+ * 
+ * @author Amable y Carlos
+ *
+ */
 public class ResetBBDD implements Command {
 
-	Date timeCreation;
+	private Date timeCreation;
 	
 	@Override
 	public Object execute() throws BusinessException {

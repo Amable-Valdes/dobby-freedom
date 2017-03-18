@@ -6,6 +6,13 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+/**
+ * Esta clase creada por Alberto le pide al controlador el EntityManager
+ * para poder realizar operaciones de JPA.
+ * 
+ * @author Alberto
+ *
+ */
 public class Jpa {
 
 	private static EntityManagerFactory emf = null;

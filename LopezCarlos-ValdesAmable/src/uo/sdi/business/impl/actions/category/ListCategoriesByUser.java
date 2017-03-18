@@ -11,6 +11,12 @@ import uo.sdi.dto.util.Cloner;
 import uo.sdi.model.Category;
 import uo.sdi.persistence.CategoryFinder;
 
+/**
+ * Este Action nos permite listar todas las categorías de un usuario.
+ * 
+ * @author Amable y Carlos
+ *
+ */
 public class ListCategoriesByUser implements Command{
 	
 	private UserDTO userDTO;

@@ -7,8 +7,20 @@ import javax.persistence.NoResultException;
 import uo.sdi.model.Category;
 import uo.sdi.persistence.util.Jpa;
 
+/**
+ * Clase CategoryFinder que permite realizar consultas sobre la BBDD y 
+ * devuelve objetos Category ya persistentes.
+ * 
+ * @author Amable y Carlos
+ *
+ */
 public class CategoryFinder {
 
+	/**
+	 * Lista todas las Category de de la BBDD.
+	 * 
+	 * @return	Todas las Category d la BBDD.
+	 */
 	public static List<Category> findAll() {
 		return Jpa.getManager()
 				.createNamedQuery("Category.findAll", Category.class)
@@ -37,11 +49,18 @@ public class CategoryFinder {
 			return null;
 		}
 	}
+	
+	//TODO Estas dos no están bien donde se usan, debería ser User y CreatedDate por la identidad
 
+	/**
+	 * Lista todas las Category de un usuario de la BBDD.
+	 * 
+	 * @param loginUser	El login del usuario del que queremos las Category.
+	 * @return	Una lista de Category
+	 */
 	public static List<Category> findByUser(String loginUser) {
 		return Jpa.getManager()
 				.createNamedQuery("Category.findByUser", Category.class)
-				.setParameter(1, loginUser)
 				.getResultList();
 	}
 

@@ -1,5 +1,6 @@
 package uo.sdi.business.impl.actions.user;
 
+import uo.sdi.business.util.Asserts;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.model.Category;
@@ -8,6 +9,12 @@ import uo.sdi.model.User;
 import uo.sdi.persistence.UserFinder;
 import uo.sdi.persistence.util.Jpa;
 
+/**
+ * Este Action nos permite permite borrar un nuevo usuario del sistema.
+ * 
+ * @author Amable y Carlos
+ *
+ */
 public class RemoveUser implements Command{
 	
 	private String login;
@@ -21,7 +28,7 @@ public class RemoveUser implements Command{
 		//Buscamos el usuario por su login
 		User user = UserFinder.findByLogin(login);
 		//¿El usuario existe?
-		assertUserExist(user);
+		Asserts.assertUserExist(user);
 		// Borramos sus tareas
 		for (Task task : user.getTasks()) {
 				Jpa.getManager().remove(task);
@@ -33,11 +40,5 @@ public class RemoveUser implements Command{
 		//Borramos el usuario
 		Jpa.getManager().remove(user);
 		return null;
-	}
-
-	private void assertUserExist(User user) throws BusinessException {
-		if (user != null)
-			return;
-		throw new BusinessException("El usuario no existe");
 	}
 }

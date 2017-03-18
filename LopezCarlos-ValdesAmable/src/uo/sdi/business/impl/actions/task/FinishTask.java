@@ -2,64 +2,42 @@ package uo.sdi.business.impl.actions.task;
 
 import java.util.Date;
 
+import uo.sdi.business.util.Asserts;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
-import uo.sdi.model.Category;
+import uo.sdi.dto.TaskDTO;
 import uo.sdi.model.Task;
 import uo.sdi.model.User;
-import uo.sdi.persistence.CategoryFinder;
 import uo.sdi.persistence.TaskFinder;
 import uo.sdi.persistence.UserFinder;
 
 public class FinishTask implements Command {
 	
 	private String login;
-	private String categoryName;
-	private Date created;
-	private String taskName;
+	private TaskDTO taskDTO;
 	
-	public FinishTask(String login, String categoryName, Date created,
-			String taskName) {
+	public FinishTask(String login, TaskDTO taskDTO) {
 		this.login = login;
-		this.categoryName = categoryName;
-		this.created = created;
-		this.taskName = taskName;
+		this.taskDTO = taskDTO;
 	}
 
 	@Override
 	public Object execute() throws BusinessException {
+		//Buscamos el usuario por su login.
 		User user = UserFinder.findByLogin(login);
-		assertUserExist(user);
-		Category category = CategoryFinder.findByUserAndName(user.getId(),
-				categoryName);
-		assertCategoryExist(category);
-		Task task = TaskFinder.findByUser_Category_CreatedDate_TaskName(
-				user.getId(),category.getId(),created,taskName);
-		assertTaskExist(task);
-		assertTaskIsNotFinished(task);
+		//Comprobamos que existe.
+		Asserts.assertUserExist(user);
+		//Buscamos la tarea.
+		Task task = TaskFinder.findByUser_And_CreatedDate(taskDTO.getUserId(), 
+				taskDTO.getCreated());
+		//Comprobamos que la tarea existe.
+		Asserts.assertTaskExist(task);
+		//Comprobamos que la tarea no está ya finalizada
+		Asserts.assertTaskIsNotFinished(task);
+		//Comprobamos que el usuario es el mismo que el de la tarea
+		Asserts.assertSameUsers(user, task.getUser());
+		//Finalizamos la tarea
 		task.setFinished(new Date());
 		return null;
 	}
-	
-	private void assertCategoryExist(Category category) 
-			throws BusinessException {
-		if (category != null) return;
-		throw new BusinessException("La categoria no existe");
-	}
-
-	private void assertUserExist(User user) throws BusinessException {
-		if (user != null) return;
-		throw new BusinessException("El usuario no existe");
-	}
-	
-	private void assertTaskExist(Task task) throws BusinessException {
-		if (task != null) return;
-		throw new BusinessException("La tearea no existe");
-	}
-	
-	private void assertTaskIsNotFinished(Task task) throws BusinessException {
-		if (task.getFinished() == null) return;
-		throw new BusinessException("La tearea ya estaba finalizada");
-	}
-
 }

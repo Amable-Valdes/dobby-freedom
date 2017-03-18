@@ -10,6 +10,12 @@ import uo.sdi.dto.util.Cloner;
 import uo.sdi.model.User;
 import uo.sdi.persistence.UserFinder;
 
+/**
+ * Este Action nos permite listar los usuarios que no sean administrador.
+ * 
+ * @author Amable y Carlos
+ *
+ */
 public class ListAllUsers implements Command {
 
 	@Override
@@ -23,5 +29,4 @@ public class ListAllUsers implements Command {
 		}
 		return list;
 	}
-
 }

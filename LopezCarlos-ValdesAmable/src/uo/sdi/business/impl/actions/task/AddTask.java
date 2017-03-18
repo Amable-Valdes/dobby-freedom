@@ -1,5 +1,6 @@
 package uo.sdi.business.impl.actions.task;
 
+import uo.sdi.business.util.Asserts;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.CategoryDTO;
@@ -11,6 +12,12 @@ import uo.sdi.persistence.CategoryFinder;
 import uo.sdi.persistence.UserFinder;
 import uo.sdi.persistence.util.Jpa;
 
+/**
+ * Este Action nos permite añadir una nueva tarea en el sistema.
+ * 
+ * @author Amable y Carlos
+ *
+ */
 public class AddTask implements Command {
 
 	private String login;
@@ -25,8 +32,10 @@ public class AddTask implements Command {
 
 	@Override
 	public Object execute() throws BusinessException {
+		//Buscamos al usuario por su login
 		User user = UserFinder.findByLogin(login);
-		assertUserExist(user);
+		//Comprobamos que el usuario existe
+		Asserts.assertUserExist(user);
 		//Por defecto Null -> Inbox
 		Category category = null;
 		//Si tiene nombre
@@ -35,7 +44,7 @@ public class AddTask implements Command {
 			category = CategoryFinder.findByUserAndName(user.getId(),
 				categoryDTO.getName());
 			//Comprobamos si, existiendo nombre, existe dicha categoria
-			assertCategoryIsValid(category);
+			Asserts.assertCategoryExist(category);
 		}
 		//Creamos la tarea
 		Task task;
@@ -50,19 +59,4 @@ public class AddTask implements Command {
 		Jpa.getManager().persist(task);
 		return null;
 	}
-
-	private void assertUserExist(User user) throws BusinessException {
-		if (user != null)
-			return;
-		throw new BusinessException("El usuario no existe");
-	}
-
-	private void assertCategoryIsValid(Category category)
-			throws BusinessException {
-		if (category == null) {
-			throw new BusinessException("El nombre de la categoría "
-					+ "introducida no es valido porque no existe");
-		}
-	}
-
 }

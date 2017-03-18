@@ -1,55 +1,56 @@
 package uo.sdi.business.impl.actions.task;
 
-import java.util.List;
-
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.TaskDTO;
-import uo.sdi.dto.UserDTO;
 import uo.sdi.model.Association;
 import uo.sdi.model.Category;
 import uo.sdi.model.Task;
-import uo.sdi.model.User;
 import uo.sdi.persistence.CategoryFinder;
 import uo.sdi.persistence.TaskFinder;
-import uo.sdi.persistence.UserFinder;
-import uo.sdi.persistence.util.Jpa;
 
 public class UpdateTask implements Command {
 
-	private TaskDTO task;
-	private String login;
+	private TaskDTO taskDTO_Old;
+	private TaskDTO taskDTO_Update;
 
-	public UpdateTask(TaskDTO task, String login) {
-		this.task = task;
-		this.login = login;
+	public UpdateTask(TaskDTO taskDTO_Old, TaskDTO taskDTO_Update) {
+		this.taskDTO_Old = taskDTO_Old;
+		this.taskDTO_Update = taskDTO_Update;
 	}
 
 	@Override
 	public Object execute() throws BusinessException {
-		List<User> l = UserFinder.findAll();
-		boolean loEs = false;
-		Task t = null;
-		for(User u : l){
-			if(u.getLogin().equals(login) && u.getId().equals(task.getUserId())){
-				loEs = true;
-				t = new Task(u);
-				t.setId(task.getId());
-				t.setTitle(task.getTitle());
-				t.setCreated(task.getCreated());
-				t.setComments(task.getComments());
-				t.setPlanned(task.getPlanned());
-				t.setFinished(task.getFinished());
+		//Buscamos la tarea
+		Task task = TaskFinder.findByUser_And_CreatedDate(
+				taskDTO_Old.getUserId(), taskDTO_Old.getCreated());
+		//Modificamos sus valores
+		task.setTitle(taskDTO_Update.getTitle());
+		task.setComments(taskDTO_Update.getComments());
+		task.setPlanned(taskDTO_Update.getPlanned());
+		//¿Ha cambiado de categoria?
+		if (
+		// Si son !=null y son distintas
+		(taskDTO_Old.getCategoryId() != null
+				&& taskDTO_Update.getCategoryId() != null && !taskDTO_Old
+				.getCategoryId().equals(taskDTO_Update.getCategoryId())) ||
+		// O si una es null y la otra no
+		(taskDTO_Old == null && taskDTO_Update != null || taskDTO_Old != null
+				&& taskDTO_Update == null)) {
+			//TODO no se si aqui se le puede pasar null, tenemos que comprobarlo en tiempo de ejecución. Si pasa entonces es que jpa acepta en sus consultas null y no hay que hacer nada, si no tenemos que comprobarlo manualmente con ifs
+			Category category_old = CategoryFinder.findById(taskDTO_Old
+					.getCategoryId());
+			Category category_update = CategoryFinder.findById(taskDTO_Update
+					.getCategoryId());
+			//Si tenia categoria, se quita
+			if(category_old != null){
+				Association.Classifies.unlink(category_old, task);
+			}
+			//Si se le pone en una categoria en especial, se le añade
+			if(category_update != null){
+				Association.Classifies.link(category_update, task);
 			}
 		}
-		if(loEs){
-			Jpa.getManager().merge(t);
-		}
-		else{
-			throw new BusinessException("El usuario que intenta editar la tarea, "
-					+ "no tiene permisos para editarla");
-		}
-		
 		return null;
 	}
 

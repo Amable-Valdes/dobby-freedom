@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import alb.util.date.DateUtil;
+import uo.sdi.business.util.Asserts;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.TaskDTO;
@@ -14,6 +15,12 @@ import uo.sdi.model.User;
 import uo.sdi.persistence.TaskFinder;
 import uo.sdi.persistence.UserFinder;
 
+/**
+ * Este Action nos permite listar las tareas de un usuario por Today.
+ * 
+ * @author Amable y Carlos
+ *
+ */
 public class ListTasksToday implements Command{
 
 	private String login;
@@ -25,7 +32,7 @@ public class ListTasksToday implements Command{
 	@Override
 	public Object execute() throws BusinessException {
 		User user = UserFinder.findByLogin(login);
-		assertUserExist(user);
+		Asserts.assertUserExist(user);
 		Date tomorrow = new Date(DateUtil.tomorrow().getTime());
 		List<Task> listTasks = TaskFinder.findBetween(user.getId(), 
 				new Date(0), tomorrow);
@@ -34,10 +41,5 @@ public class ListTasksToday implements Command{
 			listDTO.add(Cloner.clone(task));
 		}
 		return listDTO;
-	}
-
-	private void assertUserExist(User user) throws BusinessException {
-		if (user != null) return;
-		throw new BusinessException("El usuario no existe");
 	}
 }

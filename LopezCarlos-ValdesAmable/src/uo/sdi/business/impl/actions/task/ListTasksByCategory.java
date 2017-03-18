@@ -3,6 +3,7 @@ package uo.sdi.business.impl.actions.task;
 import java.util.ArrayList;
 import java.util.List;
 
+import uo.sdi.business.util.Asserts;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.TaskDTO;
@@ -14,6 +15,12 @@ import uo.sdi.persistence.CategoryFinder;
 import uo.sdi.persistence.TaskFinder;
 import uo.sdi.persistence.UserFinder;
 
+/**
+ * Este Action nos permite listar las tareas de un usuario por la categoría.
+ * 
+ * @author Amable y Carlos
+ *
+ */
 public class ListTasksByCategory implements Command {
 
 	private String login;
@@ -27,27 +34,16 @@ public class ListTasksByCategory implements Command {
 	@Override
 	public Object execute() throws BusinessException {
 		User user = UserFinder.findByLogin(login);
-		assertUserExist(user);
+		Asserts.assertUserExist(user);
 		Category category = CategoryFinder.findByUserAndName(user.getId(),
 				categoryName);
-		assertCategoryExist(category);
-		List<Task> listTasks = TaskFinder.findByUserAndCategoryActive(
+		Asserts.assertCategoryExist(category);
+		List<Task> listTasks = TaskFinder.findByUser_And_Category(
 				user.getId(),category.getId());
 		ArrayList<TaskDTO> listDTO = new ArrayList<TaskDTO>();
 		for (Task task : listTasks) {
 			listDTO.add(Cloner.clone(task));
 		}
 		return listDTO;
-	}
-
-	private void assertCategoryExist(Category category) 
-			throws BusinessException {
-		if (category != null) return;
-		throw new BusinessException("La categoria no existe");
-	}
-
-	private void assertUserExist(User user) throws BusinessException {
-		if (user != null) return;
-		throw new BusinessException("El usuario no existe");
 	}
 }

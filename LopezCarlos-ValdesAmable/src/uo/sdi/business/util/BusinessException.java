@@ -3,7 +3,7 @@ package uo.sdi.business.util;
 public class BusinessException extends Exception{
 
 	/**
-	 * 
+	 * Excepción de lógica de negocio.
 	 */
 	private static final long serialVersionUID = 1L;
 	

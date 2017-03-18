@@ -5,8 +5,24 @@ import javax.persistence.EntityTransaction;
 
 import uo.sdi.persistence.util.Jpa;
 
+/**
+ * Patrón Command que nos permite ejecutar los actions del sistema.
+ * 
+ * @author Amable y Carlos
+ *
+ */
 public class CommandExecutor {
 
+	/**
+	 * Patrón que nos permite ejecutar clases que implementen 
+	 * la interfaz Command usando su método execute.
+	 * 
+	 * @param command	Clase a ejecutar.
+	 * @return	Un objeto, puede ser el que queramos (TaskDTO, lista, etc.).
+	 * @throws BusinessException	Si se cumple alguna irregularidad en la 
+	 * lógica de negocio el sistema lanzará a capas superiores una excepción 
+	 * de tipo BusinessException (Excepción de lógica de negocio).
+	 */
 	public Object execute(Command command) throws BusinessException {
 		EntityManager em = Jpa.createEntityManager();
 		EntityTransaction trx = em.getTransaction();
