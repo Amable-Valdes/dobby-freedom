@@ -36,6 +36,13 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>usuario</from-outcome>
+			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
 		<from-view-id>/index.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{usuarios.iniciarSesion}</from-action>
@@ -86,6 +93,11 @@
 		<from-view-id>/restricted/user/crearTarea.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{tareas.crearTask}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarios.volverUsuario}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
 		</navigation-case>

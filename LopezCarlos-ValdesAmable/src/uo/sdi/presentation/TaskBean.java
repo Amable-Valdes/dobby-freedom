@@ -33,7 +33,7 @@ public class TaskBean implements Serializable {
 	private String title;
 	private String comments;
 	private String planned;
-	private CategoryDTO category;
+	private String category;
 	private String user;
 	
 	public TaskBean(){
@@ -104,22 +104,42 @@ public class TaskBean implements Serializable {
 				null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
 						"Crear Tarea", "La tarea se ha creado con exito"));
 	}
+	
+	public void errorCrearTarea(){
+		FacesContext.getCurrentInstance().addMessage(
+				null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+						"Crear Tarea", "La fecha debe tener un valor correcto"));
+	}
 
 	public String crearTask() {
 		try {
+			
 			TaskDTO task = new TaskDTO();
+			user = (String) getFromSession("login");
 			task.setTitle(title);
 			task.setComments(comments);
+			if(planned.equals("mm/dd/yyyy")){
+				errorCrearTarea();
+				return "usuario";
+			}
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			 Date date = formatter.parse(planned);
 			task.setPlanned(date);
+			CategoryDTO c = new CategoryDTO();
+			if(!category.equals("")){
+				c.setName(category);
+			}
+			else{
+				c= null;
+			}
 			Factories.services.createTaskService().addTask(
-					user, category, task);
+					user, c, task);
 			exitoCrearTarea();
+			listar(user);
 			return "exito";
 		} catch (Exception e) { 
 			e.printStackTrace();
-			return "fracaso";
+			return "usuario";
 		}
 	}
 	
@@ -203,12 +223,19 @@ public class TaskBean implements Serializable {
 		this.listaTareas = listaTareas;
 	}
 
-	public CategoryDTO getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(CategoryDTO category) {
+	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public void vaciar() {
+		category = "";
+		comments="";
+		title="";
+		planned="mm/dd/yyyy";
 	}
 	
 }

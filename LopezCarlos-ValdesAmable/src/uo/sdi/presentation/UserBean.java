@@ -272,6 +272,11 @@ public class UserBean implements Serializable {
 			return "registro";
 		}
 	}
+	
+	public String volverUsuario(){
+		tasks.vaciar();
+		return "usuario";
+	}
 
 	public String desbloquearUsuario(UserDTO user) {
 		try {

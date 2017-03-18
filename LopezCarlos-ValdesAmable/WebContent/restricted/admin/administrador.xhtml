@@ -15,7 +15,7 @@
 			
 			<h:form>
 				<center>
-					<h1>Administrador</h1>
+					<h1>#{msgs.administrador}</h1>
 				</center>
 				<br></br>
 				<br></br>
@@ -26,7 +26,7 @@
 			</h:form>
 			<h:form id="form-listado" class="w3-pink">
 			<center>
-					<h1>Listado usuarios</h1>
+					<h1>#{msgs.listadeUsuarios}</h1>
 				</center>
 			<p:dataTable id="tabla" var="usuario" styleClass="formTable"
 				value="#{usuarios.listaUsuarios}"  rows="8"
@@ -38,7 +38,7 @@
 				<p:column  sortBy="#{usuario.email}">
 					<f:facet name="header">Email</f:facet>#{usuario.email}</p:column>
 				<p:column sortBy="#{usuario.status}">
-					<f:facet name="header">Estado</f:facet>#{usuario.status}</p:column>
+					<f:facet name="header">#{msgs.estado}</f:facet>#{usuario.status}</p:column>
 				<p:column>
 								<p:commandButton class="w3-pink" value="#{msgs.actDesact}" action="#{usuarios.activarDesactivar(usuario)}" type="submit" 
 					immediate="true" update="tabla"/>

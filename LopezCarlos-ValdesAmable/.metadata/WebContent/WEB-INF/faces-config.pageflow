@@ -7,8 +7,8 @@
   <nodes xsi:type="pageflow:PFPage" name="listadoUsuarios.xhtml" x="122" y="178" id="pf148881529049416" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" path="/listadoUsuarios.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="registro.xhtml" x="122" y="562" id="pf148882320865524" referenceLink="//@navigationRule.6/@fromViewId|" path="/registro.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="crearTarea.xhtml" x="122" y="1562" id="pf148890293096212" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" path="/user/crearTarea.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="restricted/user/usuario.xhtml" id="pf14894960166705" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" outlinks="pf14894960166706 pf14894960166703" inlinks="pf14894960166700 pf148949601667010" path="/restricted/user/usuario.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="restricted/user/crearTarea.xhtml" id="pf148949601667011" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf14894960166702 pf148949601667010" inlinks="pf14894960166706" path="/restricted/user/crearTarea.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="restricted/user/usuario.xhtml" id="pf14894960166705" referenceLink="//@navigationRule.5/@navigationCase.1/@toViewId|" outlinks="pf14894960166706 pf14894960166703" inlinks="pf14894960166700 pf148949601667010 pf14898411929820" path="/restricted/user/usuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="restricted/user/crearTarea.xhtml" id="pf148949601667011" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf14894960166702 pf148949601667010 pf14898411929820" inlinks="pf14894960166706" path="/restricted/user/crearTarea.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="restricted/admin/administrador.xhtml" id="pf148949605940216" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf148949605940217" inlinks="pf148949605940215 pf148949605940217" path="/restricted/admin/administrador.xhtml"/>
   <links id="pf14888152904941" target="pf14888152904943" source="pf14888152904940" outcome="error"/>
   <links id="pf14888152904946" target="pf148881529049412" source="pf14888152904944" outcome="exito" fromaction="#{usuarios.registrarse}"/>
@@ -26,4 +26,5 @@
   <links id="pf148949601667010" target="pf14894960166705" source="pf148949601667011" outcome="exito" fromaction="#{tareas.crearTask}"/>
   <links id="pf148949605940215" target="pf148949605940216" source="pf14888152904944" outcome="administrador" fromaction="#{usuarios.iniciarSesion}"/>
   <links id="pf148949605940217" target="pf148949605940216" source="pf148949605940216" outcome="exito" fromaction="#{usuarios.inicializarBBDD}"/>
+  <links id="pf14898411929820" target="pf14894960166705" source="pf148949601667011" outcome="exito" fromaction="#{usuarios.volverUsuario}"/>
 </pageflow:Pageflow>
