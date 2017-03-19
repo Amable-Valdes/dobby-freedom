@@ -1,0 +1,24 @@
+Cosas que quedan por hacer:
+
+- Que las tareas retrasadas aparezcan en rojo:
+	- Lista Inbox:
+		- FINALIZADAS mostrará nombre de la tarea en verde.
+		- RETRASADAS mostrará fecha planeada en rojo.
+	- Lista hoy mostrará fecha planeada en rojo.
+	- Lista semana mostrará en rojo el nombre de la categoría.
+
+- En editar tarea, no puedo seleccionar el dia ni el mes en la tarea 8. Arreglar eso para que peuda seleccionar, por ejemplo, Abril.
+
+- En editar y crear tarea se necesita un combobox que permita seleccionar las categorias que tiene el usuario, 
+esto se puede hacer con el método "services.createCategoryService().findCategoriesByUser(login)"
+
+- Seleccionar idioma en editar tarea y en las listas, que no te lo permite.
+
+- Tras la creación de una tarea se tiene que redireccionar a las siguiente lista: 
+	- InBox si se ha creado sin categoría
+	- Hoy si se ha creado con categoría y fecha planificada hoy 
+	- Semana si se ha creado con fecha planificada posterior a Hoy y con categoría
+
+- El sistema tiene que pedir confirmación para borrar un usuario del sistema
+
+- Ajaxificar TODAS las listas de tareas.

@@ -2,7 +2,6 @@ package uo.sdi.presentation;
 
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +30,7 @@ public class TaskBean implements Serializable {
 	private TaskDTO tarea = new TaskDTO();
 	private String title;
 	private String comments;
+	private Date created;
 	private Date planned;
 	private String category;
 	private String user;
@@ -65,6 +65,7 @@ public class TaskBean implements Serializable {
 	    tarea.setComments("");
 	    tarea.setPlanned(new Date());
 	    tarea.setFinished(new Date());
+	    tarea.setCreated(new Date());
 	}
 	
 	
@@ -150,10 +151,11 @@ public class TaskBean implements Serializable {
 		}
 	}
 	
-	public String finalizarTask(UserDTO user,CategoryDTO category, TaskDTO task) {
+	public String finalizarTask(TaskDTO task) {
 		try {
-			Factories.services.createTaskService().finishTask(user.getLogin(), 
-					category.getName(), task.getCreated(), task.getTitle());
+			user = (String) getFromSession("login");
+			Factories.services.createTaskService()
+				.finishTask(user, task);
 			return "exito";
 		} catch (Exception e) { 
 			return "fracaso";
@@ -164,6 +166,7 @@ public class TaskBean implements Serializable {
 		tarea = t;
 		title = tarea.getTitle();
 		comments = tarea.getComments();
+		created = tarea.getCreated();
 		planned = tarea.getPlanned();
 		id = tarea.getId();
 		return "editarTarea";
@@ -172,29 +175,18 @@ public class TaskBean implements Serializable {
 	public String editarTask() {
 		try {
 			user = (String) getFromSession("login");
-			TaskDTO task = Factories.services.createTaskService().getTaskById(id);
-			TaskDTO t = task;
-			t.setTitle(title);
-			t.setComments(comments);
-
-			t.setPlanned(planned);
-			List<UserDTO> lu = Factories.services.createUserService().listUsers();
-			UserDTO u = null;
-			for(UserDTO us : lu){
-				if(us.getLogin().equals(user)){
-					u = us;
-				}
-			}
-			List<CategoryDTO> l = Factories.services.createCategoryService().
-					findCategoriesByUser(u);
-			for(CategoryDTO c : l){
-				if(c.getName().equals(category)){
-					t.setCategoryId(c.getId());
-				}
-			}
-			Factories.services.createTaskService().updateTask(t,user);
+			TaskDTO task = Factories.services.createTaskService()
+					.findTask(user,created);
+			task.setTitle(title);
+			task.setPlanned(planned);
+			task.setComments(comments);
+			CategoryDTO categoria = Factories.services.createCategoryService()
+					.findCategoryByUserAndCategoryName(user, category);
+			task.setCategoryId(categoria.getId());
+			Factories.services.createTaskService().updateTask(task);
 			exitoEditarTarea();
 			listar(user);
+			vaciar();
 			return "usuario";
 		} catch (Exception e) { 
 			return "fracaso";
@@ -284,6 +276,14 @@ public class TaskBean implements Serializable {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
 	public void vaciar() {

@@ -11,37 +11,32 @@ import uo.sdi.persistence.TaskFinder;
 
 public class UpdateTask implements Command {
 
-	private TaskDTO taskDTO_Old;
-	private TaskDTO taskDTO_Update;
+	private TaskDTO taskDTO;
 
-	public UpdateTask(TaskDTO taskDTO_Old, TaskDTO taskDTO_Update) {
-		this.taskDTO_Old = taskDTO_Old;
-		this.taskDTO_Update = taskDTO_Update;
+	public UpdateTask(TaskDTO taskDTO) {
+		this.taskDTO = taskDTO;
 	}
 
 	@Override
 	public Object execute() throws BusinessException {
 		//Buscamos la tarea
 		Task task = TaskFinder.findByUser_And_CreatedDate(
-				taskDTO_Old.getUserId(), taskDTO_Old.getCreated());
+				taskDTO.getUserId(), taskDTO.getCreated());
 		//Modificamos sus valores
-		task.setTitle(taskDTO_Update.getTitle());
-		task.setComments(taskDTO_Update.getComments());
-		task.setPlanned(taskDTO_Update.getPlanned());
+		task.setTitle(taskDTO.getTitle());
+		task.setComments(taskDTO.getComments());
+		task.setPlanned(taskDTO.getPlanned());
 		//¿Ha cambiado de categoria?
 		if (
 		// Si son !=null y son distintas
-		(taskDTO_Old.getCategoryId() != null
-				&& taskDTO_Update.getCategoryId() != null && !taskDTO_Old
-				.getCategoryId().equals(taskDTO_Update.getCategoryId())) ||
+		(taskDTO.getCategoryId() != null
+		&& task.getCategory() != null 
+		&& !taskDTO.getCategoryId().equals(task.getCategory().getId())) ||
 		// O si una es null y la otra no
-		(taskDTO_Old == null && taskDTO_Update != null || taskDTO_Old != null
-				&& taskDTO_Update == null)) {
-			//TODO no se si aqui se le puede pasar null, tenemos que comprobarlo en tiempo de ejecución. Si pasa entonces es que jpa acepta en sus consultas null y no hay que hacer nada, si no tenemos que comprobarlo manualmente con ifs
-			Category category_old = CategoryFinder.findById(taskDTO_Old
-					.getCategoryId());
-			Category category_update = CategoryFinder.findById(taskDTO_Update
-					.getCategoryId());
+		(task.getCategory() == null && taskDTO.getCategoryId() != null || 
+		taskDTO.getCategoryId() != null && taskDTO.getCategoryId() == null)) {
+			Category category_old = task.getCategory();
+			Category category_update = CategoryFinder.findById(taskDTO.getCategoryId());
 			//Si tenia categoria, se quita
 			if(category_old != null){
 				Association.Classifies.unlink(category_old, task);

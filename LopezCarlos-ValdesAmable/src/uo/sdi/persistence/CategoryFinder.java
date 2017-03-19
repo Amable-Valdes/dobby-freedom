@@ -49,8 +49,6 @@ public class CategoryFinder {
 			return null;
 		}
 	}
-	
-	//TODO Estas dos no están bien donde se usan, debería ser User y CreatedDate por la identidad
 
 	/**
 	 * Lista todas las Category de un usuario de la BBDD.

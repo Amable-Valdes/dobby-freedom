@@ -1,9 +1,11 @@
 package uo.sdi.business.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import uo.sdi.business.TaskService;
 import uo.sdi.business.impl.actions.task.AddTask;
+import uo.sdi.business.impl.actions.task.FindTask;
 import uo.sdi.business.impl.actions.task.FinishTask;
 import uo.sdi.business.impl.actions.task.ListTasksByCategory;
 import uo.sdi.business.impl.actions.task.ListTasksInbox;
@@ -40,9 +42,9 @@ public class TaskServiceImpl implements TaskService {
 	 * @see uo.sdi.business.TaskService#updateTask(uo.sdi.dto.TaskDTO, uo.sdi.dto.TaskDTO)
 	 */
 	@Override
-	public void updateTask(TaskDTO taskDTO_Old, TaskDTO taskDTO_Update) 
+	public void updateTask(TaskDTO taskDTO) 
 			throws BusinessException{
-		executor.execute(new UpdateTask(taskDTO_Old, taskDTO_Update));
+		executor.execute(new UpdateTask(taskDTO));
 	}
 
 	@Override
@@ -89,6 +91,15 @@ public class TaskServiceImpl implements TaskService {
 			throws BusinessException {
 		return (List<TaskDTO>) executor.execute(new ListTasksByCategory(login,
 				categoryName));
+	}
+
+	/* (non-Javadoc)
+	 * @see uo.sdi.business.TaskService#findTask(java.lang.String, java.util.Date)
+	 */
+	@Override
+	public TaskDTO findTask(String login, Date created)
+			throws BusinessException {
+		return (TaskDTO) executor.execute(new FindTask(login,created));
 	}
 	
 //	@SuppressWarnings("unchecked")

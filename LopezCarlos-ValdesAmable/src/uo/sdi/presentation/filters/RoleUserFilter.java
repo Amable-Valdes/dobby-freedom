@@ -23,7 +23,7 @@ import uo.sdi.dto.UserDTO;
 @WebFilter(
 		dispatcherTypes = {DispatcherType.REQUEST }
 					, 
-		description = "", 
+		description = "Filtro que comprueba que se tenga rol de usuario",
 		urlPatterns = { "/restricted/user/*" }, 
 		initParams = { 
 				@WebInitParam(

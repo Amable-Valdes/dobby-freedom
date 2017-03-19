@@ -1,5 +1,6 @@
 package uo.sdi.business;
 
+import java.util.Date;
 import java.util.List;
 
 import uo.sdi.business.util.BusinessException;
@@ -33,14 +34,12 @@ public interface TaskService {
 	/**
 	 * Edita y actualiza una tarea ya existente con nueva información.
 	 * 
-	 * @param taskDTO_Old	La antigua información de la tarea.
-	 * @param taskDTO_Update	La nueva información de la tarea.
+	 * @param taskDTO	La nueva información de la tarea.
 	 * @throws BusinessException	Si se cumple alguna irregularidad en la 
 	 * lógica de negocio el sistema lanzará a capas superiores una excepción 
 	 * de tipo BusinessException (Excepción de lógica de negocio).
 	 */
-	void updateTask(TaskDTO taskDTO_Old, TaskDTO taskDTO_Update) 
-			throws BusinessException;
+	void updateTask(TaskDTO taskDTO) throws BusinessException;
 
 	/**
 	 * Marca una tarea como finalizada.
@@ -105,6 +104,18 @@ public interface TaskService {
 	 */
 	List<TaskDTO> listTasksByCategory(String login, String categoryName)
 			throws BusinessException;
+
+	/**
+	 * Encuentra una tarea por su fecha de creación y el nombre de su usuario.
+	 * 
+	 * @param login	El login del usuario que tiene la tarea.	
+	 * @param created	La fecha de creación de la tarea.
+	 * @return	Un TaskDTO con toda la información de la tarea.
+	 * @throws BusinessException	Si se cumple alguna irregularidad en la 
+	 * lógica de negocio el sistema lanzará a capas superiores una excepción 
+	 * de tipo BusinessException (Excepción de lógica de negocio).
+	 */
+	TaskDTO findTask(String login, Date created) throws BusinessException;
 
 //	/**
 //	 * Hay distintas listas en el sistema, esta es la lista ByLogin 

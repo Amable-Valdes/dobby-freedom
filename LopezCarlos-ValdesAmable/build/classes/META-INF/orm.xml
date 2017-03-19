@@ -6,12 +6,16 @@
   	version="2.0">
   	
   	<!-- Queries de usuarios --> 
-	<named-query name="User.findByLogin">
-		<query>select u from User u where u.login = (?1)</query>
-	</named-query>
-	
-	<named-query name="User.findAll">
+  	<named-query name="User.findAll">
 		<query>select u from User u</query>
+	</named-query>
+  	
+	<named-query name="User.findByLogin">
+		<query>
+			select u 
+			from User u 
+			where u.login = (?1)
+		</query>
 	</named-query>
 	
 	<!-- Queries de tareas -->
@@ -19,7 +23,7 @@
 		<query>select t from Task t</query>
 	</named-query>
 	
-	<named-query name="Task.findByUser">
+	<named-query name="Task.findByLogin">
 		<query>
 			select t 
 			from Task t,User u 
@@ -31,48 +35,50 @@
 	
 	<named-query name="Task.findInbox">
 		<query>
-				select t 
-				from Task t 
-				where t.user.id = (?1)
-				and t.category.id is null
+			select t 
+			from Task t 
+			where t.user.id = (?1)
+			and t.category.id is null
+			and t.finished is null
 		</query>
 	</named-query>
 	
 	<named-query name="Task.findInboxFinished">
 		<query>
-				select t 
-				from Task t 
-				where t.user.id = (?1)
-				and t.category.id is null
-				and t.finished is not null
+			select t 
+			from Task t 
+			where t.user.id = (?1)
+			and t.category.id is null
+			and t.finished is not null
 		</query>
 	</named-query>
 	
 	<named-query name="Task.findBetween">
 		<query>
-				select t 
-				from Task t 
-				where t.user.id = (?1) 
-				and t.planned between (?2) and (?3)
-				and t.finished = null
+			select t 
+			from Task t 
+			where t.user.id = (?1) 
+			and t.planned between (?2) and (?3)
+			and t.finished is null
 		</query>
 	</named-query>
 	
-	<named-query name="Task.findByUserAndCategoryActive">
+	<named-query name="Task.findByUser_Category">
 		<query>
-				select t 
-				from Task t
-				where t.user.id = (?1) and t.category.id = (?2)
-				and t.finished = null
+			select t 
+			from Task t
+			where t.user.id = (?1) 
+			and t.category.id = (?2)
+			and t.finished is null
 		</query>
 	</named-query>
 	
-	<named-query name="Task.findByUser_Category_CreatedDate_TaskName">
+	<named-query name="Task.findByUser_CreatedDate">
 		<query>
-				select t 
-				from Task t
-				where t.user.id = (?1) and t.category.id = (?2) 
-				and t.created = (?3) and t.title = (?4)
+			select t 
+			from Task t
+			where t.user.id = (?1)
+			and t.created = (?3)
 		</query>
 	</named-query>
 	
@@ -83,25 +89,25 @@
 	
 	<named-query name="Category.findByUserAndName">
 		<query>
-				select c 
-				from Category c 
-				where c.user.id = (?1) and c.name = (?2)
+			select c 
+			from Category c 
+			where c.user.id = (?1) and c.name = (?2)
 		</query>
 	</named-query>
 	
 	<named-query name="Category.findById">
 		<query>
-				select c 
-				from Category c 
-				where c.id = (?1)
+			select c 
+			from Category c 
+			where c.id = (?1)
 		</query>
 	</named-query>
 	
 	<named-query name="Category.findByUser">
 		<query>
-				select c 
-				from Category c 
-				where c.user.login = (?1)
+			select c 
+			from Category c 
+			where c.user.login = (?1)
 		</query>
 	</named-query>
 	

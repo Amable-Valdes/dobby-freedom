@@ -6,7 +6,6 @@ import java.util.List;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.CategoryDTO;
-import uo.sdi.dto.UserDTO;
 import uo.sdi.dto.util.Cloner;
 import uo.sdi.model.Category;
 import uo.sdi.persistence.CategoryFinder;
@@ -19,15 +18,15 @@ import uo.sdi.persistence.CategoryFinder;
  */
 public class ListCategoriesByUser implements Command{
 	
-	private UserDTO userDTO;
+	private String login;
 	
-	public ListCategoriesByUser(UserDTO userDTO){
-		this.userDTO = userDTO;
+	public ListCategoriesByUser(String login){
+		this.login = login;
 	}
 
 	@Override
 	public Object execute() throws BusinessException {
-		List<Category> lista = CategoryFinder.findByUser(userDTO.getLogin());
+		List<Category> lista = CategoryFinder.findByUser(login);
 		ArrayList<CategoryDTO> listDTO = new ArrayList<CategoryDTO>();
 		for(Category category : lista){
 			listDTO.add(Cloner.clone(category));
