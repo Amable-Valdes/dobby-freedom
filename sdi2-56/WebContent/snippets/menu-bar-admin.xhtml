@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:form id = "menu1">
+				<p:menubar class="w3-pink">
+					<p:submenu id = "gestionSesion" label="#{msgs.sesion}">
+						<p:menuitem id = "cerrarSesion" value="#{msgs.cerrarSesion}" action="#{usuarios.cerrarSesion}">
+						</p:menuitem>
+					</p:submenu>
+					<p:submenu id = "BBDD" label="BBDD">
+						<p:menuitem id = "ReiniciarBBDD" value="#{msgs.resetBBDD}" action="#{usuarios.inicializarBBDD}"
+						update="form-listado:tabla" immediate="true" type="submit">
+						</p:menuitem>
+					</p:submenu>
+					<ui:include src="/snippets/idiomasSelector.xhtml" />
+				</p:menubar>
+
+			</h:form>
+</ui:composition>
