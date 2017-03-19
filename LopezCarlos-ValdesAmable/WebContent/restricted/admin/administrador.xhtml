@@ -44,12 +44,35 @@
 					immediate="true" update="tabla"/>
 				</p:column>
 				<p:column>
-								<p:commandButton class="w3-pink" value="#{msgs.eliminar}" action="#{usuarios.eliminarUsuario(usuario)}" type="submit" 
-					immediate="true" update="tabla"/>
+								<p:commandButton action="#{usuarios.obtenerAuxUser(usuario)}" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-pink" value="#{msgs.eliminar}"/>
+								
 				</p:column>
 			</p:dataTable>
 
 			</h:form>
+			<h:form>
+			<div id="id01" class="w3-modal">
+				<div class="w3-modal-content w3-animate-top w3-card-8">
+					<h2 class="w3-container w3-teal">
+						<span
+							onclick="document.getElementById('id01').style.display='none'"
+							class="w3-button w3-display-topright">&times;</span>
+						¿Desea eliminar al usuario seleccionado?
+					</h2>
+					<br></br>
+					<div class="w3-container">
+						<p:commandButton class="w3-pink" value="#{msgs.eliminar}"
+							action="#{usuarios.eliminarUsuario(usuarios.auxUser)}" type="submit"
+							immediate="true" update="form-listado:tabla" onclick="document.getElementById('id01').style.display='none'"/>
+					</div>
+					<br></br>
+						Si no quiere borrarlo, haga click sobre la x arriba a la derecha
+					<br></br>
+					<br></br>
+				</div>
+			</div>
+		</h:form>
+			
 		</h:body>
 	</h:head>
 

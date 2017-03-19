@@ -23,9 +23,8 @@ public class CategoryDTO implements Serializable{
 		return this;
 	}
 
-	public CategoryDTO setName(String name) {
+	public void setName(String name) {
 		this.name = name;
-		return this;
 	}
 
 	public Long getUserId() {

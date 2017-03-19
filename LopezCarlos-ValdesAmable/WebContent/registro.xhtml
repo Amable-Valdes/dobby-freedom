@@ -31,17 +31,23 @@
 					style="margin: 0 auto;">
 					<p:outputLabel for="user" value="#{msgs.usuario}" />
 					<p:inputText id="user" type="text" value="#{usuarios.login}"
-						required="true"></p:inputText>
+						required="true">
+						<f:validator validatorId="custom.loginValidator"></f:validator></p:inputText>
 					<p:message for="user" />
 					
 					<p:outputLabel for="email" value="Email:" />
 					<p:inputText id="email" type="email" value="#{usuarios.email}"
-						required="true"></p:inputText>
+						required="true">
+						<f:validateRegex pattern=".+@.+\.[a-z]+"/> 
+						</p:inputText>
 					<p:message for="email" />
 
 					<p:outputLabel for="pass" value="#{msgs.contraseña}" />
 					<p:inputText id="pass" type="password" required="true"
-						value="#{usuarios.pass}"></p:inputText>
+						value="#{usuarios.pass}">	
+						<f:validateLength minimum="8" />
+						<f:validator validatorId="custom.passwordValidator"></f:validator>
+						</p:inputText>
 					<p:message for="pass" />
 					
 					<p:outputLabel for="passRew" value="#{msgs.reContraseña}" />
@@ -51,7 +57,7 @@
 
 				</p:panelGrid>
 				<div align="center">
-					<p:commandButton id = "enviarUser" value="#{msgs.iniciarSesion}"
+					<p:commandButton id = "enviarUser" value="#{msgs.registrarse}"
 						action="#{usuarios.registraUsuario}" update="grid" ajax="false">
 					</p:commandButton>
 				</div>

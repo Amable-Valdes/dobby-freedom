@@ -14,12 +14,12 @@
 
 <managed-bean>
 		<managed-bean-name>usuarios</managed-bean-name>
-		<managed-bean-class>uo.sdi.presentation.UserBean</managed-bean-class>
+		<managed-bean-class>uo.sdi.presentation.UsersBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>tareas</managed-bean-name>
-		<managed-bean-class>uo.sdi.presentation.TaskBean</managed-bean-class>
+		<managed-bean-class>uo.sdi.presentation.TasksBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 <managed-bean>

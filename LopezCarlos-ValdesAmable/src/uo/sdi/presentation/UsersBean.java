@@ -20,18 +20,19 @@ import javax.faces.context.FacesContext;
 import alb.util.log.Log;
 import uo.sdi.business.UserService;
 import uo.sdi.business.util.BusinessException;
+import uo.sdi.dto.CategoryDTO;
 import uo.sdi.dto.UserDTO;
 import uo.sdi.dto.types.UserStatusDTO;
 import uo.sdi.infrastructure.Factories;
 
 @ManagedBean(name = "usuarios")
 @SessionScoped
-public class UserBean implements Serializable {
+public class UsersBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@ManagedProperty("#{tareas}")
-	private TaskBean tasks;
+	private TasksBean tasks;
 
 	private String pass = "";
 	private String passRew = "";
@@ -40,13 +41,13 @@ public class UserBean implements Serializable {
 	private boolean isAdmin = false;
 
 	private UserDTO user = new UserDTO();
+	private UserDTO auxUser = new UserDTO();
 	private List<UserDTO> listaUsuarios = new ArrayList<UserDTO>();
-	private boolean listaInbox = false;
-	private boolean listaHoy = false;;
-	private boolean listaSemana = false;;
+	private List<String> categorias = new ArrayList<String>();
+	
 	private boolean finalizadas = false;
 
-	public UserBean() {
+	public UsersBean() {
 
 		iniciaUser(null);
 	}
@@ -59,13 +60,29 @@ public class UserBean implements Serializable {
 			Application apli = context.getApplication();
 			ExpressionFactory ef = apli.getExpressionFactory();
 			ValueExpression ve = ef.createValueExpression(contextoEL,
-					"#{tareas}", TaskBean.class);
-			tasks = (TaskBean) ve.getValue(contextoEL);
+					"#{tareas}", TasksBean.class);
+			tasks = (TasksBean) ve.getValue(contextoEL);
 		}
 	}
 	
 	
 	
+	public List<String> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<String> categorias) {
+		this.categorias = categorias;
+	}
+
+	public UserDTO getAuxUser() {
+		return auxUser;
+	}
+
+	public void setAuxUser(UserDTO auxUser) {
+		this.auxUser = auxUser;
+	}
+
 	private Object putInSession(String key, Object value) {
 		return FacesContext.getCurrentInstance().getExternalContext()
 				.getSessionMap().put(key, value);
@@ -143,11 +160,11 @@ public class UserBean implements Serializable {
 		this.listaUsuarios = listaUsuarios;
 	}
 
-	public TaskBean getTasks() {
+	public TasksBean getTasks() {
 		return tasks;
 	}
 
-	public void setTasks(TaskBean tasks) {
+	public void setTasks(TasksBean tasks) {
 		this.tasks = tasks;
 	}
 
@@ -172,7 +189,15 @@ public class UserBean implements Serializable {
 		if (user != null) {
 			UserService us = Factories.services.createUserService();
 			UserDTO userByLogin = null;
+			List<UserDTO> lu;
+			UserDTO auxU = null;
 			try {
+				lu= us.listAll();
+				for(UserDTO u : lu){
+					if(u.getLogin().equals(login)){
+						auxU = u;
+					}
+				}
 				userByLogin = us.loginUser(login, pass);
 			} catch (BusinessException e) {
 				errorLogin();
@@ -191,10 +216,27 @@ public class UserBean implements Serializable {
 				FacesContext.getCurrentInstance().getExternalContext()
 				.getSessionMap().put("login", user.getLogin());
 				putInSession("login", user.getLogin());
+				List<CategoryDTO> cat = null;
+				categorias = new ArrayList<String>();
+				try {
+					cat = Factories.services.createCategoryService().findCategoriesByUser(user.getLogin());
+				} catch (BusinessException e) {
+					e.printStackTrace();
+				}
+				for(CategoryDTO ca : cat){
+					categorias.add(ca.getName());
+				}
 				return "usuario";
 			}
+			else{
+				if(auxU != null && auxU.getStatus().equals(UserStatusDTO.DISABLED)){
+					errorBloqueadoLogin();
+				}
+				else{
+					errorLogin();
+				}
+			}
 		}
-		errorBloqueadoLogin();
 		return "";
 	}
 	
@@ -305,6 +347,10 @@ public class UserBean implements Serializable {
 			return "fracaso";
 		}
 	}
+	
+	public void obtenerAuxUser(UserDTO u){
+		auxUser = u;
+	}
 
 	public String eliminarUsuario(UserDTO u) {
 		try {
@@ -361,64 +407,28 @@ public class UserBean implements Serializable {
 	}
 
 	public void inbox() {
-		listaInbox = true;
-		listaHoy = false;
-		listaSemana = false;
+		
 		tasks.listarTaskInbox(user,true);
 	}
 	
 	public void inboxTerminadas() {
 		finalizadas = true;
-		listaInbox = true;
-		listaHoy = false;
-		listaSemana = false;
 		tasks.listarTaskInbox(user,finalizadas);
 	}
 	
 	public void inboxNoTerminadas() {
 		finalizadas = false;
-		listaInbox = true;
-		listaHoy = false;
-		listaSemana = false;
 		tasks.listarTaskInbox(user,finalizadas);
 	}
 
 	public void hoy() {
-		listaInbox = false;
-		listaHoy = true;
-		listaSemana = false;
 		tasks.listarTaskHoy(user);
 	}
 
 	public void semana() {
-		listaInbox = false;
-		listaHoy = false;
-		listaSemana = true;
 		tasks.listarTasksSemana(user);
 	}
 
-	public boolean isListaInbox() {
-		return listaInbox;
-	}
-
-	public void setListaInbox(boolean listaInbox) {
-		this.listaInbox = listaInbox;
-	}
-
-	public boolean isListaHoy() {
-		return listaHoy;
-	}
-
-	public void setListaHoy(boolean listaHoy) {
-		this.listaHoy = listaHoy;
-	}
-
-	public boolean isListaSemana() {
-		return listaSemana;
-	}
-
-	public void setListaSemana(boolean listaSemana) {
-		this.listaSemana = listaSemana;
-	}
+	
 
 }

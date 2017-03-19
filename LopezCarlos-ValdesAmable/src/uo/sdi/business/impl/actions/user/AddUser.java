@@ -29,7 +29,7 @@ public class AddUser implements Command{
 		//Buscamos el usuario
 		User user = UserFinder.findByLogin(userDTO.getLogin());
 		//Comprobamos que no existe un usuario con login como ese.
-		Asserts.assertUserExist(user);
+		Asserts.assertUserNoExist(user);
 		//Creamos el usuario
 		User newUser = new User(userDTO.getLogin());
 		newUser.setEmail(userDTO.getEmail());

@@ -2,12 +2,21 @@ package uo.sdi.presentation;
 
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
+import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -19,7 +28,7 @@ import uo.sdi.infrastructure.Factories;
 
 @ManagedBean(name = "tareas")
 @SessionScoped
-public class TaskBean implements Serializable {
+public class TasksBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -28,6 +37,9 @@ public class TaskBean implements Serializable {
 	//tarea sin valores que servira para poder trabajar con la tarea obtenida
 	//de un formulario
 	private TaskDTO tarea = new TaskDTO();
+	private boolean listaInbox = false;
+	private boolean listaHoy = false;;
+	private boolean listaSemana = false;;
 	private String title;
 	private String comments;
 	private Date created;
@@ -37,10 +49,10 @@ public class TaskBean implements Serializable {
 	
 	private Long id;
 	
-	public TaskBean(){
+	public TasksBean(){
 		iniciaTask(null);
 	}
-	
+
 	public void init(){
 		user = (String) getFromSession("login");
 	}
@@ -127,6 +139,13 @@ public class TaskBean implements Serializable {
 			user = (String) getFromSession("login");
 			task.setTitle(title);
 			task.setComments(comments);
+			UserDTO usuario = null;
+			List<UserDTO> lu = Factories.services.createUserService().listAll();
+			for(UserDTO us : lu){
+				if(us.getLogin().equals(user)){
+					usuario = us;
+				}
+			}
 			if(planned.equals("mm/dd/yyyy")){
 				errorCrearTarea();
 				return "usuario";
@@ -144,6 +163,20 @@ public class TaskBean implements Serializable {
 			exitoCrearTarea();
 			listar(user);
 			vaciar();
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			String f = dateFormat.format(planned);
+			Date fechaP = dateFormat.parse(f);
+			f = dateFormat.format(new Date());
+			Date fechaH = dateFormat.parse(f);
+			if(c == null){
+				listarTaskInbox(usuario, true );
+			}
+			if(c != null && fechaP.equals(fechaH)){
+				listarTaskHoy(usuario);
+			}
+			else{
+				listarTasksSemana(usuario);
+			}
 			return "exito";
 		} catch (Exception e) { 
 			e.printStackTrace();
@@ -156,9 +189,10 @@ public class TaskBean implements Serializable {
 			user = (String) getFromSession("login");
 			Factories.services.createTaskService()
 				.finishTask(user, task);
-			return "exito";
+			listar(user);
+			return "usuario";
 		} catch (Exception e) { 
-			return "fracaso";
+			return "";
 		}
 	}
 	
@@ -220,6 +254,9 @@ public class TaskBean implements Serializable {
 
 	public void listarTaskInbox(UserDTO user,boolean fin) {
 		try {
+			listaInbox = true;
+			listaHoy = false;
+			listaSemana = false;
 			listaTareas = Factories.services.createTaskService()
 					.listTasksInbox(user.getLogin(),fin);
 		} catch (BusinessException e) {
@@ -229,6 +266,9 @@ public class TaskBean implements Serializable {
 	
 	public void listarTaskHoy(UserDTO user) {
 		try {
+			listaInbox = false;
+			listaHoy = true;
+			listaSemana = false;
 			listaTareas = Factories.services.createTaskService()
 					.listTasksToday(user.getLogin());
 		} catch (BusinessException e) {
@@ -238,6 +278,9 @@ public class TaskBean implements Serializable {
 	
 	public void listarTasksSemana(UserDTO user) {
 		try {
+			listaInbox = false;
+			listaHoy = false;
+			listaSemana = true;
 			listaTareas = Factories.services.createTaskService()
 					.listTasksWeek(user.getLogin());
 		} catch (BusinessException e) {
@@ -291,6 +334,47 @@ public class TaskBean implements Serializable {
 		comments="";
 		title="";
 		planned= new Date();
+	}
+	
+	public boolean tarde(Date date){
+		System.out.println("date: "+ date.toString());
+		if(date.compareTo(new Date()) < 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public boolean finalizada(Date date){
+		if(date != null){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isListaInbox() {
+		return listaInbox;
+	}
+
+	public void setListaInbox(boolean listaInbox) {
+		this.listaInbox = listaInbox;
+	}
+
+	public boolean isListaHoy() {
+		return listaHoy;
+	}
+
+	public void setListaHoy(boolean listaHoy) {
+		this.listaHoy = listaHoy;
+	}
+
+	public boolean isListaSemana() {
+		return listaSemana;
+	}
+
+	public void setListaSemana(boolean listaSemana) {
+		this.listaSemana = listaSemana;
 	}
 	
 }

@@ -49,7 +49,10 @@
 				/><br></br>
 				
 				<p:outputLabel for="Category" value="#{msgs.categoria}" />
-				<p:inputText id="Category" type="text" value="#{tareas.category}"/>
+				<p:selectOneMenu id="Category" value="#{tareas.category}" style="width:150px">
+                				<f:selectItem itemLabel="Select One" itemValue="" />
+                				<f:selectItems value="#{usuarios.categorias}" /> 
+            				</p:selectOneMenu> 
 				
 </p:panelGrid>
 				<div align="center">

@@ -13,6 +13,11 @@ public class Asserts {
 		throw new BusinessException("El usuario no existe");
 	}
 	
+	public static void assertUserNoExist(User user) throws BusinessException {
+		if (user == null) return;
+		throw new BusinessException("El usuario ya existe");
+	}
+	
 	public static void assertSameUsers(User user1, User user2) throws BusinessException {
 		if (user1.equals(user2)) return;
 		throw new BusinessException("Los usuarios no son el mismo");

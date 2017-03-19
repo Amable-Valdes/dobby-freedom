@@ -37,9 +37,10 @@ public class Cloner {
 	}
 
 	public static CategoryDTO clone(CategoryDTO c) {
-		return new CategoryDTO()
-				.setName( 	c.getName() )
-				.setUserId( c.getUserId() );
+		CategoryDTO cat = new CategoryDTO();
+		cat.setName(c.getName());
+		cat.setUserId(c.getUserId());
+		return cat;
 	}
 	
 	public static UserDTO clone(User u) {
@@ -75,9 +76,10 @@ public class Cloner {
 	}
 
 	public static CategoryDTO clone(Category c) {
-		return new CategoryDTO()
-				.setName( 	c.getName() )
-				.setUserId( c.getUser().getId() );
+		CategoryDTO cat = new CategoryDTO();
+		cat.setName(c.getName());
+		cat.setUserId(c.getUser().getId());
+		return cat;
 	}
 
 }
