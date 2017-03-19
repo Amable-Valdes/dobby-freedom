@@ -36,6 +36,16 @@ public interface UserService {
 	void removeUser(String login) throws BusinessException;
 	
 	/**
+	 * Busca un usuario en el sistema.
+	 * 
+	 * @param login	El login del usuario a buscar.
+	 * @throws BusinessException	Si se cumple alguna irregularidad en la 
+	 * lógica de negocio el sistema lanzará a capas superiores una excepción 
+	 * de tipo BusinessException (Excepción de lógica de negocio).
+	 */
+	UserDTO findUser(String login) throws BusinessException;
+	
+	/**
 	 * Cambia el estado del usuario de enable a disable.
 	 * @param user	DTO con la información del usuario a bloquear.
 	 * @throws BusinessException	Si se cumple alguna irregularidad en la 

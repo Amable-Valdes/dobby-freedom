@@ -3,6 +3,7 @@ package uo.sdi.business.impl;
 import java.util.List;
 
 import uo.sdi.business.impl.actions.user.EnableUser;
+import uo.sdi.business.impl.actions.user.FindUser;
 import uo.sdi.business.impl.actions.user.ListAllUsers;
 import uo.sdi.business.impl.actions.user.AddUser;
 import uo.sdi.business.impl.actions.user.BlockUser;
@@ -40,6 +41,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void removeUser(String login) throws BusinessException {
 		executor.execute(new RemoveUser(login));
+	}
+	
+	/* (non-Javadoc)
+	 * @see uo.sdi.business.UserService#findUser(java.lang.String)
+	 */
+	@Override
+	public UserDTO findUser(String login) throws BusinessException {
+		return (UserDTO) executor.execute(new FindUser(login));
 	}
 
 	/* (non-Javadoc)

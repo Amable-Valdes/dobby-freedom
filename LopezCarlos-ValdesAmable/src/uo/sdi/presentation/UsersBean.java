@@ -188,53 +188,44 @@ public class UsersBean implements Serializable {
 	public String iniciarSesion() {
 		if (user != null) {
 			UserService us = Factories.services.createUserService();
-			UserDTO userByLogin = null;
-			List<UserDTO> lu;
-			UserDTO auxU = null;
 			try {
-				lu= us.listAll();
-				for(UserDTO u : lu){
-					if(u.getLogin().equals(login)){
-						auxU = u;
-					}
+				//Buscamos el usuario y si no existe, salta excepción
+				UserDTO userByLogin = us.findUser(login);
+				//Si esta bloqueado paramos ejecución con mensaje de bloqueado.
+				if(userByLogin.getStatus().equals(UserStatusDTO.DISABLED)){
+					errorBloqueadoLogin();
+					return "";
 				}
-				userByLogin = us.loginUser(login, pass);
-			} catch (BusinessException e) {
-				errorLogin();
-				return "";
-			}
-			if (userByLogin != null) {
+				//Nos logueamos
+				us.loginUser(login, pass);
 				Log.info("El usuario [%s] ha iniciado sesi�n", user.getLogin());
 				user = userByLogin;
 				putUserInSession(user);
+				//Si es administrador va a la pantalla de administrador.
 				isAdmin = user.getIsAdmin();
-				if (user.getIsAdmin()) {
+				if (isAdmin) {
 					listarUsuarios();
 					return "administrador";
+				//Si no es Usuario y va a la pantalla de usuarios
+				}else{
+					rellenarLista();
+					//Guardamos tambien en sesion el login
+					FacesContext.getCurrentInstance().getExternalContext()
+					.getSessionMap().put("login", user.getLogin());
+					putInSession("login", user.getLogin());
+					//Buscamos sus categorias y se las añadimos
+					categorias = new ArrayList<String>();
+					List<CategoryDTO> cat = Factories.services
+							.createCategoryService()
+							.findCategoriesByUser(user.getLogin());
+					for(CategoryDTO ca : cat){
+						categorias.add(ca.getName());
+					}
+					return "usuario";
 				}
-				rellenarLista();
-				FacesContext.getCurrentInstance().getExternalContext()
-				.getSessionMap().put("login", user.getLogin());
-				putInSession("login", user.getLogin());
-				List<CategoryDTO> cat = null;
-				categorias = new ArrayList<String>();
-				try {
-					cat = Factories.services.createCategoryService().findCategoriesByUser(user.getLogin());
-				} catch (BusinessException e) {
-					e.printStackTrace();
-				}
-				for(CategoryDTO ca : cat){
-					categorias.add(ca.getName());
-				}
-				return "usuario";
-			}
-			else{
-				if(auxU != null && auxU.getStatus().equals(UserStatusDTO.DISABLED)){
-					errorBloqueadoLogin();
-				}
-				else{
-					errorLogin();
-				}
+			} catch(Exception e){
+				//Si salto alguna excepción, es que no se ha podido loguear.
+				errorLogin();
 			}
 		}
 		return "";
