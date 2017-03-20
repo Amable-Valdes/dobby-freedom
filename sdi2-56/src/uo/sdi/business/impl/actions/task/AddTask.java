@@ -1,5 +1,7 @@
 package uo.sdi.business.impl.actions.task;
 
+import java.sql.Timestamp;
+
 import uo.sdi.business.util.Asserts;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
@@ -52,7 +54,7 @@ public class AddTask implements Command {
 			task = new Task(user, category, taskDTO.getTitle());
 		else
 			task = new Task(user, taskDTO.getTitle());
-		task.setCreated(taskDTO.getCreated());
+		task.setCreated(new Timestamp(System.currentTimeMillis()));
 		task.setPlanned(taskDTO.getPlanned());
 		task.setFinished(null);
 		task.setComments(taskDTO.getComments());

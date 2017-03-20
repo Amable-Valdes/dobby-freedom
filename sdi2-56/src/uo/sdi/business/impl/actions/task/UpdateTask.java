@@ -1,5 +1,6 @@
 package uo.sdi.business.impl.actions.task;
 
+import uo.sdi.business.util.Asserts;
 import uo.sdi.business.util.BusinessException;
 import uo.sdi.business.util.Command;
 import uo.sdi.dto.TaskDTO;
@@ -22,6 +23,8 @@ public class UpdateTask implements Command {
 		//Buscamos la tarea
 		Task task = TaskFinder.findByUser_And_CreatedDate(
 				taskDTO.getUserId(), taskDTO.getCreated());
+		//Comprobamos que la tarea no está ya finalizada
+		Asserts.assertTaskIsNotFinished(task);
 		//Modificamos sus valores
 		task.setTitle(taskDTO.getTitle());
 		task.setComments(taskDTO.getComments());

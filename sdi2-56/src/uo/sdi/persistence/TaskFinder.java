@@ -94,8 +94,8 @@ public class TaskFinder {
 	 * @param idUser	El id del User del que queremos saber las Task.
 	 * @return	Una lista de Task del User para la pseudolista Inbox.
 	 */
-	public static List<Task> findInboxFinished(Long idUser) {
-		return Jpa.getManager().createNamedQuery("Task.findInboxFinished", 
+	public static List<Task> findFinished(Long idUser) {
+		return Jpa.getManager().createNamedQuery("Task.findFinished", 
 				Task.class)
 				.setParameter(1, idUser)
 				.getResultList();

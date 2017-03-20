@@ -43,12 +43,11 @@
 		</query>
 	</named-query>
 	
-	<named-query name="Task.findInboxFinished">
+	<named-query name="Task.findFinished">
 		<query>
 			select t 
 			from Task t 
 			where t.user.id = (?1)
-			and t.category.id is null
 			and t.finished is not null
 		</query>
 	</named-query>

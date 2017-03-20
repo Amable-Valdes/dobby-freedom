@@ -132,13 +132,8 @@ public class TasksBean implements Serializable {
 			user = (String) getFromSession("login");
 			task.setTitle(title);
 			task.setComments(comments);
-			UserDTO usuario = null;
-			List<UserDTO> lu = Factories.services.createUserService().listAll();
-			for(UserDTO us : lu){
-				if(us.getLogin().equals(user)){
-					usuario = us;
-				}
-			}
+			UserDTO usuario = Factories.services.createUserService()
+					.findUser(user);
 			if(planned.equals("mm/dd/yyyy")){
 				errorCrearTarea();
 				return "usuario";
@@ -163,12 +158,13 @@ public class TasksBean implements Serializable {
 			Date fechaH = dateFormat.parse(f);
 			if(c == null){
 				listarTaskInbox(usuario, true );
-			}
-			if(c != null && fechaP.equals(fechaH)){
-				listarTaskHoy(usuario);
-			}
-			else{
-				listarTasksSemana(usuario);
+			}else{
+				if(fechaP.equals(fechaH)){
+					listarTaskHoy(usuario);
+				}
+				else{
+					listarTasksSemana(usuario);
+				}
 			}
 			return "exito";
 		} catch (Exception e) { 

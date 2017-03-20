@@ -39,7 +39,7 @@ public class ListTasksInbox implements Command{
 			listDTO.add(Cloner.clone(task));
 		}
 		if(finished){
-			listTasks = TaskFinder.findInboxFinished(user.getId());
+			listTasks = TaskFinder.findFinished(user.getId());
 			for (Task task : listTasks) {
 				listDTO.add(Cloner.clone(task));
 			}
