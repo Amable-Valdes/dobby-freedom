@@ -195,6 +195,18 @@ public class TasksBean implements Serializable {
 		comments = tarea.getComments();
 		created = tarea.getCreated();
 		planned = tarea.getPlanned();
+		user = (String) getFromSession("login");
+		List<CategoryDTO> lc = new ArrayList<CategoryDTO>();
+		try {
+			lc = Factories.services.createCategoryService().findCategoriesByUser(user);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		for(CategoryDTO c : lc){
+			if(c.getId().equals(t.getCategoryId())){
+				category = c.getName();
+			}
+		}
 		id = tarea.getId();
 		return "editarTarea";
 	}
@@ -245,39 +257,45 @@ public class TasksBean implements Serializable {
 		}
 	}
 
-	public void listarTaskInbox(UserDTO user,boolean fin) {
+	public String  listarTaskInbox(UserDTO user,boolean fin) {
 		try {
 			listaInbox = true;
 			listaHoy = false;
 			listaSemana = false;
 			listaTareas = Factories.services.createTaskService()
 					.listTasksInbox(user.getLogin(),fin);
+			return "inbox";
 		} catch (BusinessException e) {
 			e.printStackTrace();
+			return "fracaso";
 		}
 	}
 	
-	public void listarTaskHoy(UserDTO user) {
+	public String listarTaskHoy(UserDTO user) {
 		try {
 			listaInbox = false;
 			listaHoy = true;
 			listaSemana = false;
 			listaTareas = Factories.services.createTaskService()
 					.listTasksToday(user.getLogin());
+			return "hoy";
 		} catch (BusinessException e) {
 			e.printStackTrace();
+			return "fracaso";
 		}
 	}
 	
-	public void listarTasksSemana(UserDTO user) {
+	public String listarTasksSemana(UserDTO user) {
 		try {
 			listaInbox = false;
 			listaHoy = false;
 			listaSemana = true;
 			listaTareas = Factories.services.createTaskService()
 					.listTasksWeek(user.getLogin());
+			return "semana";
 		} catch (BusinessException e) {
 			e.printStackTrace();
+			return "fracaso";
 		}
 	}
 	

@@ -27,7 +27,7 @@
 			</h:form>
 			<h:form>
 				<center>
-					<h1>#{msgs.creacionDeTarea}</h1>
+					<h1>#{msgs.editarTarea}</h1>
 				</center>
 				
 				<h:form id="form-registro">
@@ -49,7 +49,10 @@
 				/><br></br>
 				
 				<p:outputLabel for="Category" value="#{msgs.categoria}" />
-				<p:inputText id="Category" type="text" value="#{tareas.category}"/>
+				<p:selectOneMenu id="Category" value="#{tareas.category}" style="width:150px">
+                				<f:selectItem itemLabel="Select One" itemValue="#{tareas.category}" />
+                				<f:selectItems value="#{usuarios.categorias}" /> 
+            				</p:selectOneMenu> 
 	</p:panelGrid>
 				<div align="center">
 					<p:commandButton id="botonSalvarTarea" value="#{msgs.salvar}" 

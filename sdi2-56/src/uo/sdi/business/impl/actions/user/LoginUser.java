@@ -36,6 +36,6 @@ public class LoginUser implements Command {
 				user.getPassword().equals(Encriptator.encrypt(password))){
 			return Cloner.clone(user);
 		}
-		return null;
+		throw new BusinessException("Password incorrecta o usuario bloqueado");
 	}
 }

@@ -175,7 +175,7 @@ public class UsersBean implements Serializable {
 	public void errorLogin(){
 		FacesContext.getCurrentInstance().addMessage(
 				null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-						"login", "El usuario introducido es erroneo, "
+						"login", "El usuario o contraseña introducido es erroneo, "
 								+ "intentelo de nuevo"));
 	}
 
@@ -197,7 +197,7 @@ public class UsersBean implements Serializable {
 					return "";
 				}
 				//Nos logueamos
-				us.loginUser(login, pass);
+				userByLogin = us.loginUser(login, pass);
 				Log.info("El usuario [%s] ha iniciado sesi�n", user.getLogin());
 				user = userByLogin;
 				putUserInSession(user);

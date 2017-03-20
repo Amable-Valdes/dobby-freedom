@@ -77,6 +77,7 @@ public class Cloner {
 
 	public static CategoryDTO clone(Category c) {
 		CategoryDTO cat = new CategoryDTO();
+		cat.setId(c.getId());
 		cat.setName(c.getName());
 		cat.setUserId(c.getUser().getId());
 		return cat;

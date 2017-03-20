@@ -33,6 +33,7 @@
 		<navigation-case>
 			<from-outcome>error</from-outcome>
 			<to-view-id>/error.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -40,6 +41,7 @@
 		<navigation-case>
 			<from-outcome>usuario</from-outcome>
 			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -48,16 +50,19 @@
 			<from-action>#{usuarios.iniciarSesion}</from-action>
 			<from-outcome>usuario</from-outcome>
 			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{usuarios.registrarse}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/registro.xhtml</to-view-id>
+		<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{usuarios.iniciarSesion}</from-action>
 			<from-outcome>administrador</from-outcome>
 			<to-view-id>/restricted/admin/administrador.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -66,19 +71,49 @@
 			<from-action>#{usuarios.inicializarBBDD}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/restricted/admin/administrador.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>		
 	<navigation-rule>
 		<from-view-id>/restricted/user/usuario.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{usuarios.editarTarea}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/user/crearTarea.xhtml</to-view-id>
+			<from-action>#{tareas.editar(tarea)}</from-action>
+			<from-outcome>editarTarea</from-outcome>
+			<to-view-id>/restricted/user/editarTarea.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{usuarios.cerrarSesion}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tareas.listarTaskInbox}</from-action>
+			<from-outcome>inbox</from-outcome>
+			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tareas.listarTaskHoy}</from-action>
+			<from-outcome>hoy</from-outcome>
+			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tareas.listarTaskSemana}</from-action>
+			<from-outcome>semana</from-outcome>
+			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/restricted/user/editarTarea.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{tareas.editarTask}</from-action>
+			<from-outcome>usuario</from-outcome>
+			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -87,6 +122,7 @@
 			<from-action>#{usuarios.cerrarSesion}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -95,16 +131,19 @@
 			<from-action>#{tareas.crearTask}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{usuarios.volverUsuario}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{tareas.crearTask}</from-action>
 			<from-outcome>fracaso</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -113,11 +152,13 @@
 			<from-action>#{usuarios.registraUsuario}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{usuarios.registraUsuario}</from-action>
 			<from-outcome>fracaso</from-outcome>
 			<to-view-id>/registro.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>
