@@ -12,16 +12,16 @@ import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
-import com.sdi.tests.pageobjects.PO_AltaForm;
+import com.sdi.tests.pageobjects.EXAMPLE_PO_AltaForm;
 import com.sdi.tests.utils.SeleniumUtils;
 
 
 
-public class Notaneitor_Tests {
+public class EXAMPLE_Notaneitor_Tests {
 
 	WebDriver driver; // = new FirefoxDriver();
 	List<WebElement> elementos = null;
-	public Notaneitor_Tests()
+	public EXAMPLE_Notaneitor_Tests()
 	{
 		//driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 
@@ -64,7 +64,7 @@ public class Notaneitor_Tests {
 		SeleniumUtils.EsperaCargaPagina(driver, "text", nombreform, 10); 
 
 		//Vamos a rellenar el formulario
-		new PO_AltaForm().rellenaFormulario(driver, nombre, apellidos, iduser, email);
+		new EXAMPLE_PO_AltaForm().rellenaFormulario(driver, nombre, apellidos, iduser, email);
 
 		//Esperamos a que se cargue la pagina de listado
 		//concretamente la tabla "tablalistado"
@@ -125,7 +125,7 @@ public class Notaneitor_Tests {
 		SeleniumUtils.EsperaCargaPagina(driver, "text", "Edición de un alumno", 10); 
 
 		//Vamos a rellenar el formulario
-		new PO_AltaForm().rellenaFormulario(driver, "manolo3", "Suarez3 modif", "idmano3", "manolomodif@correo.com");
+		new EXAMPLE_PO_AltaForm().rellenaFormulario(driver, "manolo3", "Suarez3 modif", "idmano3", "manolomodif@correo.com");
 
 		//Esperamos a que se cargue la pagina de listado
 		//concretamente la tabla "tablalistado"

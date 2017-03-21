@@ -4,10 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 
-public class PO_AltaForm {
+public class EXAMPLE_PO_AltaForm {
 
-	
-	
    public void rellenaFormulario(WebDriver driver, String pnombre, String papellidos, String piduser, String pemail)
    {
 		WebElement nombre = driver.findElement(By.id("form-principal:nombre"));

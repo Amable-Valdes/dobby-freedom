@@ -14,11 +14,11 @@ import org.openqa.selenium.interactions.Actions;
 
 import com.sdi.tests.utils.SeleniumUtils;
 
-public class PrimeFaces_Tests {
+public class EXAMPLE_PrimeFaces_Tests {
 
 	WebDriver driver; // = new FirefoxDriver();
 	List<WebElement> elementos = null;
-	public PrimeFaces_Tests()
+	public EXAMPLE_PrimeFaces_Tests()
 	{
 	}
 
