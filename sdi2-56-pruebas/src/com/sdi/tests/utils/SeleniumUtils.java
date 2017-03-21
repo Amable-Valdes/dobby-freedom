@@ -24,8 +24,14 @@ public class SeleniumUtils {
 			WebElement hoverElement = driver.findElement(By.id(submenu));
 			builder.moveToElement(hoverElement).perform();		
 			//Pinchamos la opcion opcionclick
-			By locator = By.id(opcionclick);
-			driver.findElement(locator).click();			
+			ClickButton(driver, opcionclick);		
+		}
+		
+		//Pulsa un button
+		static public void ClickButton(WebDriver driver, String idButton)
+		{
+			By boton = By.id(idButton);
+			driver.findElement(boton).click();	
 		}
 
 		static public void textoPresentePagina(WebDriver driver, String texto)

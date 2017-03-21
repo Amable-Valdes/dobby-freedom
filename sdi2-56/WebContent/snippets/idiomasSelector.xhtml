@@ -6,9 +6,9 @@
 	
 				<p:submenu id="options" style="float:right" label="#{msgs.textoIdioma}"
 					icon="ui-icon-document">
-					<p:menuitem value="#{msgs.enlaceIdiomaES}"
+					<p:menuitem id="optionSpanish" value="#{msgs.enlaceIdiomaES}"
 						actionListener="#{settings.setSpanish}" update="@all" />
-					<p:menuitem value="#{msgs.enlaceIdiomaEN}"
+					<p:menuitem id="optionEnglish"value="#{msgs.enlaceIdiomaEN}"
 						actionListener="#{settings.setEnglish}" update="@all" />
 				</p:submenu> 
 							

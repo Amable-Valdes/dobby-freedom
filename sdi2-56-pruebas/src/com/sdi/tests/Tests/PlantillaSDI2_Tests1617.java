@@ -57,190 +57,199 @@ public class PlantillaSDI2_Tests1617 {
 		// Cerramos el navegador
 		// driver.quit();
 	}
-	//PRUEBAS
-		//ADMINISTRADOR
-		//PR01: Autentificar correctamente al administrador.
-		@Test
-	    public void prueba01() {
-			// Esperamos a que se cargue el campo de usuario
-					elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-					// Click en elelemento
-					elementos.get(0).click();
-					// Teclea en el campo user
-					Actions builder = new Actions(driver);
-					builder.sendKeys("admin1").perform();
-					// Esperamos a que se cargue el campo de pass
-					elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-					// Click en el elemento
-					elementos.get(0).click();
-					// Teclea en el campo pass
-					builder = new Actions(driver);
-					builder.sendKeys("admin1").perform();
 
-					// Esperamos a que se cargue el boton
-					elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-							6);
-					// Click en el elemento
-					elementos.get(0).click();
-					// Encontrar elemento de la siguiente vista
-					elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
-							"form-listado", 6);
-					assertTrue(elementos != null);
-	    }
-		//PR02: Fallo en la autenticación del administrador por introducir mal el login.
-		@Test
-	    public void prueba02() {
-			// Esperamos a que se cargue el campo de usuario
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-			// Click en elelemento
-			elementos.get(0).click();
-			// Teclea en el campo user
-			Actions builder = new Actions(driver);
-			builder.sendKeys("administrador?").perform();
-			// Esperamos a que se cargue el campo de pass
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-			// Click en el elemento
-			elementos.get(0).click();
-			// Teclea en el campo pass
-			builder = new Actions(driver);
-			builder.sendKeys("admin1").perform();
+	// PRUEBAS
+	// ADMINISTRADOR
+	// PR01: Autentificar correctamente al administrador.
+	@Test
+	public void prueba01() {
+		// Esperamos a que se cargue el campo de usuario
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
+		// Click en elelemento
+		elementos.get(0).click();
+		// Teclea en el campo user
+		Actions builder = new Actions(driver);
+		builder.sendKeys("admin1").perform();
+		// Esperamos a que se cargue el campo de pass
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
+		// Click en el elemento
+		elementos.get(0).click();
+		// Teclea en el campo pass
+		builder = new Actions(driver);
+		builder.sendKeys("admin1").perform();
 
-			// Esperamos a que se cargue el boton
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-					6);
-			// Click en el elemento
-			elementos.get(0).click();
-			// Encontrar elemento de la siguiente vista
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
-					"enviarUser", 6);
-			assertTrue(elementos != null);
-	    }
-		//PR03: Fallo en la autenticación del administrador por introducir mal la password.
-		@Test
-	    public void prueba03() {
-			// Esperamos a que se cargue el campo de usuario
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-			// Click en elelemento
-			elementos.get(0).click();
-			// Teclea en el campo user
-			Actions builder = new Actions(driver);
-			builder.sendKeys("admin1").perform();
-			// Esperamos a que se cargue el campo de pass
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-			// Click en el elemento
-			elementos.get(0).click();
-			// Teclea en el campo pass
-			builder = new Actions(driver);
-			builder.sendKeys("administrador?").perform();
+		// Esperamos a que se cargue el boton
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
+				6);
+		// Click en el elemento
+		elementos.get(0).click();
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
+				"form-listado", 6);
+		assertTrue(elementos != null);
+	}
 
-			// Esperamos a que se cargue el boton
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-					6);
-			// Click en el elemento
-			elementos.get(0).click();
-			// Encontrar elemento de la siguiente vista
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
-					"enviarUser", 6);
-			assertTrue(elementos != null);
-	    }
-		//PR04: Probar que la base de datos contiene los datos insertados con conexión correcta a la base de datos.
-		@Test
-	    public void prueba04() {
-			assertTrue(false);
-	    }
-		//PR05: Visualizar correctamente la lista de usuarios normales. 
-		@Test
-	    public void prueba05() {
-			// Esperamos a que se cargue el campo de usuario
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-			// Click en elelemento
-			elementos.get(0).click();
-			// Teclea en el campo user
-			Actions builder = new Actions(driver);
-			builder.sendKeys("admin1").perform();
-			// Esperamos a que se cargue el campo de pass
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-			// Click en el elemento
-			elementos.get(0).click();
-			// Teclea en el campo pass
-			builder = new Actions(driver);
-			builder.sendKeys("admin1").perform();
+	// PR02: Fallo en la autenticación del administrador por introducir mal el
+	// login.
+	@Test
+	public void prueba02() {
+		// Esperamos a que se cargue el campo de usuario
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
+		// Click en elelemento
+		elementos.get(0).click();
+		// Teclea en el campo user
+		Actions builder = new Actions(driver);
+		builder.sendKeys("administrador?").perform();
+		// Esperamos a que se cargue el campo de pass
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
+		// Click en el elemento
+		elementos.get(0).click();
+		// Teclea en el campo pass
+		builder = new Actions(driver);
+		builder.sendKeys("admin1").perform();
 
-			// Esperamos a que se cargue el boton
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-					6);
-			// Click en el elemento
-			elementos.get(0).click();
-			// Encontrar elemento de la siguiente vista
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
-					"form-listado", 6);
-			assertTrue(elementos != null);
-			
-			WebElement table = driver.findElement(By.id("form-listado:tabla"));
-			
-			List<WebElement> allRows = table.findElements(By.tagName("tr"));
-			
-			assertTrue(!allRows.isEmpty());
-			
-	    }
-		//PR06: Cambiar el estado de un usuario de ENABLED a DISABLED. Y tratar de entrar con el usuario que se desactivado.
-		@Test
-	    public void prueba06() {
-			// Esperamos a que se cargue el campo de usuario
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-			// Click en elelemento
-			elementos.get(0).click();
-			// Teclea en el campo user
-			Actions builder = new Actions(driver);
-			builder.sendKeys("admin1").perform();
-			// Esperamos a que se cargue el campo de pass
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-			// Click en el elemento
-			elementos.get(0).click();
-			// Teclea en el campo pass
-			builder = new Actions(driver);
-			builder.sendKeys("admin1").perform();
+		// Esperamos a que se cargue el boton
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
+				6);
+		// Click en el elemento
+		elementos.get(0).click();
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
+				6);
+		assertTrue(elementos != null);
+	}
 
-			// Esperamos a que se cargue el boton
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-					6);
-			// Click en el elemento
-			elementos.get(0).click();
-			// Encontrar elemento de la siguiente vista
-			elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
-					"form-listado", 6);
-			assertTrue(elementos != null);
-			
-			driver.findElement(By.id("form-listado:tabla:0:actDesact")).click();
-			
-			
-			SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:gestionSesion", "menu1:cerrarSesion");
-			
-			// Esperamos a que se cargue el campo de usuario
-					elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-					// Click en elelemento
-					elementos.get(0).click();
-					// Teclea en el campo user
-					builder = new Actions(driver);
-					builder.sendKeys("user1").perform();
-					// Esperamos a que se cargue el campo de pass
-					elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-					// Click en el elemento
-					elementos.get(0).click();
-					// Teclea en el campo pass
-					builder = new Actions(driver);
-					builder.sendKeys("user1").perform();
+	// PR03: Fallo en la autenticación del administrador por introducir mal la
+	// password.
+	@Test
+	public void prueba03() {
+		// Esperamos a que se cargue el campo de usuario
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
+		// Click en elelemento
+		elementos.get(0).click();
+		// Teclea en el campo user
+		Actions builder = new Actions(driver);
+		builder.sendKeys("admin1").perform();
+		// Esperamos a que se cargue el campo de pass
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
+		// Click en el elemento
+		elementos.get(0).click();
+		// Teclea en el campo pass
+		builder = new Actions(driver);
+		builder.sendKeys("administrador?").perform();
 
-					// Esperamos a que se cargue el boton
-					elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-							6);
-					// Click en el elemento
-					elementos.get(0).click();
-					
-					SeleniumUtils.textoPresentePagina(driver, "mejor suerte en otra vida");
-			
-			
-	    }
+		// Esperamos a que se cargue el boton
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
+				6);
+		// Click en el elemento
+		elementos.get(0).click();
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
+				6);
+		assertTrue(elementos != null);
+	}
+
+	// PR04: Probar que la base de datos contiene los datos insertados con
+	// conexión correcta a la base de datos.
+	@Test
+	public void prueba04() {
+		// TODO Por hacer;
+	}
+
+	// PR05: Visualizar correctamente la lista de usuarios normales.
+	@Test
+	public void prueba05() {
+		// Esperamos a que se cargue el campo de usuario
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
+		// Click en elelemento
+		elementos.get(0).click();
+		// Teclea en el campo user
+		Actions builder = new Actions(driver);
+		builder.sendKeys("admin1").perform();
+		// Esperamos a que se cargue el campo de pass
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
+		// Click en el elemento
+		elementos.get(0).click();
+		// Teclea en el campo pass
+		builder = new Actions(driver);
+		builder.sendKeys("admin1").perform();
+
+		// Esperamos a que se cargue el boton
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
+				6);
+		// Click en el elemento
+		elementos.get(0).click();
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
+				"form-listado", 6);
+		assertTrue(elementos != null);
+
+		WebElement table = driver.findElement(By.id("form-listado:tabla"));
+
+		List<WebElement> allRows = table.findElements(By.tagName("tr"));
+
+		assertTrue(!allRows.isEmpty());
+
+	}
+
+	// PR06: Cambiar el estado de un usuario de ENABLED a DISABLED. Y tratar de
+	// entrar con el usuario que se desactivado.
+	@Test
+	public void prueba06() {
+		// Esperamos a que se cargue el campo de usuario
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
+		// Click en elelemento
+		elementos.get(0).click();
+		// Teclea en el campo user
+		Actions builder = new Actions(driver);
+		builder.sendKeys("admin1").perform();
+		// Esperamos a que se cargue el campo de pass
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
+		// Click en el elemento
+		elementos.get(0).click();
+		// Teclea en el campo pass
+		builder = new Actions(driver);
+		builder.sendKeys("admin1").perform();
+
+		// Esperamos a que se cargue el boton
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
+				6);
+		// Click en el elemento
+		elementos.get(0).click();
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
+				"form-listado", 6);
+		assertTrue(elementos != null);
+
+		driver.findElement(By.id("form-listado:tabla:0:actDesact")).click();
+
+		SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:gestionSesion",
+				"menu1:cerrarSesion");
+
+		// Esperamos a que se cargue el campo de usuario
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
+		// Click en elelemento
+		elementos.get(0).click();
+		// Teclea en el campo user
+		builder = new Actions(driver);
+		builder.sendKeys("user1").perform();
+		// Esperamos a que se cargue el campo de pass
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
+		// Click en el elemento
+		elementos.get(0).click();
+		// Teclea en el campo pass
+		builder = new Actions(driver);
+		builder.sendKeys("user1").perform();
+
+		// Esperamos a que se cargue el boton
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
+				6);
+		// Click en el elemento
+		elementos.get(0).click();
+
+		SeleniumUtils.textoPresentePagina(driver, "mejor suerte en otra vida");
+
+	}
 
 	// PR07: Cambiar el estado de un usuario a DISABLED a ENABLED. Y Y tratar de
 	// entrar con el usuario que se ha activado.
@@ -358,49 +367,49 @@ public class PlantillaSDI2_Tests1617 {
 	// PR08: Ordenar por Login
 	@Test
 	public void prueba08() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR09: Ordenar por Email
 	@Test
 	public void prueba09() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR10: Ordenar por Status
 	@Test
 	public void prueba10() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR11: Borrar una cuenta de usuario normal y datos relacionados.
 	@Test
 	public void prueba11() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR12: Crear una cuenta de usuario normal con datos válidos.
 	@Test
 	public void prueba12() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR13: Crear una cuenta de usuario normal con login repetido.
 	@Test
 	public void prueba13() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR14: Crear una cuenta de usuario normal con Email incorrecto.
 	@Test
 	public void prueba14() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR15: Crear una cuenta de usuario normal con Password incorrecta.
 	@Test
 	public void prueba15() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// USUARIO
@@ -409,92 +418,92 @@ public class PlantillaSDI2_Tests1617 {
 	// tres páginas.
 	@Test
 	public void prueba16() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR17: Funcionamiento correcto de la ordenación por fecha planeada.
 	@Test
 	public void prueba17() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR18: Funcionamiento correcto del filtrado.
 	@Test
 	public void prueba18() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR19: Funcionamiento correcto de la ordenación por categoría.
 	@Test
 	public void prueba19() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR20: Funcionamiento correcto de la ordenación por fecha planeada.
 	@Test
 	public void prueba20() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR21: Comprobar que las tareas que no están en rojo son las de hoy y
 	// además las que deben ser.
 	@Test
 	public void prueba21() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR22: Comprobar que las tareas retrasadas están en rojo y son las que
 	// deben ser.
 	@Test
 	public void prueba22() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR23: Comprobar que las tareas de hoy y futuras no están en rojo y que
 	// son las que deben ser.
 	@Test
 	public void prueba23() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR24: Funcionamiento correcto de la ordenación por día.
 	@Test
 	public void prueba24() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR25: Funcionamiento correcto de la ordenación por nombre.
 	@Test
 	public void prueba25() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR26: Confirmar una tarea, inhabilitar el filtro de tareas terminadas, ir
 	// a la pagina donde está la tarea terminada y comprobar que se muestra.
 	@Test
 	public void prueba26() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR27: Crear una tarea sin categoría y comprobar que se muestra en la
 	// lista Inbox.
 	@Test
 	public void prueba27() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR28: Crear una tarea con categoría categoria1 y fecha planeada Hoy y
 	// comprobar que se muestra en la lista Hoy.
 	@Test
 	public void prueba28() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR29: Crear una tarea con categoría categoria1 y fecha planeada posterior
 	// a Hoy y comprobar que se muestra en la lista Semana.
 	@Test
 	public void prueba29() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR30: Editar el nombre, y categoría de una tarea (se le cambia a
@@ -502,7 +511,7 @@ public class PlantillaSDI2_Tests1617 {
 	// refresca correctamente.
 	@Test
 	public void prueba30() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR31: Editar el nombre, y categoría (Se cambia a sin categoría) de una
@@ -510,40 +519,66 @@ public class PlantillaSDI2_Tests1617 {
 	// correctamente.
 	@Test
 	public void prueba31() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR32: Marcar una tarea como finalizada. Comprobar que desaparece de las
 	// tres pseudolistas.
 	@Test
 	public void prueba32() {
-		assertTrue(false);
+		// TODO Por hacer;
+		new PO_Login().rellenaFormulario(driver, "user1", "user1");
+
 	}
 
 	// PR33: Salir de sesión desde cuenta de administrador.
 	@Test
 	public void prueba33() {
-		assertTrue(false);
+		// Nos logueamos
+		new PO_Login().rellenaFormulario(driver, "admin1", "admin1");
+		// cerramos sesion
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
+		SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:gestionSesion",
+				"menu1:cerrarSesion");
+
+		// Comprobamos que estamos en index.xhtml
+		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:options", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
+		SeleniumUtils.textoNoPresentePagina(driver, "Lista de usuarios");
+		SeleniumUtils.textoNoPresentePagina(driver, "Lista de inbox");
 	}
 
 	// PR34: Salir de sesión desde cuenta de usuario normal.
 	@Test
 	public void prueba34() {
-		assertTrue(false);
+		// Nos logueamos
+		new PO_Login().rellenaFormulario(driver, "user1", "user1");
+		// cerramos sesion
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
+		SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:gestionSesion",
+				"menu1:cerrarSesion");
+
+		// Comprobamos que estamos en index.xhtml
+		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:options", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
+		SeleniumUtils.textoNoPresentePagina(driver, "Lista de usuarios");
+		SeleniumUtils.textoNoPresentePagina(driver, "Lista de inbox");
 	}
 
 	// PR35: Cambio del idioma por defecto a un segundo idioma. (Probar algunas
 	// vistas)
 	@Test
 	public void prueba35() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR36: Cambio del idioma por defecto a un segundo idioma y vuelta al
 	// idioma por defecto. (Probar algunas vistas)
 	@Test
 	public void prueba36() {
-		assertTrue(false);
+		// TODO Por hacer;
 	}
 
 	// PR37: Intento de acceso a un URL privado de administrador con un usuario
@@ -551,34 +586,33 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba37() {
 		// Nos logueamos
-		new PO_Login().rellenaFormulario(driver, "admin1", "admin1");
+		new PO_Login().rellenaFormulario(driver, "user1", "user1");
 		// Esperamos a que se cargue la pagina de listado concretamente
-		// la tabla "form-listado:tabla"
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "form-listado:tabla", 10);
-		// Vemos que estamos en Administrador.xhtml
-		SeleniumUtils.textoPresentePagina(driver, "Lista de usuarios");
-		// Vamos hacia una URL de usuario con rol usuario
-		driver.get(localhost() + "/sdi2-56/restricted/user/usuario.xhtml");
+		// la tabla "j_idt15:tablaTareas"
+		SeleniumUtils
+				.EsperaCargaPagina(driver, "id", "j_idt15:tablaTareas", 10);
+		// Vemos que estamos en usuario.xhtml
+		SeleniumUtils.textoPresentePagina(driver, "Lista de inbox");
+		// Vamos hacia una URL de usuario con rol administrador
+		driver.get(localhost() + "/sdi2-56/restricted/admin/"
+				+ "administrador.xhtml");
 
 		/*
 		 * Aquí es donde el filtro nos debería devolver a otra página distinta a
-		 * usuario.xhtml, ya que el administrador no tiene permisos para entrar.
-		 * Hemos configurado el filtro para que cuando esto ocurra nos devuelva
-		 * a administrador.xhtml.
+		 * administrador.xhtml, ya que el usuario normal no tiene permisos para
+		 * entrar en una página de usuario administrador. Hemos configurado el
+		 * filtro para que cuando esto ocurra nos devuelva a usuario.xhtml.
 		 */
 
-		// TODO Comprobamos que el texto está en español.
-//		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:languages_label",
-//				10);
-//		SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:languages_label",
-//				"menu1:languages_2");
+		// Comprobamos que el texto está en español.
+		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:options", 10);
+		// TODO SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:options",
+		// "menu1:languages_2");
 		// Comprobamos que seguimos en administrador.xhtml viendo el texto.
 		SeleniumUtils.textoNoPresentePagina(driver, "Inicio de sesión");
-		SeleniumUtils.textoPresentePagina(driver, "Lista de usuarios");
-		SeleniumUtils.textoNoPresentePagina(driver, "Lista de inbox");
+		SeleniumUtils.textoNoPresentePagina(driver, "Lista de usuarios");
+		SeleniumUtils.textoPresentePagina(driver, "Lista de inbox");
 		// Si el texto existe estamos en administrador.xhtml, prueba completa
-		SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:gestionSesion",
-				"menu1:cerrarSesion");
 	}
 
 	// PR38: Intento de acceso a un URL privado de usuario normal con un usuario
@@ -600,13 +634,12 @@ public class PlantillaSDI2_Tests1617 {
 		 * devuelva a index.xhtml.
 		 */
 
-		// TODO Comprobamos que el texto está en español.
-//		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:languages_label",
-//				10);
-//		SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:languages_label",
-//				"menu1:languages_2");
+		// Comprobamos que el texto está en español.
+		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:options", 10);
+		// TODO SeleniumUtils.ClickSubopcionMenuHover(driver,
+		// "menu1:options","1");
 		// Comprobamos que seguimos en index.xhtml viendo un texto.
-		//TODO SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
+		SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
 		SeleniumUtils.textoNoPresentePagina(driver, "Lista de usuarios");
 		SeleniumUtils.textoNoPresentePagina(driver, "Lista de inbox");
 		// Si el texto existe, prueba completa
