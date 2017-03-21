@@ -604,11 +604,8 @@ public class PlantillaSDI2_Tests1617 {
 		 * filtro para que cuando esto ocurra nos devuelva a usuario.xhtml.
 		 */
 
-		// Comprobamos que el texto está en español.
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:options", 10);
-		// TODO SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:options",
-		// "menu1:languages_2");
 		// Comprobamos que seguimos en administrador.xhtml viendo el texto.
+		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:options", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "Inicio de sesión");
 		SeleniumUtils.textoNoPresentePagina(driver, "Lista de usuarios");
 		SeleniumUtils.textoPresentePagina(driver, "Lista de inbox");
@@ -634,11 +631,8 @@ public class PlantillaSDI2_Tests1617 {
 		 * devuelva a index.xhtml.
 		 */
 
-		// Comprobamos que el texto está en español.
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:options", 10);
-		// TODO SeleniumUtils.ClickSubopcionMenuHover(driver,
-		// "menu1:options","1");
 		// Comprobamos que seguimos en index.xhtml viendo un texto.
+		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:options", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
 		SeleniumUtils.textoNoPresentePagina(driver, "Lista de usuarios");
 		SeleniumUtils.textoNoPresentePagina(driver, "Lista de inbox");
