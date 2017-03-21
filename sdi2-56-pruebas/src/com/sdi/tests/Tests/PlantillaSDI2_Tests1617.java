@@ -18,7 +18,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.interactions.Actions;
 
-import com.sdi.tests.pageobjects.PO_Login;
+import com.sdi.tests.pageobjects.PO_FormLogin;
 import com.sdi.tests.utils.SeleniumUtils;
 
 //Ordenamos las pruebas por el nombre del método
@@ -35,6 +35,17 @@ public class PlantillaSDI2_Tests1617 {
 		}
 		return "http://localhost:8180";
 	}
+	
+	private void reiniciarBBDD(){
+		// Nos logueamos como administrador
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+		// Reiniciamos la BBDD
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:BBDD", 
+				"menu1:ReiniciarBBDD");
+		//Cerramos sesion con el admin
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
+				"menu1:cerrarSesion");
+	}
 
 	public PlantillaSDI2_Tests1617() {
 	}
@@ -47,6 +58,8 @@ public class PlantillaSDI2_Tests1617 {
 		FirefoxProfile firefoxProfile = new FirefoxProfile();
 		driver = new FirefoxDriver(ffBinary, firefoxProfile);
 		driver.get(localhost() + "/sdi2-56");
+		//Siempre iniciamos las pruebas con una base de datos limpia
+		reiniciarBBDD();
 		// Este código es para ejecutar con una versión instalada de Firex 46.0
 		// driver = new FirefoxDriver();
 		// driver.get("http://localhost:8180/sdi2-n");
@@ -55,7 +68,8 @@ public class PlantillaSDI2_Tests1617 {
 	@After
 	public void end() {
 		// Cerramos el navegador
-		// driver.quit();
+		//TODO Si se quieren cerrar todas las ventanas una vez terminen: 
+		driver.quit();
 	}
 
 	// PRUEBAS
@@ -63,28 +77,10 @@ public class PlantillaSDI2_Tests1617 {
 	// PR01: Autentificar correctamente al administrador.
 	@Test
 	public void prueba01() {
-		// Esperamos a que se cargue el campo de usuario
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-		// Click en elelemento
-		elementos.get(0).click();
-		// Teclea en el campo user
-		Actions builder = new Actions(driver);
-		builder.sendKeys("admin1").perform();
-		// Esperamos a que se cargue el campo de pass
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-		// Click en el elemento
-		elementos.get(0).click();
-		// Teclea en el campo pass
-		builder = new Actions(driver);
-		builder.sendKeys("admin1").perform();
-
-		// Esperamos a que se cargue el boton
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-				6);
-		// Click en el elemento
-		elementos.get(0).click();
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+		
 		// Encontrar elemento de la siguiente vista
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
 				"form-listado", 6);
 		assertTrue(elementos != null);
 	}
@@ -93,28 +89,10 @@ public class PlantillaSDI2_Tests1617 {
 	// login.
 	@Test
 	public void prueba02() {
-		// Esperamos a que se cargue el campo de usuario
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-		// Click en elelemento
-		elementos.get(0).click();
-		// Teclea en el campo user
-		Actions builder = new Actions(driver);
-		builder.sendKeys("administrador?").perform();
-		// Esperamos a que se cargue el campo de pass
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-		// Click en el elemento
-		elementos.get(0).click();
-		// Teclea en el campo pass
-		builder = new Actions(driver);
-		builder.sendKeys("admin1").perform();
+		new PO_FormLogin().rellenaFormulario(driver, "administrador?", "admin1");
 
-		// Esperamos a que se cargue el boton
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-				6);
-		// Click en el elemento
-		elementos.get(0).click();
 		// Encontrar elemento de la siguiente vista
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id", "enviarUser",
 				6);
 		assertTrue(elementos != null);
 	}
@@ -123,28 +101,10 @@ public class PlantillaSDI2_Tests1617 {
 	// password.
 	@Test
 	public void prueba03() {
-		// Esperamos a que se cargue el campo de usuario
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-		// Click en elelemento
-		elementos.get(0).click();
-		// Teclea en el campo user
-		Actions builder = new Actions(driver);
-		builder.sendKeys("admin1").perform();
-		// Esperamos a que se cargue el campo de pass
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-		// Click en el elemento
-		elementos.get(0).click();
-		// Teclea en el campo pass
-		builder = new Actions(driver);
-		builder.sendKeys("administrador?").perform();
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "administrador");
 
-		// Esperamos a que se cargue el boton
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-				6);
-		// Click en el elemento
-		elementos.get(0).click();
 		// Encontrar elemento de la siguiente vista
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id", "enviarUser",
 				6);
 		assertTrue(elementos != null);
 	}
@@ -159,28 +119,10 @@ public class PlantillaSDI2_Tests1617 {
 	// PR05: Visualizar correctamente la lista de usuarios normales.
 	@Test
 	public void prueba05() {
-		// Esperamos a que se cargue el campo de usuario
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-		// Click en elelemento
-		elementos.get(0).click();
-		// Teclea en el campo user
-		Actions builder = new Actions(driver);
-		builder.sendKeys("admin1").perform();
-		// Esperamos a que se cargue el campo de pass
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-		// Click en el elemento
-		elementos.get(0).click();
-		// Teclea en el campo pass
-		builder = new Actions(driver);
-		builder.sendKeys("admin1").perform();
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
 
-		// Esperamos a que se cargue el boton
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-				6);
-		// Click en el elemento
-		elementos.get(0).click();
 		// Encontrar elemento de la siguiente vista
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
 				"form-listado", 6);
 		assertTrue(elementos != null);
 
@@ -196,171 +138,72 @@ public class PlantillaSDI2_Tests1617 {
 	// entrar con el usuario que se desactivado.
 	@Test
 	public void prueba06() {
-		// Esperamos a que se cargue el campo de usuario
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-		// Click en elelemento
-		elementos.get(0).click();
-		// Teclea en el campo user
-		Actions builder = new Actions(driver);
-		builder.sendKeys("admin1").perform();
-		// Esperamos a que se cargue el campo de pass
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-		// Click en el elemento
-		elementos.get(0).click();
-		// Teclea en el campo pass
-		builder = new Actions(driver);
-		builder.sendKeys("admin1").perform();
+		
+		PO_FormLogin login = new PO_FormLogin();
+		
+		login.rellenaFormulario(driver, "admin1", "admin1");
 
-		// Esperamos a que se cargue el boton
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-				6);
-		// Click en el elemento
-		elementos.get(0).click();
 		// Encontrar elemento de la siguiente vista
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
 				"form-listado", 6);
 		assertTrue(elementos != null);
 
-		driver.findElement(By.id("form-listado:tabla:0:actDesact")).click();
+		SeleniumUtils.clickButton(driver, "form-listado:tabla:0:j_idt19");
 
-		SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:gestionSesion",
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
 				"menu1:cerrarSesion");
 
-		// Esperamos a que se cargue el campo de usuario
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-		// Click en elelemento
-		elementos.get(0).click();
-		// Teclea en el campo user
-		builder = new Actions(driver);
-		builder.sendKeys("user1").perform();
-		// Esperamos a que se cargue el campo de pass
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-		// Click en el elemento
-		elementos.get(0).click();
-		// Teclea en el campo pass
-		builder = new Actions(driver);
-		builder.sendKeys("user1").perform();
-
-		// Esperamos a que se cargue el boton
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-				6);
-		// Click en el elemento
-		elementos.get(0).click();
+		// Nos logueamos
+		login.rellenaFormulario(driver, "user1", "user1");
 
 		SeleniumUtils.textoPresentePagina(driver, "mejor suerte en otra vida");
-
+		
 	}
 
 	// PR07: Cambiar el estado de un usuario a DISABLED a ENABLED. Y Y tratar de
 	// entrar con el usuario que se ha activado.
 	@Test
 	public void prueba07() {
-		// Esperamos a que se cargue el campo de usuario
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-		// Click en elelemento
-		elementos.get(0).click();
-		// Teclea en el campo user
-		Actions builder = new Actions(driver);
-		builder.sendKeys("admin1").perform();
-		// Esperamos a que se cargue el campo de pass
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-		// Click en el elemento
-		elementos.get(0).click();
-		// Teclea en el campo pass
-		builder = new Actions(driver);
-		builder.sendKeys("admin1").perform();
+		
+		PO_FormLogin login = new PO_FormLogin();
+		
+		login.rellenaFormulario(driver, "admin1", "admin1");
 
-		// Esperamos a que se cargue el boton
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-				6);
-		// Click en el elemento
-		elementos.get(0).click();
 		// Encontrar elemento de la siguiente vista
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
 				"form-listado", 6);
 		assertTrue(elementos != null);
 
-		driver.findElement(By.id("form-listado:tabla:0:actDesact")).click();
+		SeleniumUtils.clickButton(driver, "form-listado:tabla:0:j_idt19");
 
-		SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:gestionSesion",
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
 				"menu1:cerrarSesion");
+		
+		//Nos logueamos como user1
+		login.rellenaFormulario(driver, "user1", "user1");
 
-		// Esperamos a que se cargue el campo de usuario
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-		// Click en elelemento
-		elementos.get(0).click();
-		// Teclea en el campo user
-		builder = new Actions(driver);
-		builder.sendKeys("user1").perform();
-		// Esperamos a que se cargue el campo de pass
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-		// Click en el elemento
-		elementos.get(0).click();
-		// Teclea en el campo pass
-		builder = new Actions(driver);
-		builder.sendKeys("user1").perform();
-
-		// Esperamos a que se cargue el boton
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-				6);
-		// Click en el elemento
-		elementos.get(0).click();
+		SeleniumUtils.esperaCargaPagina(driver, "id", "loginForm:user", 10);
 
 		SeleniumUtils.textoPresentePagina(driver, "mejor suerte en otra vida");
 
-		// Esperamos a que se cargue el campo de usuario
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-		// Click en elelemento
-		elementos.get(0).click();
-		// Teclea en el campo user
-		builder = new Actions(driver);
-		builder.sendKeys("admin1").perform();
-		// Esperamos a que se cargue el campo de pass
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-		// Click en el elemento
-		elementos.get(0).click();
-		// Teclea en el campo pass
-		builder = new Actions(driver);
-		builder.sendKeys("admin1").perform();
-
-		// Esperamos a que se cargue el boton
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-				6);
-		// Click en el elemento
-		elementos.get(0).click();
+		// Nos logueamos como admin
+		login.rellenaFormulario(driver, "admin1", "admin1");
+		
 		// Encontrar elemento de la siguiente vista
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
 				"form-listado", 6);
 		assertTrue(elementos != null);
 
-		driver.findElement(By.id("form-listado:tabla:0:actDesact")).click();
+		SeleniumUtils.clickButton(driver, "form-listado:tabla:0:j_idt19");
 
-		SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:gestionSesion",
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
 				"menu1:cerrarSesion");
 
-		// Esperamos a que se cargue el campo de usuario
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "user", 6);
-		// Click en elelemento
-		elementos.get(0).click();
-		// Teclea en el campo user
-		builder = new Actions(driver);
-		builder.sendKeys("user1").perform();
-		// Esperamos a que se cargue el campo de pass
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "pass", 6);
-		// Click en el elemento
-		elementos.get(0).click();
-		// Teclea en el campo pass
-		builder = new Actions(driver);
-		builder.sendKeys("user1").perform();
+		// Nos logueamos como user1
+		login.rellenaFormulario(driver, "user1", "user1");
 
-		// Esperamos a que se cargue el boton
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "enviarUser",
-				6);
-		// Click en el elemento
-		elementos.get(0).click();
-
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id",
-				"form-listado", 6);
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"j_idt13:tablaTareas", 6);
 		assertTrue(elementos != null);
 	}
 
@@ -527,7 +370,7 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba32() {
 		// TODO Por hacer;
-		new PO_Login().rellenaFormulario(driver, "user1", "user1");
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
 
 	}
 
@@ -535,15 +378,15 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba33() {
 		// Nos logueamos
-		new PO_Login().rellenaFormulario(driver, "admin1", "admin1");
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
 		// cerramos sesion
 		SeleniumUtils
-				.EsperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
-		SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:gestionSesion",
+				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
 				"menu1:cerrarSesion");
 
 		// Comprobamos que estamos en index.xhtml
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:options", 10);
+		SeleniumUtils.esperaCargaPagina(driver, "id", "menu1:options", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
 		SeleniumUtils.textoNoPresentePagina(driver, "Lista de usuarios");
 		SeleniumUtils.textoNoPresentePagina(driver, "Lista de inbox");
@@ -553,15 +396,15 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba34() {
 		// Nos logueamos
-		new PO_Login().rellenaFormulario(driver, "user1", "user1");
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
 		// cerramos sesion
 		SeleniumUtils
-				.EsperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
-		SeleniumUtils.ClickSubopcionMenuHover(driver, "menu1:gestionSesion",
+				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
 				"menu1:cerrarSesion");
 
 		// Comprobamos que estamos en index.xhtml
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:options", 10);
+		SeleniumUtils.esperaCargaPagina(driver, "id", "menu1:options", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
 		SeleniumUtils.textoNoPresentePagina(driver, "Lista de usuarios");
 		SeleniumUtils.textoNoPresentePagina(driver, "Lista de inbox");
@@ -586,11 +429,11 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba37() {
 		// Nos logueamos
-		new PO_Login().rellenaFormulario(driver, "user1", "user1");
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
 		// Esperamos a que se cargue la pagina de listado concretamente
 		// la tabla "j_idt15:tablaTareas"
 		SeleniumUtils
-				.EsperaCargaPagina(driver, "id", "j_idt15:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
 		// Vemos que estamos en usuario.xhtml
 		SeleniumUtils.textoPresentePagina(driver, "Lista de inbox");
 		// Vamos hacia una URL de usuario con rol administrador
@@ -605,7 +448,7 @@ public class PlantillaSDI2_Tests1617 {
 		 */
 
 		// Comprobamos que seguimos en administrador.xhtml viendo el texto.
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:options", 10);
+		SeleniumUtils.esperaCargaPagina(driver, "id", "menu1:options", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "Inicio de sesión");
 		SeleniumUtils.textoNoPresentePagina(driver, "Lista de usuarios");
 		SeleniumUtils.textoPresentePagina(driver, "Lista de inbox");
@@ -620,7 +463,7 @@ public class PlantillaSDI2_Tests1617 {
 		driver.get(localhost() + "/sdi2-56/");
 		// Esperamos a que se cargue la pagina de listado concretamente
 		// la tabla "loginForm:user"
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "loginForm:user", 10);
+		SeleniumUtils.esperaCargaPagina(driver, "id", "loginForm:user", 10);
 		// Vamos hacia una URL de usuario con rol usuario
 		driver.get(localhost() + "/sdi2-56/restricted/user/usuario.xhtml");
 
@@ -632,7 +475,7 @@ public class PlantillaSDI2_Tests1617 {
 		 */
 
 		// Comprobamos que seguimos en index.xhtml viendo un texto.
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "menu1:options", 10);
+		SeleniumUtils.esperaCargaPagina(driver, "id", "menu1:options", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
 		SeleniumUtils.textoNoPresentePagina(driver, "Lista de usuarios");
 		SeleniumUtils.textoNoPresentePagina(driver, "Lista de inbox");

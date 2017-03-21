@@ -48,7 +48,7 @@ public class EXAMPLE_PrimeFaces_Tests {
 		driver.get("http://www.primefaces.org/showcase/ui/input/autoComplete.xhtml");
 
 		//Esperamos que aparezca el elemento themeCustom_input 
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "id", "themeCustom_input", 2); 
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id", "themeCustom_input", 2); 
 		
 		//Pinchamos en el elemento themeCustom y escribimos un texto
 		elementos.get(0).click();
@@ -57,7 +57,7 @@ public class EXAMPLE_PrimeFaces_Tests {
 		builder.sendKeys("a").perform(); 
 		
 		//Esperar porque se cargue la lista de sugerencias
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "class", "ui-autocomplete-item", 2); 
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "class", "ui-autocomplete-item", 2); 
 		
 		//Movemos el ratón al cuarto elemento
 		builder.moveToElement(elementos.get(4)).perform();
@@ -84,7 +84,7 @@ public class EXAMPLE_PrimeFaces_Tests {
 		driver.get("http://www.primefaces.org/showcase/ui/data/datatable/lazy.xhtml");
 
 		//Esperamos que aparezca el elemento filter			
-		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "class", "ui-column-filter", 2); 
+		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver, "class", "ui-column-filter", 2); 
 		
 		//Pinchamos en segundo filtro (el de año)
 		elementos.get(1).click();
@@ -112,7 +112,7 @@ public class EXAMPLE_PrimeFaces_Tests {
 		driver.get("http://www.primefaces.org/showcase/ui/data/datatable/lazy.xhtml");
 
 		//Esperamos que aparezcan los botones de ordenacion
-		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
+		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
 				
 		//Pinchamos el segundo criterio de ordenacion
 		Thread.sleep(500); //Esta espera es para poder el efecto de ordenación
@@ -133,7 +133,7 @@ public class EXAMPLE_PrimeFaces_Tests {
 		driver.get("http://www.primefaces.org/showcase/ui/data/datatable/lazy.xhtml");
 
 		//Esperamos que aparezcan los enlaces de paginacion		
-		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "class", "ui-paginator-next", 2); 
+		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver, "class", "ui-paginator-next", 2); 
 		
 		//movemos el raton sobre el botón "siguiente pagina" (el de arriba)
 		Actions builder = new Actions(driver);
@@ -142,7 +142,7 @@ public class EXAMPLE_PrimeFaces_Tests {
         elementos.get(0).click();
 		
 		//Esperamos de nuevo
-      	elementos = SeleniumUtils.EsperaCargaPagina(driver, "class", "ui-paginator-next", 2); 
+      	elementos = SeleniumUtils.esperaCargaPagina(driver, "class", "ui-paginator-next", 2); 
       	
         //movemos el raton sobre el botón "siguiente pagina" (el de abajo)		
         builder.moveToElement(elementos.get(1)).perform();   
@@ -150,7 +150,7 @@ public class EXAMPLE_PrimeFaces_Tests {
         elementos.get(1).click();
 
 		//Ahora comprobamos que se ha cargado la pagina 3 de 20.
-      	elementos = SeleniumUtils.EsperaCargaPagina(driver, "text", "(3 of 20)", 2); 
+      	elementos = SeleniumUtils.esperaCargaPagina(driver, "text", "(3 of 20)", 2); 
       	   
 	}
 

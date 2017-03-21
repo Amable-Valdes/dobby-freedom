@@ -58,17 +58,17 @@ public class EXAMPLE_Notaneitor_Tests {
 
 	public void testAltaParametros(String nombreform, String nombre, String apellidos, String iduser, String email) {
 		//Pinchamos la opción de menu Alta Alumno
-		SeleniumUtils.ClickSubopcionMenuHover(driver, "form-cabecera:misubmenu1", "form-cabecera:linkalta");
+		SeleniumUtils.clickSubopcionMenuHover(driver, "form-cabecera:misubmenu1", "form-cabecera:linkalta");
 
 		//Esperamos a que se cargue la pagina de alta de alumno	
-		SeleniumUtils.EsperaCargaPagina(driver, "text", nombreform, 10); 
+		SeleniumUtils.esperaCargaPagina(driver, "text", nombreform, 10); 
 
 		//Vamos a rellenar el formulario
 		new EXAMPLE_PO_AltaForm().rellenaFormulario(driver, nombre, apellidos, iduser, email);
 
 		//Esperamos a que se cargue la pagina de listado
 		//concretamente la tabla "tablalistado"
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "tablalistado", 10); 
+		SeleniumUtils.esperaCargaPagina(driver, "id", "tablalistado", 10); 
 
 		//Comprobamos que aparezca el elemento insertado en el listado
 		SeleniumUtils.textoPresentePagina(driver, email);
@@ -82,10 +82,10 @@ public class EXAMPLE_Notaneitor_Tests {
 	@Test
 	public void testListado() {
 		//Pinchamos la opción de menu Listado
-		SeleniumUtils.ClickSubopcionMenuHover(driver, "form-cabecera:misubmenu1", "form-cabecera:linklistado");
+		SeleniumUtils.clickSubopcionMenuHover(driver, "form-cabecera:misubmenu1", "form-cabecera:linklistado");
 
 		//Esperamos a que se cargue la pagina de listado de alumnos	
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "tablalistado", 10); 
+		SeleniumUtils.esperaCargaPagina(driver, "id", "tablalistado", 10); 
 	}
 
 	//Buscar un enlace de baja o edicion correspondiente a una fila
@@ -106,7 +106,7 @@ public class EXAMPLE_Notaneitor_Tests {
 
 		//Comprobamos que ahora ya no está el alumno
 		//textoNoPresentePagina(driver, "manolo2@correo.com");
-		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "manolo2@correo.com", 5);
+		SeleniumUtils.esperaCargaPaginaNoTexto(driver, "manolo2@correo.com", 5);
 
 	}
 
@@ -122,14 +122,14 @@ public class EXAMPLE_Notaneitor_Tests {
 		driver.findElement(enlace).click();
 
 		//Esperamos a que se cargue la pagina de edición de alumno	
-		SeleniumUtils.EsperaCargaPagina(driver, "text", "Edición de un alumno", 10); 
+		SeleniumUtils.esperaCargaPagina(driver, "text", "Edición de un alumno", 10); 
 
 		//Vamos a rellenar el formulario
 		new EXAMPLE_PO_AltaForm().rellenaFormulario(driver, "manolo3", "Suarez3 modif", "idmano3", "manolomodif@correo.com");
 
 		//Esperamos a que se cargue la pagina de listado
 		//concretamente la tabla "tablalistado"
-		SeleniumUtils.EsperaCargaPagina(driver, "id", "tablalistado", 10); 
+		SeleniumUtils.esperaCargaPagina(driver, "id", "tablalistado", 10); 
 
 		//Comprobamos que aparezca el elemento modificado en el listado
 		SeleniumUtils.textoPresentePagina(driver, "Suarez3 modif");
