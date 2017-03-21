@@ -4,11 +4,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-			<f:facet name="options">
-							<p:selectOneMenu id="languages" value="#{settings.option}" style="width:150px" class="w3-pink">
-                				<f:ajax render="@all" listener="#{settings.setIdioma()}"/>
-                				<f:selectItem itemLabel="Select One" itemValue="" />
-                				<f:selectItems value="#{settings.nButtons}" />
-            				</p:selectOneMenu>
-					</f:facet>
+				<p:submenu id="options" style="float:right" label="#{msgs.textoIdioma}"
+					icon="ui-icon-document">
+					<p:menuitem value="#{msgs.enlaceIdiomaES}"
+						actionListener="#{settings.setSpanish}" update="@all" />
+					<p:menuitem value="#{msgs.enlaceIdiomaEN}"
+						actionListener="#{settings.setEnglish}" update="@all" />
+				</p:submenu> 
+							
 </ui:composition>

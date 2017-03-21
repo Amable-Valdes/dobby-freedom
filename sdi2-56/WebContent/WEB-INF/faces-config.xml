@@ -24,8 +24,8 @@
 	</managed-bean>
 <managed-bean>
 		<managed-bean-name>settings</managed-bean-name>
-		<managed-bean-class>uo.sdi.presentation.SettingsBean</managed-bean-class>
-		<managed-bean-scope>application</managed-bean-scope>
+		<managed-bean-class>uo.sdi.presentation.BeanSettings</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 
 	<navigation-rule>

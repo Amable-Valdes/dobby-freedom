@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14899538734040" configfile="/sdi2-56/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="178" id="pf14900225603010" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf14900225603011 pf14900225603012 pf14900225603013" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="320" id="pf14900225603010" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf14900225603011 pf14900225603012 pf14900225603013" path="*"/>
   <nodes xsi:type="pageflow:PFPage" name="error.xhtml" x="338" y="178" id="pf14900225603014" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14900225603011" path="/error.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="restricted/user/usuario.xhtml" x="554" y="904" id="pf14900225603015" referenceLink="//@navigationRule.6/@navigationCase.1/@toViewId|" outlinks="pf14900225603016 pf14900225603017" inlinks="pf14900225603012 pf14900225603018 pf14900225603019 pf149002256030110" path="/restricted/user/usuario.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="338" y="583" id="pf149002256030111" referenceLink="//@navigationRule.7/@navigationCase.0/@toViewId|" outlinks="pf14900225603018 pf149002256030112 pf149002256030113" inlinks="pf14900225603017 pf14900225603013 pf149002256030114 pf149002256030115" path="/index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="registro.xhtml" x="122" y="562" id="pf149002256030116" referenceLink="//@navigationRule.7/@navigationCase.1/@toViewId|" outlinks="pf149002256030115 pf149002256030117" inlinks="pf149002256030112 pf149002256030117" path="/registro.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="restricted/admin/administrador.xhtml" x="554" y="520" id="pf149002256030118" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" outlinks="pf149002256030119" inlinks="pf149002256030113 pf149002256030119" path="/restricted/admin/administrador.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="restricted/user/crearTarea.xhtml" x="122" y="946" id="pf149002256030120" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf14900225603019 pf149002256030110 pf149002256030114" inlinks="pf14900225603016" path="/restricted/user/crearTarea.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="restricted/user/usuario.xhtml" x="554" y="967" id="pf14900225603015" referenceLink="//@navigationRule.7/@navigationCase.1/@toViewId|" outlinks="pf14900225603017 pf14900976050470 pf14900976050471 pf14900976050472 pf14900976050473" inlinks="pf14900225603012 pf14900225603018 pf14900225603019 pf149002256030110 pf14900976050471 pf14900976050472 pf14900976050473 pf14900976050474" path="/restricted/user/usuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="338" y="583" id="pf149002256030111" referenceLink="//@navigationRule.8/@navigationCase.0/@toViewId|" outlinks="pf14900225603018 pf149002256030112 pf149002256030113" inlinks="pf14900225603017 pf14900225603013 pf149002256030114 pf149002256030115" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="registro.xhtml" x="122" y="704" id="pf149002256030116" referenceLink="//@navigationRule.8/@navigationCase.1/@toViewId|" outlinks="pf149002256030115 pf149002256030117" inlinks="pf149002256030112 pf149002256030117" path="/registro.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="restricted/admin/administrador.xhtml" x="554" y="583" id="pf149002256030118" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" outlinks="pf149002256030119" inlinks="pf149002256030113 pf149002256030119" path="/restricted/admin/administrador.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="restricted/user/crearTarea.xhtml" x="122" y="1169" id="pf149002256030120" referenceLink="//@navigationRule.7/@fromViewId|" outlinks="pf14900225603019 pf149002256030110 pf149002256030114" path="/restricted/user/crearTarea.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="restricted/user/editarTarea.xhtml" x="338" y="967" id="pf14900976050475" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf14900976050474" inlinks="pf14900976050470" path="/restricted/user/editarTarea.xhtml"/>
   <links id="pf14900225603011" target="pf14900225603014" source="pf14900225603010" outcome="error" redirect="true"/>
   <links id="pf14900225603012" target="pf14900225603015" source="pf14900225603010" outcome="usuario" redirect="true"/>
   <links id="pf14900225603018" target="pf14900225603015" source="pf149002256030111" outcome="usuario" redirect="true" fromaction="#{usuarios.iniciarSesion}"/>
   <links id="pf149002256030112" target="pf149002256030116" source="pf149002256030111" outcome="exito" redirect="true" fromaction="#{usuarios.registrarse}"/>
   <links id="pf149002256030113" target="pf149002256030118" source="pf149002256030111" outcome="administrador" redirect="true" fromaction="#{usuarios.iniciarSesion}"/>
-  <links id="pf14900225603016" target="pf149002256030120" source="pf14900225603015" outcome="editarTarea" redirect="true" fromaction="#{tareas.editar(tarea)}"/>
   <links id="pf14900225603017" target="pf149002256030111" source="pf14900225603015" outcome="exito" redirect="true" fromaction="#{usuarios.cerrarSesion}"/>
   <links id="pf14900225603013" target="pf149002256030111" source="pf14900225603010" outcome="exito" redirect="true" fromaction="#{usuarios.cerrarSesion}"/>
   <links id="pf14900225603019" target="pf14900225603015" source="pf149002256030120" outcome="exito" redirect="true" fromaction="#{tareas.crearTask}"/>
   <links id="pf149002256030110" target="pf14900225603015" source="pf149002256030120" outcome="exito" redirect="true" fromaction="#{usuarios.volverUsuario}"/>
   <links id="pf149002256030114" target="pf149002256030111" source="pf149002256030120" outcome="fracaso" redirect="true" fromaction="#{tareas.crearTask}"/>
   <links id="pf149002256030115" target="pf149002256030111" source="pf149002256030116" outcome="exito" redirect="true" fromaction="#{usuarios.registraUsuario}"/>
+  <links id="pf14900976050470" target="pf14900976050475" source="pf14900225603015" outcome="editarTarea" redirect="true" fromaction="#{tareas.editar(tarea)}"/>
+  <links id="pf14900976050474" target="pf14900225603015" source="pf14900976050475" outcome="usuario" redirect="true" fromaction="#{tareas.editarTask}"/>
   <links id="pf149002256030119" target="pf149002256030118" source="pf149002256030118" outcome="exito" redirect="true" fromaction="#{usuarios.inicializarBBDD}">
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
@@ -28,5 +30,20 @@
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
     <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf14900976050471" target="pf14900225603015" source="pf14900225603015" outcome="inbox" redirect="true" fromaction="#{tareas.listarTaskInbox}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf14900976050472" target="pf14900225603015" source="pf14900225603015" outcome="hoy" redirect="true" fromaction="#{tareas.listarTaskHoy}">
+    <bendPoints d1Height="-66" d2Height="-66"/>
+    <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
+    <bendPoints d1Width="-94" d2Width="-94"/>
+  </links>
+  <links id="pf14900976050473" target="pf14900225603015" source="pf14900225603015" outcome="semana" redirect="true" fromaction="#{tareas.listarTaskSemana}">
+    <bendPoints d1Height="-96" d2Height="-96"/>
+    <bendPoints d1Width="-124" d1Height="-96" d2Width="-124" d2Height="-96"/>
+    <bendPoints d1Width="-124" d2Width="-124"/>
   </links>
 </pageflow:Pageflow>
