@@ -16,9 +16,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.remote.server.handler.ClickElement;
 
 import com.sdi.tests.pageobjects.PO_FormLogin;
+import com.sdi.tests.pageobjects.PO_FormRegistro;
 import com.sdi.tests.pageobjects.PO_FormsTarea;
 import com.sdi.tests.utils.SeleniumUtils;
 
@@ -236,25 +236,111 @@ public class PlantillaSDI2_Tests1617 {
 	// PR12: Crear una cuenta de usuario normal con datos válidos.
 	@Test
 	public void prueba12() {
-		// TODO Por hacer;
+		// Opcion de crear usuario
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionUsuarios",
+				"menu1:registro");
+
+		// Rellenamos el formulario con información correcta
+		new PO_FormRegistro().rellenaFormulario(driver, "usuarioNuevo",
+				"emailNuevo@mail.com", "NuevaContraseña123",
+				"NuevaContraseña123");
+
+		// Ahora deberíamos estar en index.xhtml
+		SeleniumUtils.esperaCargaPagina(driver, "id", "loginForm:user", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
+
+		PO_FormLogin formLogin = new PO_FormLogin();
+		formLogin.rellenaFormulario(driver, "usuarioNuevo",
+				"NuevaContraseña123");
+
+		// Se debería loguear correctamente, cerramos sesion.
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
+		SeleniumUtils.textoPresentePagina(driver, "usuarioNuevo");
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
+				"menu1:cerrarSesion");
+
+		// Nos logueamos como admin
+		formLogin.rellenaFormulario(driver, "admin1", "admin1");
+		SeleniumUtils.textoPresentePagina(driver, "usuarioNuevo");
+
+		// Comprobamos que existe el usuario y se lista correctamente
+		SeleniumUtils.esperaCargaPagina(driver, "id", "form-listado:tabla", 10);
+		SeleniumUtils.textoPresentePagina(driver, "usuarioNuevo");
+		SeleniumUtils.textoPresentePagina(driver, "emailNuevo@mail.com");
 	}
 
 	// PR13: Crear una cuenta de usuario normal con login repetido.
 	@Test
 	public void prueba13() {
-		// TODO Por hacer;
+		// Opcion de crear usuario
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionUsuarios",
+				"menu1:registro");
+
+		// Rellenamos el formulario con información incorrecta.
+		// Login ya existente en la BBDD
+		new PO_FormRegistro().rellenaFormulario(driver, "user1",
+				"emailNuevo@mail.com", "NuevaContraseña123",
+				"NuevaContraseña123");
+
+		// Ahora deberíamos estar en registro.xhtml
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt7:j_idt10", 10);
+		SeleniumUtils.textoPresentePagina(driver, "user1 ese usuario ya "
+				+ "existe en el sistema;");
+
+		// Vamos a index.xhtml
+		driver.get(localhost() + "/sdi2-56");
+
+		// Nos logueamos como admin
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+
+		// Comprobamos que existe el usuario y se lista correctamente
+		SeleniumUtils.esperaCargaPagina(driver, "id", "form-listado:tabla", 10);
+		SeleniumUtils.textoPresentePagina(driver, "user1");
+		SeleniumUtils.textoNoPresentePagina(driver, "emailNuevo@mail.com");
 	}
 
 	// PR14: Crear una cuenta de usuario normal con Email incorrecto.
 	@Test
 	public void prueba14() {
-		// TODO Por hacer;
+		// Opcion de crear usuario
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionUsuarios",
+				"menu1:registro");
+
+		// Rellenamos el formulario con información incorrecta.
+		// Login ya existente en la BBDD
+		new PO_FormRegistro().rellenaFormulario(driver, "usuarioNuevo",
+				"emailErroneo", "NuevaContraseña123",
+				"NuevaContraseña123");
+
+		/* Ahora deberíamos estar en registro.xhtml y debería mostrar un 
+		 * mensaje diciendo que el email no sigue los estandares de X@X.X 
+		 * 
+		 * Si eso es asi, debería existir el siguiente textfield con la 
+		 * siguiente clase y el focus.
+		 */
+		List<WebElement> mensajeError = SeleniumUtils.esperaCargaPagina(driver, 
+				"class", 
+				"ui-inputfield ui-inputtext ui-widget "
+						+ "ui-state-default ui-corner-all ui-state-focus", 10);
+		assertFalse(mensajeError.isEmpty());
+
+		// Vamos a index.xhtml
+		driver.get(localhost() + "/sdi2-56");
+
+		// Nos logueamos como admin
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+
+		// Comprobamos que existe el usuario y se lista correctamente
+		SeleniumUtils.esperaCargaPagina(driver, "id", "form-listado:tabla", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "usuarioNuevo");
+		SeleniumUtils.textoNoPresentePagina(driver, "emailErroneo");
 	}
 
 	// PR15: Crear una cuenta de usuario normal con Password incorrecta.
 	@Test
 	public void prueba15() {
-		// TODO Por hacer;
+		// TODO Por hacer, primero tienen que existir los mensajes de error cuando se pone mal la contraseña repetida.
 	}
 
 	// USUARIO
@@ -371,39 +457,37 @@ public class PlantillaSDI2_Tests1617 {
 				"j_idt7:form-registro:Title", 10);
 
 		// TODO Sin comprobar que funciona
-		
+
 		// Rellenamos el formulario para editar tarea
-		new PO_FormsTarea().rellenaFormulario(driver, "tarea1Modificada",
-				null, null, "Categoria1");
-		
+		new PO_FormsTarea().rellenaFormulario(driver, "tarea1Modificada", null,
+				null, "Categoria1");
+
 		/*
-		 * Al tener fecha para hoy y categoria: 
-		 * -No aparece en Inbox (Porque tiene categoría) 
-		 * -No aparece en Hoy (porque no es para hoy) 
-		 * -Aparece en semana (porqu tiene fecha para esta semana)
+		 * Al tener fecha para hoy y categoria: -No aparece en Inbox (Porque
+		 * tiene categoría) -No aparece en Hoy (porque no es para hoy) -Aparece
+		 * en semana (porqu tiene fecha para esta semana)
 		 */
-		
-		//Inbox
+
+		// Inbox
 		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:theInbox", 10);
 		SeleniumUtils.clickButton(driver, "j_idt9:theInbox");
-		
+
 		// Esperamos que aparezcan los enlaces de paginacion y hacemos click
 		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:theInbox", 10);
 		SeleniumUtils.clickButton(driver, "j_idt9:semana");
-		List<WebElement> paginacion = SeleniumUtils.esperaCargaPagina(driver,"class", "ui-paginator-pages", 2);
+		List<WebElement> paginacion = SeleniumUtils.esperaCargaPagina(driver,
+				"class", "ui-paginator-pages", 2);
 		SeleniumUtils.clickElement(driver, paginacion.get(2));
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea1Modificada");
-		
-		//Hoy
+
+		// Hoy
 		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:hoy", 10);
 		SeleniumUtils.clickButton(driver, "j_idt9:hoy");
-		
-		
-		//Semana
+
+		// Semana
 		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:theInbox", 10);
 		SeleniumUtils.clickButton(driver, "j_idt9:semana");
-		
-		
+
 	}
 
 	// PR31: Editar el nombre, y categoría (Se cambia a sin categoría) de una
@@ -551,8 +635,6 @@ public class PlantillaSDI2_Tests1617 {
 	// no autenticado.
 	@Test
 	public void prueba38() {
-		// Accedemos al index
-		driver.get(localhost() + "/sdi2-56/");
 		// Esperamos a que se cargue la pagina de listado concretamente
 		// la tabla "loginForm:user"
 		SeleniumUtils.esperaCargaPagina(driver, "id", "loginForm:user", 10);
