@@ -14,6 +14,5 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
-	<classpathentry kind="lib" path="lib/jipijapa-hibernate3-1.0.1.Final.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

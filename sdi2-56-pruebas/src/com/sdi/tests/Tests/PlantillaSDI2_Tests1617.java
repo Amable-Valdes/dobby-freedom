@@ -16,9 +16,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.server.handler.ClickElement;
 
 import com.sdi.tests.pageobjects.PO_FormLogin;
+import com.sdi.tests.pageobjects.PO_FormsTarea;
 import com.sdi.tests.utils.SeleniumUtils;
 
 //Ordenamos las pruebas por el nombre del método
@@ -35,14 +36,14 @@ public class PlantillaSDI2_Tests1617 {
 		}
 		return "http://localhost:8180";
 	}
-	
-	private void reiniciarBBDD(){
+
+	private void reiniciarBBDD() {
 		// Nos logueamos como administrador
 		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
 		// Reiniciamos la BBDD
-		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:BBDD", 
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:BBDD",
 				"menu1:ReiniciarBBDD");
-		//Cerramos sesion con el admin
+		// Cerramos sesion con el admin
 		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
 				"menu1:cerrarSesion");
 	}
@@ -58,7 +59,7 @@ public class PlantillaSDI2_Tests1617 {
 		FirefoxProfile firefoxProfile = new FirefoxProfile();
 		driver = new FirefoxDriver(ffBinary, firefoxProfile);
 		driver.get(localhost() + "/sdi2-56");
-		//Siempre iniciamos las pruebas con una base de datos limpia
+		// Siempre iniciamos las pruebas con una base de datos limpia
 		reiniciarBBDD();
 		// Este código es para ejecutar con una versión instalada de Firex 46.0
 		// driver = new FirefoxDriver();
@@ -68,7 +69,7 @@ public class PlantillaSDI2_Tests1617 {
 	@After
 	public void end() {
 		// Cerramos el navegador
-		//TODO Si se quieren cerrar todas las ventanas una vez terminen: 
+		// TODO Si se quieren cerrar todas las ventanas una vez terminen:
 		driver.quit();
 	}
 
@@ -78,7 +79,7 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba01() {
 		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
-		
+
 		// Encontrar elemento de la siguiente vista
 		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
 				"form-listado", 6);
@@ -89,7 +90,8 @@ public class PlantillaSDI2_Tests1617 {
 	// login.
 	@Test
 	public void prueba02() {
-		new PO_FormLogin().rellenaFormulario(driver, "administrador?", "admin1");
+		new PO_FormLogin()
+				.rellenaFormulario(driver, "administrador?", "admin1");
 
 		// Encontrar elemento de la siguiente vista
 		elementos = SeleniumUtils.esperaCargaPagina(driver, "id", "enviarUser",
@@ -138,9 +140,9 @@ public class PlantillaSDI2_Tests1617 {
 	// entrar con el usuario que se desactivado.
 	@Test
 	public void prueba06() {
-		
+
 		PO_FormLogin login = new PO_FormLogin();
-		
+
 		login.rellenaFormulario(driver, "admin1", "admin1");
 
 		// Encontrar elemento de la siguiente vista
@@ -157,16 +159,16 @@ public class PlantillaSDI2_Tests1617 {
 		login.rellenaFormulario(driver, "user1", "user1");
 
 		SeleniumUtils.textoPresentePagina(driver, "mejor suerte en otra vida");
-		
+
 	}
 
 	// PR07: Cambiar el estado de un usuario a DISABLED a ENABLED. Y Y tratar de
 	// entrar con el usuario que se ha activado.
 	@Test
 	public void prueba07() {
-		
+
 		PO_FormLogin login = new PO_FormLogin();
-		
+
 		login.rellenaFormulario(driver, "admin1", "admin1");
 
 		// Encontrar elemento de la siguiente vista
@@ -178,8 +180,8 @@ public class PlantillaSDI2_Tests1617 {
 
 		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
 				"menu1:cerrarSesion");
-		
-		//Nos logueamos como user1
+
+		// Nos logueamos como user1
 		login.rellenaFormulario(driver, "user1", "user1");
 
 		SeleniumUtils.esperaCargaPagina(driver, "id", "loginForm:user", 10);
@@ -188,7 +190,7 @@ public class PlantillaSDI2_Tests1617 {
 
 		// Nos logueamos como admin
 		login.rellenaFormulario(driver, "admin1", "admin1");
-		
+
 		// Encontrar elemento de la siguiente vista
 		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
 				"form-listado", 6);
@@ -354,7 +356,54 @@ public class PlantillaSDI2_Tests1617 {
 	// refresca correctamente.
 	@Test
 	public void prueba30() {
-		// TODO Por hacer;
+		// Nos logueamos
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+
+		// Click en las tareas de inbox
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:theInbox", 10);
+		SeleniumUtils.clickButton(driver, "j_idt9:theInbox");
+
+		// Click en editar tarea1 (tarea sin categoria de inbox).
+		SeleniumUtils.esperaCargaPagina(driver, "id",
+				"j_idt13:tablaTareas:0:j_idt37", 10);
+		SeleniumUtils.clickButton(driver, "j_idt13:tablaTareas:0:j_idt37");
+		SeleniumUtils.esperaCargaPagina(driver, "id",
+				"j_idt7:form-registro:Title", 10);
+
+		// TODO Sin comprobar que funciona
+		
+		// Rellenamos el formulario para editar tarea
+		new PO_FormsTarea().rellenaFormulario(driver, "tarea1Modificada",
+				null, null, "Categoria1");
+		
+		/*
+		 * Al tener fecha para hoy y categoria: 
+		 * -No aparece en Inbox (Porque tiene categoría) 
+		 * -No aparece en Hoy (porque no es para hoy) 
+		 * -Aparece en semana (porqu tiene fecha para esta semana)
+		 */
+		
+		//Inbox
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:theInbox", 10);
+		SeleniumUtils.clickButton(driver, "j_idt9:theInbox");
+		
+		// Esperamos que aparezcan los enlaces de paginacion y hacemos click
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:theInbox", 10);
+		SeleniumUtils.clickButton(driver, "j_idt9:semana");
+		List<WebElement> paginacion = SeleniumUtils.esperaCargaPagina(driver,"class", "ui-paginator-pages", 2);
+		SeleniumUtils.clickElement(driver, paginacion.get(2));
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea1Modificada");
+		
+		//Hoy
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:hoy", 10);
+		SeleniumUtils.clickButton(driver, "j_idt9:hoy");
+		
+		
+		//Semana
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:theInbox", 10);
+		SeleniumUtils.clickButton(driver, "j_idt9:semana");
+		
+		
 	}
 
 	// PR31: Editar el nombre, y categoría (Se cambia a sin categoría) de una
@@ -362,7 +411,36 @@ public class PlantillaSDI2_Tests1617 {
 	// correctamente.
 	@Test
 	public void prueba31() {
-		// TODO Por hacer;
+		// Nos logueamos
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+
+		// Click en las tareas de hoy
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:hoy", 10);
+		SeleniumUtils.clickButton(driver, "j_idt9:hoy");
+
+		// Esperamos que aparezcan los enlaces de paginacion y hacemos click
+		List<WebElement> paginacion = SeleniumUtils.esperaCargaPagina(driver,
+				"class", "ui-paginator-pages", 2);
+		SeleniumUtils.clickElement(driver, paginacion.get(2));
+
+		// Click en editar tarea30 (tarea con categoria 3).
+		SeleniumUtils.esperaCargaPagina(driver, "id",
+				"j_idt13:tablaTareas:0:j_idt37", 10);
+		SeleniumUtils.clickButton(driver, "j_idt13:tablaTareas:0:j_idt37");
+		SeleniumUtils.esperaCargaPagina(driver, "id",
+				"j_idt7:form-registro:Title", 10);
+
+		// TODO Esperar a que se pueda seleccionar Sin categoria
+		// Rellenamos el formulario para editar tarea
+		new PO_FormsTarea().rellenaFormulario(driver, "tarea30Modificada",
+				null, null, "");
+
+		/*
+		 * Al tener fecha para hoy y categoria: -No aparece en Inbox (Porque
+		 * tiene categoría) -Aparece en Hoy (porque es para hoy) -Aparece en
+		 * semana (porque es también para esta semana)
+		 */
+
 	}
 
 	// PR32: Marcar una tarea como finalizada. Comprobar que desaparece de las
@@ -370,7 +448,21 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba32() {
 		// TODO Por hacer;
+		// Nos logueamos
 		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+
+		// Comprobamos que existe la Tarea 1
+		SeleniumUtils.textoPresentePagina(driver, "tarea1");
+		// Finalizamos la tarea 1
+		SeleniumUtils.clickButton(driver, "j_idt13:tablaTareas:0:j_idt39");
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+
+		// Comprobamos que la tarea ya no aparece
+		// Comprobamos que existe la Tarea 1
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea1");
 
 	}
 

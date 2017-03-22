@@ -36,12 +36,22 @@ public class SeleniumUtils {
 			driver.findElement(boton).click();	
 		}
 		
+		static public void clickElement(WebDriver driver, WebElement element)
+		{
+			Actions builder = new Actions(driver);
+	        builder.moveToElement(element).perform();   
+			//Pinchamos el botón
+	        element.click();
+		}
+		
 		//Rellenar datos en un textField
 		static public void rellenarTextField(WebDriver driver, String idTextField, String texto){
-			WebElement textField = driver.findElement(By.id(idTextField));
-			textField.click();
-			textField.clear();
-			textField.sendKeys(texto);
+			if(texto != null){
+				WebElement textField = driver.findElement(By.id(idTextField));
+				textField.click();
+				textField.clear();
+				textField.sendKeys(texto);
+			}
 		}
 		
 		//Seleccionar dato en comboBox

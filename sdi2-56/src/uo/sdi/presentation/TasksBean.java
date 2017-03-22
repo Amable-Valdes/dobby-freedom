@@ -249,7 +249,9 @@ public class TasksBean implements Serializable {
 	
 	public void listar(String login) {
 		try {
-
+			listaInbox = true;
+			listaHoy = false;
+			listaSemana = false;
 			listaTareas = Factories.services.createTaskService()
 					.listTasksInbox(login,true);
 		} catch (BusinessException e) {

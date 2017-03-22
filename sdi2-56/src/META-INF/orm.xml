@@ -30,6 +30,7 @@
 			where t.user.id = u.id 
 			and u.login = (?1)
 			and t.finished = null
+			order by t.planned asc
 		</query>
 	</named-query>
 	
@@ -40,6 +41,7 @@
 			where t.user.id = (?1)
 			and t.category.id is null
 			and t.finished is null
+			order by t.planned asc
 		</query>
 	</named-query>
 	
@@ -49,6 +51,7 @@
 			from Task t 
 			where t.user.id = (?1)
 			and t.finished is not null
+			order by t.planned asc
 		</query>
 	</named-query>
 	
@@ -59,6 +62,7 @@
 			where t.user.id = (?1) 
 			and t.planned between (?2) and (?3)
 			and t.finished is null
+			order by t.planned asc
 		</query>
 	</named-query>
 	
@@ -69,6 +73,7 @@
 			where t.user.id = (?1) 
 			and t.category.id = (?2)
 			and t.finished is null
+			order by t.planned asc
 		</query>
 	</named-query>
 	
