@@ -39,7 +39,10 @@ public class UpdateTask implements Command {
 		(task.getCategory() == null && taskDTO.getCategoryId() != null || 
 		taskDTO.getCategoryId() != null && taskDTO.getCategoryId() == null)) {
 			Category category_old = task.getCategory();
-			Category category_update = CategoryFinder.findById(taskDTO.getCategoryId());
+			Category category_update = CategoryFinder.findById(
+					taskDTO.getCategoryId());
+			//Comprobamos que existe la categoría
+			Asserts.assertCategoryExist(category_update);
 			//Si tenia categoria, se quita
 			if(category_old != null){
 				Association.Classifies.unlink(category_old, task);

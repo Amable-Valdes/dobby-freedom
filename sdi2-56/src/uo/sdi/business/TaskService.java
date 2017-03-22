@@ -97,12 +97,26 @@ public interface TaskService {
 	 * que muestra las tareas pertenecientes a una categoría.
 	 * 
 	 * @param login	El login del usuario que pide que les muestren las tareas.
+	 * @param categoryName	El nombre de la categoria.
 	 * @return	Una lista de TaskDTO con los datos de las tareas.
 	 * @throws BusinessException	Si se cumple alguna irregularidad en la 
 	 * lógica de negocio el sistema lanzará a capas superiores una excepción 
 	 * de tipo BusinessException (Excepción de lógica de negocio).
 	 */
 	List<TaskDTO> listTasksByCategory(String login, String categoryName)
+			throws BusinessException;
+	
+	/**
+	 * Hay distintas listas en el sistema, esta es la lista del inicio del 
+	 * sistema que muestra las tareas creadas y no terminadas
+	 * 
+	 * @param login	El login del usuario que pide que les muestren las tareas.
+	 * @return	Una lista de TaskDTO con los datos de las tareas.
+	 * @throws BusinessException	Si se cumple alguna irregularidad en la 
+	 * lógica de negocio el sistema lanzará a capas superiores una excepción 
+	 * de tipo BusinessException (Excepción de lógica de negocio).
+	 */
+	List<TaskDTO> listTasksCreatedAndNotFinished(String login)
 			throws BusinessException;
 
 	/**

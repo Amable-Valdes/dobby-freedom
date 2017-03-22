@@ -237,23 +237,14 @@ public class TasksBean implements Serializable {
 				null, new FacesMessage(FacesMessage.SEVERITY_INFO, 
 						"Editar Tarea", "La tarea se ha editado con exito"));
 	}
-//TODO
-	/*public void listar(String login) {
-		try {
-			listaTareas = Factories.services.createTaskService()
-					.listTasksNotFinished(login);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-	}*/
 	
 	public void listar(String login) {
 		try {
-			listaInbox = true;
+			listaInbox = false;
 			listaHoy = false;
 			listaSemana = false;
 			listaTareas = Factories.services.createTaskService()
-					.listTasksInbox(login,true);
+					.listTasksCreatedAndNotFinished(login);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}

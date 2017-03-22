@@ -26,9 +26,8 @@
 	<named-query name="Task.findByLogin">
 		<query>
 			select t 
-			from Task t,User u 
-			where t.user.id = u.id 
-			and u.login = (?1)
+			from Task t
+			where t.user.login = (?1)
 			and t.finished = null
 			order by t.planned asc
 		</query>

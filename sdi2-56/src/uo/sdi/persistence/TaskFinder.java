@@ -39,7 +39,7 @@ public class TaskFinder {
 				.createNamedQuery("Task.findByLogin", Task.class)
 				.setParameter(1, login)
 				.getResultList();
-	}//TODO Esta es la que nos pide De La cal al principio cuando se loguea el usuario
+	}
 
 	/**
 	 * Lista todas las Task de un usuario con id identico al pasado como 
@@ -59,7 +59,6 @@ public class TaskFinder {
 				.getResultList();
 	}
 
-	//TODO Comentar si funciona
 	public static Task findByUser_And_CreatedDate(Long idUser, Date created) {
 		try {
 			return Jpa

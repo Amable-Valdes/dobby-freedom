@@ -237,7 +237,7 @@ public class ResetBBDD implements Command {
 	
 	private Date todayPlanned(){
 		counter = counter + 1000;
-		return new Date(DateUtil.tomorrow().getTime() - 1000 - counter);
+		return new Date(DateUtil.tomorrow().getTime() - counter);
 	}
 	
 	private Date last6Days(){

@@ -333,7 +333,6 @@ public class UsersBean implements Serializable {
 			Factories.services.createUserService().enableUser(user);
 			return "exito";
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "fracaso";
 		}

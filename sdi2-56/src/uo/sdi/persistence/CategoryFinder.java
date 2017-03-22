@@ -27,6 +27,14 @@ public class CategoryFinder {
 				.getResultList();
 	}
 
+	/**
+	 * El nombre de la categoria es único para un usuario, por lo que se 
+	 * puede buscar una categoría por usuario y nombre categoría.
+	 * 
+	 * @param id	id del usuario en la BBDD.
+	 * @param categoryName	Nombre de la categoría.
+	 * @return	Un objeto de tipo Category.
+	 */
 	public static Category findByUserAndName(Long id, String categoryName) {
 		try{
 			return Jpa.getManager()
@@ -39,6 +47,12 @@ public class CategoryFinder {
 		}
 	}
 
+	/**
+	 * Encuentra por id de la base de datos un Category.
+	 * 
+	 * @param categoryId	ID de la BBDD de la categoría.
+	 * @return Un objeto de tipo Category.
+	 */
 	public static Category findById(Long categoryId) {
 		try{
 			return Jpa.getManager()
