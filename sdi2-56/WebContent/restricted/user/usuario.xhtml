@@ -19,7 +19,7 @@
 			<br></br>
 			<br></br>
 			<br></br>
-			<h:form>
+			<h:form id="botonesListas">
 			<div align="center">
 					<p:commandButton id ="theInbox" value="#{msgs.listaInbox}"
 						action="#{usuarios.inbox}" update="@all" rendered="#{!tareas.listaInbox}">
@@ -42,7 +42,7 @@
 			
 			<br></br>
 			<br></br>
-			<h:form>
+			<h:form id="tablaDelUsuario">
 			<center>
 					<h1>#{usuarios.login}</h1>
 					<br></br>
@@ -66,31 +66,38 @@
                 class="w3-table w3-pink">
 			<p:column filterBy="#{tarea.title}"  sortBy="#{tarea.title}">
 				<f:facet name="header">#{msgs.titulo}</f:facet>
-				<p:outputLabel rendered="#{tareas.finalizada(tarea.finished)}" class="w3-text-green" value="#{tarea.title}"/>
-				<p:outputLabel rendered="#{tareas.finalizada(tarea.finished) eq false}" class="w3-text-black" value="#{tarea.title}"/>
+				<p:outputLabel id="title">
+					<p:outputLabel  rendered="#{tareas.finalizada(tarea.finished)}" class="w3-text-green" value="#{tarea.title}"/>
+					<p:outputLabel rendered="#{tareas.finalizada(tarea.finished) eq false}" class="w3-text-black" value="#{tarea.title}"/>
+				</p:outputLabel>
 				</p:column> 
 				<p:column filterBy="#{tarea.categoryId}" sortBy="#{tarea.categoryId}" rendered="#{!tareas.listaInbox }">
 					<f:facet name="header">#{msgs.categoria}</f:facet>
-					<p:outputLabel rendered="#{tareas.listaSemana}" class="w3-text-red" value="#{tarea.categoryId}"/>
-					<p:outputLabel rendered="#{!tareas.listaSemana}" class="w3-text-black" value="#{tarea.categoryId}"/>
+					<p:outputLabel id="categoria">
+						<p:outputLabel rendered="#{tareas.listaSemana}" class="w3-text-red" value="#{tarea.categoryId}"/>
+						<p:outputLabel  rendered="#{!tareas.listaSemana}" class="w3-text-black" value="#{tarea.categoryId}"/>
+					</p:outputLabel>
+					
 					</p:column>
 				<p:column filterBy="#{tarea.created}" sortBy="#{tarea.created}">
 					<f:facet name="header">#{msgs.fechaCreacion}</f:facet>#{tarea.created}</p:column>
 				<p:column filterBy="#{tarea.planned}" sortBy="#{tarea.planned}">
 					<f:facet name="header">#{msgs.fechaPlanificada}</f:facet>
-					<p:outputLabel rendered="#{tareas.tarde(tarea.planned)}" class="w3-text-red" value="#{tarea.planned}"/>
-					<p:outputLabel rendered="#{tareas.tarde(tarea.planned) eq false}" class="w3-text-black" value="#{tarea.planned}"/>
-					</p:column> 
+					<p:outputLabel id="planificada">
+							<p:outputLabel  rendered="#{tareas.tarde(tarea.planned)}" class="w3-text-red" value="#{tarea.planned}"/>
+							<p:outputLabel  rendered="#{tareas.tarde(tarea.planned) eq false}" class="w3-text-black" value="#{tarea.planned}"/>
+					</p:outputLabel>
+				</p:column> 
 				<p:column sortBy="#{tarea.finished}"> 
 					<f:facet name="header">#{msgs.fechaFinalizacion}</f:facet>#{tarea.finished}</p:column>
 				<p:column>
 					<f:facet name="header">#{msgs.comentario}</f:facet>#{tarea.comments}</p:column>
 					<p:column>
-								<p:commandButton class="w3-pink" value="#{msgs.editar}" action="#{tareas.editar(tarea)}" type="submit" 
+								<p:commandButton id="editar" class="w3-pink" value="#{msgs.editar}" action="#{tareas.editar(tarea)}" type="submit" 
 					immediate="true"/>
 				</p:column>
 				<p:column>
-								<p:commandButton class="w3-pink" value="#{msgs.finalizar}" action="#{tareas.finalizarTask(tarea)}" type="submit" 
+								<p:commandButton id="finalizar" class="w3-pink" value="#{msgs.finalizar}" action="#{tareas.finalizarTask(tarea)}" type="submit" 
 					immediate="true" update="tablaTareas"/>
 					</p:column>
 			</p:dataTable>

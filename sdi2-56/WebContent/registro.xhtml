@@ -23,7 +23,7 @@
 				</p:menubar>
 
 			</h:form>
-			<h:form>
+			<h:form id="form-registro">
 				<center>
 					<h1>#{msgs.registroUsuarios}</h1>
 				</center>
@@ -34,14 +34,14 @@
 					<p:inputText id="user" type="text" value="#{usuarios.login}"
 						required="true">
 						<f:validator validatorId="custom.loginValidator"></f:validator></p:inputText>
-					<p:message for="user" />
+					<p:message id="mensajeLogin" for="user" />
 					
 					<p:outputLabel for="email" value="Email:" />
 					<p:inputText id="email" type="email" value="#{usuarios.email}"
 						required="true">
 						<f:validateRegex pattern=".+@.+\.[a-z]+"/> 
 						</p:inputText>
-					<p:message for="email" />
+					<p:message id="mensajeEmail" for="email" />
 
 					<p:outputLabel for="pass" value="#{msgs.contraseña}" />
 					<p:inputText id="pass" type="password" required="true"
@@ -49,13 +49,13 @@
 						<f:validateLength minimum="8" />
 						<f:validator validatorId="custom.passwordValidator"></f:validator>
 						</p:inputText>
-					<p:message for="pass" />
+					<p:message id="mensajePass" for="pass" />
 					
 					<p:outputLabel for="passRew" value="#{msgs.reContraseña}" />
 					<p:inputText id="passRew" type="password" required="true"
 						value="#{usuarios.passRew}" binding="#{passRew}">
 						</p:inputText> 
-					<p:message for="passRew" />
+					<p:message id="mensajePassRew" for="passRew" />
 
 				</p:panelGrid>
 				<div align="center">

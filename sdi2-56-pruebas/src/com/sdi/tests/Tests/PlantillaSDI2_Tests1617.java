@@ -205,7 +205,7 @@ public class PlantillaSDI2_Tests1617 {
 		login.rellenaFormulario(driver, "user1", "user1");
 
 		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
-				"j_idt13:tablaTareas", 6);
+				"tablaDelUsuario:tablaTareas", 6);
 		assertTrue(elementos != null);
 	}
 
@@ -411,10 +411,10 @@ public class PlantillaSDI2_Tests1617 {
 				"NuevaContraseña123");
 
 		// Ahora deberíamos estar en registro.xhtml
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt7:j_idt10", 10);
+		SeleniumUtils.esperaCargaPagina(driver, "id", "form-registro:mensajeLogin", 10);
 		SeleniumUtils.textoPresentePagina(driver, "user1 ese usuario ya "
 				+ "existe en el sistema");
-
+		
 		// Vamos a index.xhtml
 		driver.get(localhost() + "/sdi2-56");
 
@@ -480,7 +480,7 @@ public class PlantillaSDI2_Tests1617 {
 		 * Como la contraseña no tiene números saltará una excepción y se
 		 * mostrará un mensaje en el que se informe de ello.
 		 */
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt7:msg", 10);
+		SeleniumUtils.esperaCargaPagina(driver, "id", "form-registro:msg", 10);
 		//SeleniumUtils.textoPresentePagina(driver, "no contiene letras y números");
 
 		// Rellenamos el formulario con información incorrecta.
@@ -492,7 +492,7 @@ public class PlantillaSDI2_Tests1617 {
 		 * Como la contraseña es demasiado pequeña salta excepción y se mostrará
 		 * un mensaje en el que se informe de ello.
 		 */
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt7:j_idt14", 10);
+		SeleniumUtils.esperaCargaPagina(driver, "id", "form-registro:mensajePass", 10);
 		SeleniumUtils.textoPresentePagina(driver, "el largo es inferior");
 		//TODO Error en el mensaje, cambiarlo
 
@@ -506,7 +506,7 @@ public class PlantillaSDI2_Tests1617 {
 		 * Como las contraseñas son distintas salta excepción y se mostrará un
 		 * mensaje en el que se informe de ello.
 		 */
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt7:j_idt14", 10);
+		SeleniumUtils.esperaCargaPagina(driver, "id", "form-registro:msg", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Las contraseñas no "
 				+ "coinciden, intentelo de nuevo");
 
@@ -527,14 +527,56 @@ public class PlantillaSDI2_Tests1617 {
 	// categoría y que son las que tienen que. Usar paginación navegando por las
 	// tres páginas.
 	@Test
-	public void prueba16() {
-		// TODO Por hacer;
+	public void prueba16() throws InterruptedException{
+		PO_FormLogin login = new PO_FormLogin();
+
+		login.rellenaFormulario(driver, "user1", "user1");
+
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"botonesListas", 6);
+		assertTrue(elementos != null);
+		
+		SeleniumUtils.clickButton(driver, "botonesListas:theInbox");
+		SeleniumUtils.esperaCargaPagina(driver,
+				"id", "tablaDelUsuario:tablaTareas_paginator_top", 10);
+		Thread.sleep(500);
+		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
+		
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 0);
+		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 1);
+		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 2);
+		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
+		
 	}
 
 	// PR17: Funcionamiento correcto de la ordenación por fecha planeada.
 	@Test
-	public void prueba17() {
-		// TODO Por hacer;
+	public void prueba17() throws InterruptedException {
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"tablaDelUsuario", 6);
+		assertTrue(elementos != null);
+
+		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver,
+				"class", "sortable-column-icon", 4);
+		Thread.sleep(500);
+		elementos.get(3).click();
+		assertTrue(driver.findElement(By.id("tablaDelUsuario:tablaTareas:0:title"))
+				.getText().equals("tarea21"));
+		Thread.sleep(500);
+		elementos.get(3).click();
+		Thread.sleep(500);
+		assertTrue(driver.findElement(By.id("tablaDelUsuario:tablaTareas:0:title"))
+				.getText().equals("tarea1"));
+
 	}
 
 	// PR18: Funcionamiento correcto del filtrado.
@@ -625,15 +667,15 @@ public class PlantillaSDI2_Tests1617 {
 		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
 
 		// Click en las tareas de inbox
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:theInbox", 10);
-		SeleniumUtils.clickButton(driver, "j_idt9:theInbox");
+		SeleniumUtils.esperaCargaPagina(driver, "id", "botonesListas:theInbox", 10);
+		SeleniumUtils.clickButton(driver, "botonesListas:theInbox");
 
 		// Click en editar tarea1 (tarea sin categoria de inbox).
 		SeleniumUtils.esperaCargaPagina(driver, "id",
-				"j_idt13:tablaTareas:0:j_idt37", 10);
-		SeleniumUtils.clickButton(driver, "j_idt13:tablaTareas:0:j_idt37");
+				"tablaDelUsuario:tablaTareas:0:editar", 10);
+		SeleniumUtils.clickButton(driver, "tablaDelUsuario:tablaTareas:0:editar");
 		SeleniumUtils.esperaCargaPagina(driver, "id",
-				"j_idt7:form-registro:Title", 10);
+				"form-editarTarea", 10);
 
 		// TODO Sin comprobar que funciona
 
@@ -648,24 +690,24 @@ public class PlantillaSDI2_Tests1617 {
 		 */
 
 		// Inbox
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:theInbox", 10);
-		SeleniumUtils.clickButton(driver, "j_idt9:theInbox");
+		SeleniumUtils.esperaCargaPagina(driver, "id", "botonesListas:theInbox", 10);
+		SeleniumUtils.clickButton(driver, "botonesListas:theInbox");
 
 		// Esperamos que aparezcan los enlaces de paginacion y hacemos click
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:theInbox", 10);
-		SeleniumUtils.clickButton(driver, "j_idt9:semana");
+		SeleniumUtils.esperaCargaPagina(driver, "id", "botonesListas:theInbox", 10);
+		SeleniumUtils.clickButton(driver, "botonesListas:semana");
 		List<WebElement> paginacion = SeleniumUtils.esperaCargaPagina(driver,
 				"class", "ui-paginator-pages", 2);
 		SeleniumUtils.clickElement(driver, paginacion.get(2));
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea1Modificada");
 
 		// Hoy
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:hoy", 10);
-		SeleniumUtils.clickButton(driver, "j_idt9:hoy");
+		SeleniumUtils.esperaCargaPagina(driver, "id", "botonesListas:hoy", 10);
+		SeleniumUtils.clickButton(driver, "botonesListas:hoy");
 
 		// Semana
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:theInbox", 10);
-		SeleniumUtils.clickButton(driver, "j_idt9:semana");
+		SeleniumUtils.esperaCargaPagina(driver, "id", "botonesListas:theInbox", 10);
+		SeleniumUtils.clickButton(driver, "botonesListas:semana");
 
 	}
 
@@ -678,8 +720,8 @@ public class PlantillaSDI2_Tests1617 {
 		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
 
 		// Click en las tareas de hoy
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt9:hoy", 10);
-		SeleniumUtils.clickButton(driver, "j_idt9:hoy");
+		SeleniumUtils.esperaCargaPagina(driver, "id", "botonesListas:hoy", 10);
+		SeleniumUtils.clickButton(driver, "botonesListas:hoy");
 
 		// Esperamos que aparezcan los enlaces de paginacion y hacemos click
 		List<WebElement> paginacion = SeleniumUtils.esperaCargaPagina(driver,
@@ -688,10 +730,10 @@ public class PlantillaSDI2_Tests1617 {
 
 		// Click en editar tarea30 (tarea con categoria 3).
 		SeleniumUtils.esperaCargaPagina(driver, "id",
-				"j_idt13:tablaTareas:0:j_idt37", 10);
-		SeleniumUtils.clickButton(driver, "j_idt13:tablaTareas:0:j_idt37");
+				"tablaDelUsuario:tablaTareas:0:editar", 10);
+		SeleniumUtils.clickButton(driver, "tablaDelUsuario:tablaTareas:0:editar");
 		SeleniumUtils.esperaCargaPagina(driver, "id",
-				"j_idt7:form-registro:Title", 10);
+				"j_idt7:form-editarTarea:Title", 10);
 
 		// TODO Esperar a que se pueda seleccionar Sin categoria
 		// Rellenamos el formulario para editar tarea
@@ -716,93 +758,93 @@ public class PlantillaSDI2_Tests1617 {
 
 		// Click en Finalizar tarea21
 		SeleniumUtils.esperaCargaPagina(driver, "id",
-				"j_idt13:tablaTareas:0:j_idt39", 10);
+				"tablaDelUsuario:tablaTareas:0:finalizar", 10);
 		SeleniumUtils.textoPresentePagina(driver, "tarea21");
-		SeleniumUtils.clickButton(driver, "j_idt13:tablaTareas:0:j_idt39");
+		SeleniumUtils.clickButton(driver, "tablaDelUsuario:tablaTareas:0:finalizar");
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		// Vemos que no está en ninguna página
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
 				+ "ui-state-default ui-corner-all", 0);
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
 				+ "ui-state-default ui-corner-all", 2);
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
 				+ "ui-state-default ui-corner-all", 3);
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		// Lista de hoy
-		SeleniumUtils.clickButton(driver, "j_idt9:hoy");
+		SeleniumUtils.clickButton(driver, "botonesListas:hoy");
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page", 1);
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page"
 				+ "ui-state-default", 2);
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		// Lista de semana
-		SeleniumUtils.clickButton(driver, "j_idt9:semana");
+		SeleniumUtils.clickButton(driver, "botonesListas:semana");
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
 				+ "ui-state-default ui-corner-all", 0);
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
 				+ "ui-state-default ui-corner-all", 1);
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
 				+ "ui-state-default ui-corner-all", 2);
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		// Lista de Inbox
 		// Aqui debería estar la tarea finalizada al final de la lista
-		SeleniumUtils.clickButton(driver, "j_idt9:theInbox");
+		SeleniumUtils.clickButton(driver, "botonesListas:theInbox");
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
 				+ "ui-state-default ui-corner-all", 0);
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
 				+ "ui-state-default ui-corner-all", 1);
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		// Última página, aqui debería estar
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
 				+ "ui-state-default ui-corner-all", 2);
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "tarea21");
 
 		// TODO comprobar color
