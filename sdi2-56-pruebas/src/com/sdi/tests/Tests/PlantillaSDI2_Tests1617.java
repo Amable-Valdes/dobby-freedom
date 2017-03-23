@@ -70,7 +70,7 @@ public class PlantillaSDI2_Tests1617 {
 	public void end() {
 		// Cerramos el navegador
 		// TODO Si se quieren cerrar todas las ventanas una vez terminen:
-		driver.quit();
+//		driver.quit();
 	}
 
 	// PRUEBAS
@@ -413,7 +413,90 @@ public class PlantillaSDI2_Tests1617 {
 	// a la pagina donde está la tarea terminada y comprobar que se muestra.
 	@Test
 	public void prueba26() {
-		// TODO Por hacer;
+		//Nos logueamos
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+		
+		// Click en Finalizar tarea21
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas:0:j_idt39", 10);
+		SeleniumUtils.textoPresentePagina(driver, "tarea21");
+		SeleniumUtils.clickButton(driver, "j_idt13:tablaTareas:0:j_idt39");
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		//Vemos que no está en ninguna página
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 0);
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 2);
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 3);
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page ui-state-default ui-corner-all", 0);
+		
+		//Lista de hoy
+		SeleniumUtils.clickButton(driver, "j_idt9:hoy");
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page ui-state-default ui-corner-all", 0);
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default", 1);
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default", 2);
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		//Lista de semana
+		SeleniumUtils.clickButton(driver, "j_idt9:semana");
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 0);
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 1);
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 2);
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		//Lista de Inbox
+		//Aqui debería estar la tarea finalizada al final de la lista
+		SeleniumUtils.clickButton(driver, "j_idt9:theInbox");
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 0);
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 1);
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		//Última página, aqui debería estar
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 2);
+		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "tarea21");
+		
+		//TODO comprobar color
 	}
 
 	// PR27: Crear una tarea sin categoría y comprobar que se muestra en la

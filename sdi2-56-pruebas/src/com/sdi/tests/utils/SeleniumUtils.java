@@ -5,6 +5,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+import org.omg.CORBA.portable.IndirectionException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -62,6 +63,13 @@ public class SeleniumUtils {
 			esperaCargaPagina(driver, "id", idSeleccion, 10);
 			WebElement selecion = driver.findElement(By.id(idSeleccion));
 			selecion.click();
+		}
+		
+		//Seleccionar pagina
+		static public void seleccionarPagina(WebDriver driver, String classPaginacion, int indiceListaWebElements) {
+			List<WebElement> paginacion = SeleniumUtils.esperaCargaPagina(driver,
+					"class", classPaginacion, 10);
+			SeleniumUtils.clickElement(driver, paginacion.get(indiceListaWebElements));
 		}
 
 		static public void textoPresentePagina(WebDriver driver, String texto)
