@@ -33,18 +33,22 @@
 				paginator="true"
                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                >
-			<p:column filterBy="#{usuario.login}" sortBy="#{usuario.login}" headerText="Login">
-					<h:outputText value="#{usuario.login}" /></p:column>
-				<p:column  sortBy="#{usuario.email}">
-					<f:facet name="header">Email</f:facet>#{usuario.email}</p:column>
-				<p:column sortBy="#{usuario.status}">
-					<f:facet name="header">#{msgs.estado}</f:facet>#{usuario.status}</p:column>
+			<p:column  filterBy="#{usuario.login}" sortBy="#{usuario.login}" headerText="Login">
+					<h:outputText id="login" value="#{usuario.login}" /></p:column>
+				<p:column  sortBy="#{usuario.email}" headerText="Email">
+					<h:outputText id="email" value="#{usuario.email}" /></p:column>
+				<p:column sortBy="#{usuario.status}" headerText="#{msgs.estado}">
+					<h:outputText id="status" value="#{usuario.status}" /></p:column>
 				<p:column>
-								<p:commandButton class="w3-pink" value="#{msgs.actDesact}" action="#{usuarios.activarDesactivar(usuario)}" type="submit" 
+								<p:commandButton id="actDesact" class="w3-pink" 
+								value="#{msgs.actDesact}" 
+								action="#{usuarios.activarDesactivar(usuario)}" type="submit" 
 					immediate="true" update="tabla"/>
 				</p:column>
 				<p:column>
-								<p:commandButton action="#{usuarios.obtenerAuxUser(usuario)}" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-pink" value="#{msgs.eliminar}"/>
+							<p:commandButton action="#{usuarios.obtenerAuxUser(usuario)}" 
+							onclick="document.getElementById('id01').style.display='block'" 
+							class="w3-button w3-pink" value="#{msgs.eliminar}"/>
 								
 				</p:column>
 			</p:dataTable>
