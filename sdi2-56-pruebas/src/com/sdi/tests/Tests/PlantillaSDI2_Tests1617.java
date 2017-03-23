@@ -70,7 +70,7 @@ public class PlantillaSDI2_Tests1617 {
 	public void end() {
 		// Cerramos el navegador
 		// TODO Si se quieren cerrar todas las ventanas una vez terminen:
-//		driver.quit();
+		// driver.quit();
 	}
 
 	// PRUEBAS
@@ -165,7 +165,7 @@ public class PlantillaSDI2_Tests1617 {
 	// PR07: Cambiar el estado de un usuario a DISABLED a ENABLED. Y Y tratar de
 	// entrar con el usuario que se ha activado.
 	@Test
-	public void prueba07() {  
+	public void prueba07() {
 
 		PO_FormLogin login = new PO_FormLogin();
 
@@ -213,99 +213,148 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba08() throws InterruptedException {
 		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
-		
+
 		// Encontrar elemento de la siguiente vista
 		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
 				"form-listado", 6);
 		assertTrue(elementos != null);
-		
-		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
+
+		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver,
+				"class", "sortable-column-icon", 2);
 		Thread.sleep(500);
 		elementos.get(0).click();
-		
+
 		Thread.sleep(500);
-		boolean u1 = driver.findElement(By.id("form-listado:tabla:0:login")).getText().equals("user1");
-		boolean u2 = driver.findElement(By.id("form-listado:tabla:1:login")).getText().equals("user2");
-		boolean u3 = driver.findElement(By.id("form-listado:tabla:2:login")).getText().equals("user3");
+		boolean u1 = driver.findElement(By.id("form-listado:tabla:0:login"))
+				.getText().equals("user1");
+		boolean u2 = driver.findElement(By.id("form-listado:tabla:1:login"))
+				.getText().equals("user2");
+		boolean u3 = driver.findElement(By.id("form-listado:tabla:2:login"))
+				.getText().equals("user3");
 		assertTrue(u1 && u2 && u3);
-		
+
 		Thread.sleep(500);
 		elementos.get(0).click();
 		Thread.sleep(500);
 
-		u3 = driver.findElement(By.id("form-listado:tabla:0:login")).getText().equals("user3");
-		u2 = driver.findElement(By.id("form-listado:tabla:1:login")).getText().equals("user2");
-		u1 = driver.findElement(By.id("form-listado:tabla:2:login")).getText().equals("user1");
-		
+		u3 = driver.findElement(By.id("form-listado:tabla:0:login")).getText()
+				.equals("user3");
+		u2 = driver.findElement(By.id("form-listado:tabla:1:login")).getText()
+				.equals("user2");
+		u1 = driver.findElement(By.id("form-listado:tabla:2:login")).getText()
+				.equals("user1");
+
 		assertTrue(u1 && u2 && u3);
 	}
 
 	// PR09: Ordenar por Email
 	@Test
-	public void prueba09()  throws InterruptedException{
+	public void prueba09() throws InterruptedException {
 		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
-		
+
 		// Encontrar elemento de la siguiente vista
 		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
 				"form-listado", 6);
 		assertTrue(elementos != null);
-		
-		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
+
+		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver,
+				"class", "sortable-column-icon", 2);
 		Thread.sleep(500);
 		elementos.get(1).click();
-		
+
 		Thread.sleep(500);
-		boolean u1 = driver.findElement(By.id("form-listado:tabla:0:email")).getText().equals("user1@email.com");
-		boolean u2 = driver.findElement(By.id("form-listado:tabla:1:email")).getText().equals("user2@email.com");
-		boolean u3 = driver.findElement(By.id("form-listado:tabla:2:email")).getText().equals("user3@email.com");
+		boolean u1 = driver.findElement(By.id("form-listado:tabla:0:email"))
+				.getText().equals("user1@email.com");
+		boolean u2 = driver.findElement(By.id("form-listado:tabla:1:email"))
+				.getText().equals("user2@email.com");
+		boolean u3 = driver.findElement(By.id("form-listado:tabla:2:email"))
+				.getText().equals("user3@email.com");
 		assertTrue(u1 && u2 && u3);
-		
+
 		Thread.sleep(500);
 		elementos.get(1).click();
 		Thread.sleep(500);
 
-		u3 = driver.findElement(By.id("form-listado:tabla:0:email")).getText().equals("user3@email.com");
-		u2 = driver.findElement(By.id("form-listado:tabla:1:email")).getText().equals("user2@email.com");
-		u1 = driver.findElement(By.id("form-listado:tabla:2:email")).getText().equals("user1@email.com");
-		
+		u3 = driver.findElement(By.id("form-listado:tabla:0:email")).getText()
+				.equals("user3@email.com");
+		u2 = driver.findElement(By.id("form-listado:tabla:1:email")).getText()
+				.equals("user2@email.com");
+		u1 = driver.findElement(By.id("form-listado:tabla:2:email")).getText()
+				.equals("user1@email.com");
+
 		assertTrue(u1 && u2 && u3);
 	}
 
 	// PR10: Ordenar por Status
 	@Test
-	public void prueba10() throws InterruptedException{
+	public void prueba10() throws InterruptedException {
 		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
-		
+
 		// Encontrar elemento de la siguiente vista
 		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
 				"form-listado", 6);
 		assertTrue(elementos != null);
-		
-		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
+
+		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver,
+				"class", "sortable-column-icon", 2);
 		Thread.sleep(500);
 		elementos.get(2).click();
-		
+
 		Thread.sleep(500);
-		boolean u1 = driver.findElement(By.id("form-listado:tabla:0:status")).getText().equals("ENABLED");
-		boolean u2 = driver.findElement(By.id("form-listado:tabla:1:status")).getText().equals("ENABLED");
-		boolean u3 = driver.findElement(By.id("form-listado:tabla:2:status")).getText().equals("ENABLED");
+		boolean u1 = driver.findElement(By.id("form-listado:tabla:0:status"))
+				.getText().equals("ENABLED");
+		boolean u2 = driver.findElement(By.id("form-listado:tabla:1:status"))
+				.getText().equals("ENABLED");
+		boolean u3 = driver.findElement(By.id("form-listado:tabla:2:status"))
+				.getText().equals("ENABLED");
 		assertTrue(u1 && u2 && u3);
-		
+
 		Thread.sleep(500);
 		elementos.get(2).click();
 		Thread.sleep(500);
 
-		u3 = driver.findElement(By.id("form-listado:tabla:0:status")).getText().equals("ENABLED");
-		u2 = driver.findElement(By.id("form-listado:tabla:1:status")).getText().equals("ENABLED");
-		u1 = driver.findElement(By.id("form-listado:tabla:2:status")).getText().equals("ENABLED");
-		
+		u3 = driver.findElement(By.id("form-listado:tabla:0:status")).getText()
+				.equals("ENABLED");
+		u2 = driver.findElement(By.id("form-listado:tabla:1:status")).getText()
+				.equals("ENABLED");
+		u1 = driver.findElement(By.id("form-listado:tabla:2:status")).getText()
+				.equals("ENABLED");
+
 		assertTrue(u1 && u2 && u3);
 	}
 
 	// PR11: Borrar una cuenta de usuario normal y datos relacionados.
 	@Test
 	public void prueba11() {
-		// TODO Por hacer;
+		// Nos logueamos como admin
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+
+		// Borramos el usuario
+		SeleniumUtils.esperaCargaPagina(driver, "id",
+				"form-listado:tabla:0:j_idt21", 10);
+		SeleniumUtils.clickButton(driver, "form-listado:tabla:0:j_idt21");
+
+		// Aceptamos
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt22:j_idt24", 10);
+		SeleniumUtils.clickButton(driver, "j_idt22:j_idt24");
+
+		// Comprobamos que el usuario ya no existe
+		SeleniumUtils.esperaCargaPagina(driver, "id", "form-listado:tabla", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "user1");
+
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
+				"menu1:cerrarSesion");
+
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+
+		SeleniumUtils.textoPresentePagina(driver, "El usuario o contraseña"
+				+ " introducido es erroneo, intentelo de nuevo");
+
+		/*
+		 * Las tareas y categorías no pueden existir sin un usuario, por lo que
+		 * si el usuario no existe porque ha sido borrado, estas también han
+		 * sido borradas y no existen.
+		 */
 	}
 
 	// PR12: Crear una cuenta de usuario normal con datos válidos.
@@ -361,7 +410,7 @@ public class PlantillaSDI2_Tests1617 {
 		// Ahora deberíamos estar en registro.xhtml
 		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt7:j_idt10", 10);
 		SeleniumUtils.textoPresentePagina(driver, "user1 ese usuario ya "
-				+ "existe en el sistema;");
+				+ "existe en el sistema");
 
 		// Vamos a index.xhtml
 		driver.get(localhost() + "/sdi2-56");
@@ -385,18 +434,17 @@ public class PlantillaSDI2_Tests1617 {
 		// Rellenamos el formulario con información incorrecta.
 		// Login ya existente en la BBDD
 		new PO_FormRegistro().rellenaFormulario(driver, "usuarioNuevo",
-				"emailErroneo", "NuevaContraseña123",
-				"NuevaContraseña123");
+				"emailErroneo", "NuevaContraseña123", "NuevaContraseña123");
 
-		/* Ahora deberíamos estar en registro.xhtml y debería mostrar un 
-		 * mensaje diciendo que el email no sigue los estandares de X@X.X 
+		/*
+		 * Ahora deberíamos estar en registro.xhtml y debería mostrar un mensaje
+		 * diciendo que el email no sigue los estandares de X@X.X
 		 * 
-		 * Si eso es asi, debería existir el siguiente textfield con la 
+		 * Si eso es asi, debería existir el siguiente textfield con la
 		 * siguiente clase y el focus.
 		 */
-		List<WebElement> mensajeError = SeleniumUtils.esperaCargaPagina(driver, 
-				"class", 
-				"ui-inputfield ui-inputtext ui-widget "
+		List<WebElement> mensajeError = SeleniumUtils.esperaCargaPagina(driver,
+				"class", "ui-inputfield ui-inputtext ui-widget "
 						+ "ui-state-default ui-corner-all ui-state-focus", 10);
 		assertFalse(mensajeError.isEmpty());
 
@@ -415,7 +463,63 @@ public class PlantillaSDI2_Tests1617 {
 	// PR15: Crear una cuenta de usuario normal con Password incorrecta.
 	@Test
 	public void prueba15() {
-		// TODO Por hacer, primero tienen que existir los mensajes de error cuando se pone mal la contraseña repetida.
+		// Opcion de crear usuario
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionUsuarios",
+				"menu1:registro");
+
+		// Rellenamos el formulario con información incorrecta.
+		// Contraseña sin números
+		new PO_FormRegistro().rellenaFormulario(driver, "usuarioNuevo",
+				"emailNuevo@mail.com", "contraseñaSinNumeros",
+				"contraseñaSinNumeros");
+
+		/*
+		 * Como la contraseña no tiene números saltará una excepción y se
+		 * mostrará un mensaje en el que se informe de ello.
+		 */
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt7:j_idt14", 10);
+		SeleniumUtils.textoPresentePagina(driver, "contraseñaSinNumeros no "
+				+ "contiene letras y números");
+
+		// Rellenamos el formulario con información incorrecta.
+		// Contraseña corta
+		new PO_FormRegistro().rellenaFormulario(driver, "usuarioNuevo",
+				"emailNuevo@mail.com", "c", "c");
+
+		/*
+		 * Como la contraseña es demasiado pequeña salta excepción y se mostrará
+		 * un mensaje en el que se informe de ello.
+		 */
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt7:j_idt14", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Contraseña:: Error de "
+				+ "validación: el largo es inferior "
+				+ "que el mínimo permitido de '8 '");
+		//TODO Error en el mensaje, cambiarlo
+
+		// Rellenamos el formulario con información incorrecta.
+		// Contraseña mal repetida
+		new PO_FormRegistro().rellenaFormulario(driver, "usuarioNuevo",
+				"emailNuevo@mail.com", "contraseñaValida123",
+				"contraseñaNoRepetida123");
+
+		/*
+		 * Como las contraseñas son distintas salta excepción y se mostrará un
+		 * mensaje en el que se informe de ello.
+		 */
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt7:j_idt14", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Las contraseñas no "
+				+ "coinciden, intentelo de nuevo");
+
+		// Vamos a index.xhtml
+		driver.get(localhost() + "/sdi2-56");
+
+		// Nos logueamos como admin
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+
+		// Comprobamos que existe el usuario y se lista correctamente
+		SeleniumUtils.esperaCargaPagina(driver, "id", "form-listado:tabla", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "usuarioNuevo");
+		SeleniumUtils.textoNoPresentePagina(driver, "emailNuevo@mail.com");
 	}
 
 	// USUARIO
@@ -488,90 +592,7 @@ public class PlantillaSDI2_Tests1617 {
 	// a la pagina donde está la tarea terminada y comprobar que se muestra.
 	@Test
 	public void prueba26() {
-		//Nos logueamos
-		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
-		
-		// Click en Finalizar tarea21
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas:0:j_idt39", 10);
-		SeleniumUtils.textoPresentePagina(driver, "tarea21");
-		SeleniumUtils.clickButton(driver, "j_idt13:tablaTareas:0:j_idt39");
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		
-		//Vemos que no está en ninguna página
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 0);
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 2);
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 3);
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page ui-state-default ui-corner-all", 0);
-		
-		//Lista de hoy
-		SeleniumUtils.clickButton(driver, "j_idt9:hoy");
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page ui-state-default ui-corner-all", 0);
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default", 1);
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default", 2);
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		
-		//Lista de semana
-		SeleniumUtils.clickButton(driver, "j_idt9:semana");
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 0);
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 1);
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 2);
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		
-		//Lista de Inbox
-		//Aqui debería estar la tarea finalizada al final de la lista
-		SeleniumUtils.clickButton(driver, "j_idt9:theInbox");
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 0);
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 1);
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
-		
-		//Última página, aqui debería estar
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 2);
-		SeleniumUtils.esperaCargaPagina(driver,"id", "j_idt13:tablaTareas", 10);
-		SeleniumUtils.textoPresentePagina(driver, "tarea21");
-		
-		//TODO comprobar color
+		// TODO Por hacer;
 	}
 
 	// PR27: Crear una tarea sin categoría y comprobar que se muestra en la
@@ -692,19 +713,99 @@ public class PlantillaSDI2_Tests1617 {
 		// TODO Por hacer;
 		// Nos logueamos
 		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
-		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
 
-		// Comprobamos que existe la Tarea 1
-		SeleniumUtils.textoPresentePagina(driver, "tarea1");
-		// Finalizamos la tarea 1
+		// Click en Finalizar tarea21
+		SeleniumUtils.esperaCargaPagina(driver, "id",
+				"j_idt13:tablaTareas:0:j_idt39", 10);
+		SeleniumUtils.textoPresentePagina(driver, "tarea21");
 		SeleniumUtils.clickButton(driver, "j_idt13:tablaTareas:0:j_idt39");
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
-		// Comprobamos que la tarea ya no aparece
-		// Comprobamos que existe la Tarea 1
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea1");
+		// Vemos que no está en ninguna página
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 0);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 2);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 3);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+
+		// Lista de hoy
+		SeleniumUtils.clickButton(driver, "j_idt9:hoy");
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page", 1);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page"
+				+ "ui-state-default", 2);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+
+		// Lista de semana
+		SeleniumUtils.clickButton(driver, "j_idt9:semana");
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 0);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 1);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 2);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+
+		// Lista de Inbox
+		// Aqui debería estar la tarea finalizada al final de la lista
+		SeleniumUtils.clickButton(driver, "j_idt9:theInbox");
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 0);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 1);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+
+		// Última página, aqui debería estar
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 2);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt13:tablaTareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "tarea21");
+
+		// TODO comprobar color
 
 	}
 
