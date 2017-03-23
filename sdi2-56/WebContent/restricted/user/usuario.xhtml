@@ -45,6 +45,17 @@
 			<h:form>
 			<center>
 					<h1>#{usuarios.login}</h1>
+					<br></br>
+					<p:outputLabel class="w3-pink" rendered="#{tareas.listaInbox and !usuarios.finalizadas}">
+					#{msgs.inboxNoTerminadas}</p:outputLabel>
+					<p:outputLabel class="w3-pink" rendered="#{tareas.listaInbox and usuarios.finalizadas}">
+					#{msgs.inboxTerminadas}</p:outputLabel>
+					
+					<p:outputLabel class="w3-pink" rendered="#{tareas.listaHoy}">
+					#{msgs.listaHoy}</p:outputLabel>
+					
+					<p:outputLabel class="w3-pink" rendered="#{tareas.listaSemana}">
+					#{msgs.listaSemana}</p:outputLabel>
 				</center>
 				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 			<p:dataTable id="tablaTareas" var="tarea"

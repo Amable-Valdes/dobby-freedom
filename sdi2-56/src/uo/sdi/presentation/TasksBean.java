@@ -140,7 +140,7 @@ public class TasksBean implements Serializable {
 			}
 			task.setPlanned(planned);
 			CategoryDTO c = new CategoryDTO();
-			if(!category.equals("")){
+			if(!category.equals("") && !category.equals("Sin categoria")){
 				c.setName(category);
 			}
 			else{
@@ -219,9 +219,17 @@ public class TasksBean implements Serializable {
 			task.setTitle(title);
 			task.setPlanned(planned);
 			task.setComments(comments);
-			CategoryDTO categoria = Factories.services.createCategoryService()
-					.findCategoryByUserAndCategoryName(user, category);
-			task.setCategoryId(categoria.getId());
+			CategoryDTO categoria = null;
+			if(!category.equals("Sin categoria")){
+				categoria = Factories.services.createCategoryService()
+						.findCategoryByUserAndCategoryName(user, category);
+				task.setCategoryId(categoria.getId());
+			}
+			else{
+				task.setCategoryId(null);
+			}
+			
+			
 			Factories.services.createTaskService().updateTask(task);
 			exitoEditarTarea();
 			listar(user);
@@ -340,7 +348,6 @@ public class TasksBean implements Serializable {
 	}
 	
 	public boolean tarde(Date date){
-		System.out.println("date: "+ date.toString());
 		if(date.compareTo(new Date()) < 0){
 			return true;
 		}

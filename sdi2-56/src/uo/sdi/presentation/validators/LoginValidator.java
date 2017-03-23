@@ -36,7 +36,7 @@ public class LoginValidator implements Validator {
         
         if(existe) {
         	throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validation Error", 
-                    value + " ese usuario ya existe en el sistema;"));
+                    value + " ese usuario ya existe en el sistema"));
         }
     }
  

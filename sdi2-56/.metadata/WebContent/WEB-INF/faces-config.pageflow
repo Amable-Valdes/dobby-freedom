@@ -18,7 +18,7 @@
   <links id="pf14900225603019" target="pf14900225603015" source="pf149002256030120" outcome="exito" redirect="true" fromaction="#{tareas.crearTask}"/>
   <links id="pf149002256030110" target="pf14900225603015" source="pf149002256030120" outcome="exito" redirect="true" fromaction="#{usuarios.volverUsuario}"/>
   <links id="pf149002256030114" target="pf149002256030111" source="pf149002256030120" outcome="fracaso" redirect="true" fromaction="#{tareas.crearTask}"/>
-  <links id="pf149002256030115" target="pf149002256030111" source="pf149002256030116" outcome="exito" redirect="true" fromaction="#{usuarios.registraUsuario}"/>
+  <links id="pf149002256030115" target="pf149002256030111" source="pf149002256030116" outcome="exito" fromaction="#{usuarios.registraUsuario}"/>
   <links id="pf14900976050470" target="pf14900976050475" source="pf14900225603015" outcome="editarTarea" redirect="true" fromaction="#{tareas.editar(tarea)}"/>
   <links id="pf14900976050474" target="pf14900225603015" source="pf14900976050475" outcome="usuario" redirect="true" fromaction="#{tareas.editarTask}"/>
   <links id="pf149002256030119" target="pf149002256030118" source="pf149002256030118" outcome="exito" redirect="true" fromaction="#{usuarios.inicializarBBDD}">
@@ -26,7 +26,7 @@
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
     <bendPoints d1Width="-64" d2Width="-64"/>
   </links>
-  <links id="pf149002256030117" target="pf149002256030116" source="pf149002256030116" outcome="fracaso" redirect="true" fromaction="#{usuarios.registraUsuario}">
+  <links id="pf149002256030117" target="pf149002256030116" source="pf149002256030116" outcome="fracaso" fromaction="#{usuarios.registraUsuario}">
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
     <bendPoints d1Width="-64" d2Width="-64"/>

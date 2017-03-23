@@ -27,6 +27,7 @@
 				<center>
 					<h1>#{msgs.registroUsuarios}</h1>
 				</center>
+				<p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" />
 				<p:panelGrid id="grid" columns="3" cellPadding="5"
 					style="margin: 0 auto;">
 					<p:outputLabel for="user" value="#{msgs.usuario}" />
@@ -52,13 +53,15 @@
 					
 					<p:outputLabel for="passRew" value="#{msgs.reContraseña}" />
 					<p:inputText id="passRew" type="password" required="true"
-						value="#{usuarios.passRew}"></p:inputText> 
+						value="#{usuarios.passRew}" binding="#{passRew}">
+						</p:inputText> 
 					<p:message for="passRew" />
 
 				</p:panelGrid>
 				<div align="center">
 					<p:commandButton id = "enviarUser" value="#{msgs.registrarse}"
 						action="#{usuarios.registraUsuario}" update="grid" ajax="false">
+						
 					</p:commandButton>
 				</div>
 

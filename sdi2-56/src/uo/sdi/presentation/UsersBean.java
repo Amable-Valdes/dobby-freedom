@@ -218,6 +218,7 @@ public class UsersBean implements Serializable {
 					List<CategoryDTO> cat = Factories.services
 							.createCategoryService()
 							.findCategoriesByUser(user.getLogin());
+					categorias.add("Sin categoria");
 					for(CategoryDTO ca : cat){
 						categorias.add(ca.getName());
 					}
@@ -304,6 +305,12 @@ public class UsersBean implements Serializable {
 						"Registro", "El usuario introducido ha sido registrado"));
 	}
 	
+	public void errorRegistro(){
+		FacesContext.getCurrentInstance().addMessage(
+				null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+						"Registro", "Las contraseñas no coinciden, intentelo de nuevo"));
+	}
+	
 	public String registraUsuario() {
 		try {
 			if (pass.equals(passRew)) {
@@ -316,6 +323,9 @@ public class UsersBean implements Serializable {
 				pass = "";
 				exitoRegistro();
 				return "exito";
+			}
+			else{
+				errorRegistro();
 			}
 			return "fracaso";
 		} catch (BusinessException e) {
@@ -397,8 +407,8 @@ public class UsersBean implements Serializable {
 	}
 
 	public void inbox() {
-		
-		tasks.listarTaskInbox(user,true);
+		finalizadas = true;
+		tasks.listarTaskInbox(user,finalizadas);
 	}
 	
 	public void inboxTerminadas() {

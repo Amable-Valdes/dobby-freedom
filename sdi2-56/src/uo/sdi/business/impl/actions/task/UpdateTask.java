@@ -37,12 +37,15 @@ public class UpdateTask implements Command {
 		&& !taskDTO.getCategoryId().equals(task.getCategory().getId())) ||
 		// O si una es null y la otra no
 		(task.getCategory() == null && taskDTO.getCategoryId() != null || 
-		taskDTO.getCategoryId() != null && taskDTO.getCategoryId() == null)) {
+		task.getCategory() != null && taskDTO.getCategoryId() == null)) {
 			Category category_old = task.getCategory();
 			Category category_update = CategoryFinder.findById(
 					taskDTO.getCategoryId());
 			//Comprobamos que existe la categoría
-			Asserts.assertCategoryExist(category_update);
+			//Esto de aqui, si lo dejo, no permite poner categoria null
+			//y siempre vamos a poder meter una categoria que exista
+			//porque es un combobox con las categorias del usuario
+			//Asserts.assertCategoryExist(category_update);
 			//Si tenia categoria, se quita
 			if(category_old != null){
 				Association.Classifies.unlink(category_old, task);
