@@ -117,4 +117,10 @@ public class SeleniumUtils {
 			else busqueda = "//*[contains(text(),'" + id + "')]";
 			return esperaCargaPaginaxpath(driver, busqueda, timeout);
 		}
+		
+		static public List<WebElement> comprobarColor(WebDriver driver, String color, int timeout){
+			String busqueda;
+			busqueda = "//*[contains(@class,'w3-text-" + color + "')]";
+			return esperaCargaPaginaxpath(driver, busqueda,timeout);
+		}
 }

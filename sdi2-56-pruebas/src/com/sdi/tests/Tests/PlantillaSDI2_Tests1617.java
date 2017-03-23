@@ -150,7 +150,7 @@ public class PlantillaSDI2_Tests1617 {
 				"form-listado", 6);
 		assertTrue(elementos != null);
 
-		SeleniumUtils.clickButton(driver, "form-listado:tabla:0:j_idt19");
+		SeleniumUtils.clickButton(driver, "form-listado:tabla:0:actDesact");
 
 		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
 				"menu1:cerrarSesion");
@@ -331,12 +331,15 @@ public class PlantillaSDI2_Tests1617 {
 
 		// Borramos el usuario
 		SeleniumUtils.esperaCargaPagina(driver, "id",
-				"form-listado:tabla:0:j_idt21", 10);
-		SeleniumUtils.clickButton(driver, "form-listado:tabla:0:j_idt21");
+				"form-listado:tabla:0:dialogEliminar", 10);
+		SeleniumUtils.clickButton(driver, "form-listado:tabla:0:dialogEliminar");
 
-		// Aceptamos
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt22:j_idt24", 10);
-		SeleniumUtils.clickButton(driver, "j_idt22:j_idt24");
+		//Aceptamos
+		SeleniumUtils.esperaCargaPagina(driver, "id",
+				"form-eliminar:eliminar", 10);
+		
+		SeleniumUtils.clickButton(driver, "form-eliminar:eliminar");
+
 
 		// Comprobamos que el usuario ya no existe
 		SeleniumUtils.esperaCargaPagina(driver, "id", "form-listado:tabla", 10);
@@ -477,9 +480,8 @@ public class PlantillaSDI2_Tests1617 {
 		 * Como la contraseña no tiene números saltará una excepción y se
 		 * mostrará un mensaje en el que se informe de ello.
 		 */
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt7:j_idt14", 10);
-		SeleniumUtils.textoPresentePagina(driver, "contraseñaSinNumeros no "
-				+ "contiene letras y números");
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt7:msg", 10);
+		//SeleniumUtils.textoPresentePagina(driver, "no contiene letras y números");
 
 		// Rellenamos el formulario con información incorrecta.
 		// Contraseña corta
@@ -491,9 +493,7 @@ public class PlantillaSDI2_Tests1617 {
 		 * un mensaje en el que se informe de ello.
 		 */
 		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt7:j_idt14", 10);
-		SeleniumUtils.textoPresentePagina(driver, "Contraseña:: Error de "
-				+ "validación: el largo es inferior "
-				+ "que el mínimo permitido de '8 '");
+		SeleniumUtils.textoPresentePagina(driver, "el largo es inferior");
 		//TODO Error en el mensaje, cambiarlo
 
 		// Rellenamos el formulario con información incorrecta.

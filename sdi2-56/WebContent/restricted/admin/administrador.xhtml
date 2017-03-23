@@ -46,7 +46,7 @@
 					immediate="true" update="tabla"/>
 				</p:column>
 				<p:column>
-							<p:commandButton action="#{usuarios.obtenerAuxUser(usuario)}" 
+							<p:commandButton id="dialogEliminar" action="#{usuarios.obtenerAuxUser(usuario)}" 
 							onclick="document.getElementById('id01').style.display='block'" 
 							class="w3-button w3-pink" value="#{msgs.eliminar}"/>
 								
@@ -54,7 +54,7 @@
 			</p:dataTable>
 
 			</h:form>
-			<h:form>
+			<h:form id="form-eliminar">
 			<div id="id01" class="w3-modal">
 				<div class="w3-modal-content w3-animate-top w3-card-8">
 					<h2 class="w3-container w3-teal">
@@ -65,7 +65,7 @@
 					</h2>
 					<br></br>
 					<div class="w3-container">
-						<p:commandButton class="w3-pink" value="#{msgs.eliminar}"
+						<p:commandButton id="eliminar" class="w3-pink" value="#{msgs.eliminar}"
 							action="#{usuarios.eliminarUsuario(usuarios.auxUser)}" type="submit"
 							immediate="true" update="form-listado:tabla" onclick="document.getElementById('id01').style.display='none'"/>
 					</div>
