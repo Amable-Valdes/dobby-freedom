@@ -165,7 +165,7 @@ public class PlantillaSDI2_Tests1617 {
 	// PR07: Cambiar el estado de un usuario a DISABLED a ENABLED. Y Y tratar de
 	// entrar con el usuario que se ha activado.
 	@Test
-	public void prueba07() {
+	public void prueba07() {  
 
 		PO_FormLogin login = new PO_FormLogin();
 
@@ -176,7 +176,7 @@ public class PlantillaSDI2_Tests1617 {
 				"form-listado", 6);
 		assertTrue(elementos != null);
 
-		SeleniumUtils.clickButton(driver, "form-listado:tabla:0:j_idt19");
+		SeleniumUtils.clickButton(driver, "form-listado:tabla:0:actDesact");
 
 		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
 				"menu1:cerrarSesion");
@@ -196,7 +196,7 @@ public class PlantillaSDI2_Tests1617 {
 				"form-listado", 6);
 		assertTrue(elementos != null);
 
-		SeleniumUtils.clickButton(driver, "form-listado:tabla:0:j_idt19");
+		SeleniumUtils.clickButton(driver, "form-listado:tabla:0:actDesact");
 
 		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
 				"menu1:cerrarSesion");
@@ -211,20 +211,95 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR08: Ordenar por Login
 	@Test
-	public void prueba08() {
-		// TODO Por hacer;
+	public void prueba08() throws InterruptedException {
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+		
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"form-listado", 6);
+		assertTrue(elementos != null);
+		
+		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
+		Thread.sleep(500);
+		elementos.get(0).click();
+		
+		Thread.sleep(500);
+		boolean u1 = driver.findElement(By.id("form-listado:tabla:0:login")).getText().equals("user1");
+		boolean u2 = driver.findElement(By.id("form-listado:tabla:1:login")).getText().equals("user2");
+		boolean u3 = driver.findElement(By.id("form-listado:tabla:2:login")).getText().equals("user3");
+		assertTrue(u1 && u2 && u3);
+		
+		Thread.sleep(500);
+		elementos.get(0).click();
+		Thread.sleep(500);
+
+		u3 = driver.findElement(By.id("form-listado:tabla:0:login")).getText().equals("user3");
+		u2 = driver.findElement(By.id("form-listado:tabla:1:login")).getText().equals("user2");
+		u1 = driver.findElement(By.id("form-listado:tabla:2:login")).getText().equals("user1");
+		
+		assertTrue(u1 && u2 && u3);
 	}
 
 	// PR09: Ordenar por Email
 	@Test
-	public void prueba09() {
-		// TODO Por hacer;
+	public void prueba09()  throws InterruptedException{
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+		
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"form-listado", 6);
+		assertTrue(elementos != null);
+		
+		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
+		Thread.sleep(500);
+		elementos.get(1).click();
+		
+		Thread.sleep(500);
+		boolean u1 = driver.findElement(By.id("form-listado:tabla:0:email")).getText().equals("user1@email.com");
+		boolean u2 = driver.findElement(By.id("form-listado:tabla:1:email")).getText().equals("user2@email.com");
+		boolean u3 = driver.findElement(By.id("form-listado:tabla:2:email")).getText().equals("user3@email.com");
+		assertTrue(u1 && u2 && u3);
+		
+		Thread.sleep(500);
+		elementos.get(1).click();
+		Thread.sleep(500);
+
+		u3 = driver.findElement(By.id("form-listado:tabla:0:email")).getText().equals("user3@email.com");
+		u2 = driver.findElement(By.id("form-listado:tabla:1:email")).getText().equals("user2@email.com");
+		u1 = driver.findElement(By.id("form-listado:tabla:2:email")).getText().equals("user1@email.com");
+		
+		assertTrue(u1 && u2 && u3);
 	}
 
 	// PR10: Ordenar por Status
 	@Test
-	public void prueba10() {
-		// TODO Por hacer;
+	public void prueba10() throws InterruptedException{
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+		
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"form-listado", 6);
+		assertTrue(elementos != null);
+		
+		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver, "class", "sortable-column-icon", 2); 
+		Thread.sleep(500);
+		elementos.get(2).click();
+		
+		Thread.sleep(500);
+		boolean u1 = driver.findElement(By.id("form-listado:tabla:0:status")).getText().equals("ENABLED");
+		boolean u2 = driver.findElement(By.id("form-listado:tabla:1:status")).getText().equals("ENABLED");
+		boolean u3 = driver.findElement(By.id("form-listado:tabla:2:status")).getText().equals("ENABLED");
+		assertTrue(u1 && u2 && u3);
+		
+		Thread.sleep(500);
+		elementos.get(2).click();
+		Thread.sleep(500);
+
+		u3 = driver.findElement(By.id("form-listado:tabla:0:status")).getText().equals("ENABLED");
+		u2 = driver.findElement(By.id("form-listado:tabla:1:status")).getText().equals("ENABLED");
+		u1 = driver.findElement(By.id("form-listado:tabla:2:status")).getText().equals("ENABLED");
+		
+		assertTrue(u1 && u2 && u3);
 	}
 
 	// PR11: Borrar una cuenta de usuario normal y datos relacionados.
