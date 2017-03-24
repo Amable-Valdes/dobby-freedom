@@ -634,28 +634,130 @@ public class PlantillaSDI2_Tests1617 {
 	// a la pagina donde está la tarea terminada y comprobar que se muestra.
 	@Test
 	public void prueba26() {
-		// TODO Por hacer;
+		// Nos logueamos
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+		
+		//Esperamos a la tabla de tareas
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt12:tablaTareas", 10);
+		//Finalizamos la tarea21
+		SeleniumUtils.textoPresentePagina(driver, "tarea21");
+		SeleniumUtils.clickButton(driver, "j_idt12:tablaTareas:0:j_idt47");
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt12:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		//Vamos a Inbox, última página. Allí estará la tarea finalizada.
+		SeleniumUtils.clickButton(driver, "j_idt8:theInbox");
+		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt12:tablaTareas", 10);
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 0);
+		SeleniumUtils.textoPresentePagina(driver, "tarea21");
+		//TODO Comprobar que es verde dicho texto.
+		
 	}
 
 	// PR27: Crear una tarea sin categoría y comprobar que se muestra en la
 	// lista Inbox.
 	@Test
 	public void prueba27() {
-		// TODO Por hacer;
+		// Nos logueamos
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+
+		// Hacemos clic en crear tarea
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionTareas",
+				"menu1:tareas");
+
+		// Rellenamos el formulario
+		new PO_FormsTarea().rellenaFormulario(driver, "NuevaTareaSinCategoria",
+				"Tarea sin categoria", "31/05/2017  08:28:35",
+				"j_idt7:form-registro:Category_1");
+
+		// Nos debería redirigir a Inbox
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt12:tablaTareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Inbox no terminadas");
+
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 1);
+
+		// En la última página debería estar dicha tarea
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
+		SeleniumUtils.textoPresentePagina(driver, "NuevaTareaSinCategoria");
+
 	}
 
 	// PR28: Crear una tarea con categoría categoria1 y fecha planeada Hoy y
 	// comprobar que se muestra en la lista Hoy.
 	@Test
 	public void prueba28() {
-		// TODO Por hacer;
+		// Nos logueamos
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+
+		// Hacemos clic en crear tarea
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionTareas",
+				"menu1:tareas");
+
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String hoy = dateFormat.format(new Date()) + "  23:59:50";
+
+		// Rellenamos el formulario
+		new PO_FormsTarea().rellenaFormulario(driver,
+				"NuevaTareaCategoria1Hoy", "Tarea con categoria 1 para hoy",
+				hoy, "j_idt7:form-registro:Category_2");
+
+		// Nos debería redirigir a Hoy
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt12:tablaTareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Lista de hoy");
+
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 0);
+
+		// En la última página debería estar dicha tarea
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
+		SeleniumUtils.textoPresentePagina(driver, "NuevaTareaCategoria1Hoy");
 	}
 
 	// PR29: Crear una tarea con categoría categoria1 y fecha planeada posterior
 	// a Hoy y comprobar que se muestra en la lista Semana.
 	@Test
 	public void prueba29() {
-		// TODO Por hacer;
+		// Nos logueamos
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+
+		// Hacemos clic en crear tarea
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionTareas",
+				"menu1:tareas");
+
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String hoy = dateFormat.format(new Date(
+				System.currentTimeMillis() + 500000000)) + "  00:00:00";
+
+		// Rellenamos el formulario
+		new PO_FormsTarea().rellenaFormulario(driver,
+				"NuevaTareaCategoria1Semana",
+				"Tarea con categoria 1 para semana", hoy,
+				"j_idt7:form-registro:Category_2");
+
+		// Nos debería redirigir a Hoy
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "j_idt12:tablaTareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Lista esta semana");
+
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 1);
+
+		// En la última página debería estar dicha tarea
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
+		SeleniumUtils.textoPresentePagina(driver, "NuevaTareaCategoria1Semana");
 	}
 
 	// PR30: Editar el nombre, y categoría de una tarea (se le cambia a
