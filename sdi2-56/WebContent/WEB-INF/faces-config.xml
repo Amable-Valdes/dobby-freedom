@@ -75,7 +75,7 @@
 		</navigation-case>
 	</navigation-rule>		
 	<navigation-rule>
-		<from-view-id>/restricted/user/usuario.xhtml</from-view-id>
+		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-action>#{tareas.editar(tarea)}</from-action>
 			<from-outcome>editarTarea</from-outcome>

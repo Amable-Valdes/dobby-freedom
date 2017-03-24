@@ -77,6 +77,12 @@ public class SeleniumUtils {
 			assertTrue("Texto " + texto + " no localizado!", list.size() > 0);			
 		}
 		
+		static public boolean existenTextosPagina(WebDriver driver, String texto)
+		{
+			List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + texto + "')]"));		
+			return list.size() > 0;			
+		}
+		
 		static public void textoNoPresentePagina(WebDriver driver, String texto)
 		{
 			List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + texto + "')]"));		

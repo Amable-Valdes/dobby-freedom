@@ -153,24 +153,25 @@ public class TasksBean implements Serializable {
 			vaciar();
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			String f = dateFormat.format(planned);
-			System.out.println(planned);
 			Date fechaP = dateFormat.parse(f);
 			Date hoy = new Date();
 			System.out.println(hoy);
+			planned = null;
 			f = dateFormat.format(hoy);
 			Date fechaH = dateFormat.parse(f);
 			if(c == null){
 				listarTaskInbox(usuario, true );
+				return "listaInbox";
 			}else{
 				if(fechaP.equals(fechaH)){
 					listarTaskHoy(usuario);
+					return "listaHoy";
 				}
 				else{
 					listarTasksSemana(usuario);
+					return "listaSemana";
 				}
 			}
-			planned = null;
-			return "exito";
 		} catch (Exception e) { 
 			e.printStackTrace();
 			return "usuario";

@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -566,7 +567,7 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR17: Funcionamiento correcto de la ordenación por fecha planeada.
 	@Test
-	public void prueba17() throws InterruptedException {
+	public void prueba17(){
 		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
 
 		// Encontrar elemento de la siguiente vista
@@ -576,16 +577,15 @@ public class PlantillaSDI2_Tests1617 {
 
 		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver,
 				"class", "sortable-column-icon", 4);
-		Thread.sleep(500);
+
 		elementos.get(3).click();
 		assertTrue(driver.findElement(By.id("tablaDelUsuario:tablaTareas:0:title"))
 				.getText().equals("tarea21"));
-		Thread.sleep(500);
+
 		elementos.get(3).click();
-		Thread.sleep(500);
+		SeleniumUtils.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas:0:title", 4);
 		assertTrue(driver.findElement(By.id("tablaDelUsuario:tablaTareas:0:title"))
 				.getText().equals("tarea1"));
-
 	}
 
 	// PR18: Funcionamiento correcto del filtrado.
@@ -609,15 +609,46 @@ public class PlantillaSDI2_Tests1617 {
 	// PR21: Comprobar que las tareas que no están en rojo son las de hoy y
 	// además las que deben ser.
 	@Test
-	public void prueba21() {
-		// TODO Por hacer;
-		//con esto
-		//elemento.getCssValue("color").equals(rbg(255,....);
-//		WebElement a = SeleniumUtils.esperaCargaPagina(driver, 
-//				"class", "ui-outputlabel ui-widget w3-text-red", 2)
-//				.get(0);
-//		
-//		a.getText().equals("2017-03-18 17:51:20.024");
+	public void prueba21() throws ParseException {
+		// con esto
+		// elemento.getCssValue("color").equals(rbg(255,....);
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"tablaDelUsuario", 6);
+		assertTrue(elementos != null);
+		SeleniumUtils.clickButton(driver, "botonesListas:hoy");
+		SeleniumUtils.esperaCargaPagina(driver, "id",
+				"tablaDelUsuario:tablaTareas", 10);
+		for (int i = 0; i < 8; i++) {
+			WebElement e = SeleniumUtils.esperaCargaPagina(driver, "id",
+					"tablaDelUsuario:tablaTareas:" + i + ":planificada", 5)
+					.get(0);
+			if (format.parse(e.getText()).compareTo(new Date()) < 1) {
+				assertEquals("rgba(255, 0, 0, 1)", e.getCssValue("color"));
+			}
+		}
+		driver.findElement(By.className("ui-paginator-next")).click();
+		for (int i = 8; i < 16; i++) {
+			WebElement e = SeleniumUtils.esperaCargaPagina(driver, "id",
+					"tablaDelUsuario:tablaTareas:" + i + ":planificada", 5)
+					.get(0);
+			System.out.println(format.parse(e.getText()) + " y " + new Date());
+			if (format.parse(e.getText()).compareTo(new Date()) < 1) {
+				assertEquals("rgba(255, 0, 0, 1)", e.getCssValue("color"));
+			}
+		}
+		driver.findElement(By.className("ui-paginator-next")).click();
+		for (int i = 16; i < 20; i++) {
+			WebElement e = SeleniumUtils.esperaCargaPagina(driver, "id",
+					"tablaDelUsuario:tablaTareas:" + i + ":planificada", 5)
+					.get(0);
+			System.out.println(e.getText() + " y " + format.format(new Date()));
+			if (format.parse(e.getText()).compareTo(new Date()) < 1) {
+				assertEquals("rgba(255, 0, 0, 1)", e.getCssValue("color"));
+			}
+		}
 	}
 
 	// PR22: Comprobar que las tareas retrasadas están en rojo y son las que
@@ -805,25 +836,12 @@ public class PlantillaSDI2_Tests1617 {
 		 * en semana (porqu tiene fecha para esta semana)
 		 */
 
-		// Inbox
-		SeleniumUtils.esperaCargaPagina(driver, "id", "botonesListas:theInbox", 10);
-		SeleniumUtils.clickButton(driver, "botonesListas:theInbox");
-
 		// Esperamos que aparezcan los enlaces de paginacion y hacemos click
-		SeleniumUtils.esperaCargaPagina(driver, "id", "botonesListas:theInbox", 10);
 		SeleniumUtils.clickButton(driver, "botonesListas:semana");
-		List<WebElement> paginacion = SeleniumUtils.esperaCargaPagina(driver,
-				"class", "ui-paginator-pages", 2);
-		SeleniumUtils.clickElement(driver, paginacion.get(2));
-		SeleniumUtils.textoNoPresentePagina(driver, "tarea1Modificada");
 
-		// Hoy
-		SeleniumUtils.esperaCargaPagina(driver, "id", "botonesListas:hoy", 10);
-		SeleniumUtils.clickButton(driver, "botonesListas:hoy");
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page", 2);
+		SeleniumUtils.textoPresentePagina(driver, "tarea1Modificada");
 
-		// Semana
-		SeleniumUtils.esperaCargaPagina(driver, "id", "botonesListas:theInbox", 10);
-		SeleniumUtils.clickButton(driver, "botonesListas:semana");
 
 	}
 

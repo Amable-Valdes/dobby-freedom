@@ -58,8 +58,8 @@
 				<p:column filterBy="#{tarea.categoryId}" sortBy="#{tarea.categoryId}" rendered="#{!tareas.listaInbox }">
 					<f:facet name="header">#{msgs.categoria}</f:facet>
 					<p:outputLabel id="categoria">
-						<p:outputLabel rendered="#{tareas.listaSemana}" class="w3-text-red" value="#{tarea.categoryId}"/>
-						<p:outputLabel  rendered="#{!tareas.listaSemana}" class="w3-text-black" value="#{tarea.categoryId}"/>
+						<p:outputLabel rendered="#{tareas.listaSemana}"  value="#{tarea.categoryId}"/>
+						<p:outputLabel  rendered="#{!tareas.listaSemana}" value="#{tarea.categoryId}"/>
 					</p:outputLabel>
 					
 					</p:column>
@@ -67,9 +67,8 @@
 					<f:facet name="header">#{msgs.fechaCreacion}</f:facet>#{tarea.created}</p:column>
 				<p:column filterBy="#{tarea.planned}" sortBy="#{tarea.planned}">
 					<f:facet name="header">#{msgs.fechaPlanificada}</f:facet>
-					<p:outputLabel id="planificada">
-							<p:outputLabel  rendered="#{tareas.tarde(tarea.planned)}" class="w3-text-red" value="#{tarea.planned}"/>
-							<p:outputLabel  rendered="#{tareas.tarde(tarea.planned) eq false}" class="w3-text-black" value="#{tarea.planned}"/>
+					<p:outputLabel>
+							<p:outputLabel  id="planificada" style="#{tareas.tarde(tarea.planned) ? 'color: red' : 'color: black'}" value="#{tarea.planned}"/>
 					</p:outputLabel>
 				</p:column> 
 				<p:column sortBy="#{tarea.finished}"> 
