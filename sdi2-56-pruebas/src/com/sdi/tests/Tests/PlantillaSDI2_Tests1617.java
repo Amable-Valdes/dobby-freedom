@@ -575,16 +575,15 @@ public class PlantillaSDI2_Tests1617 {
 				"tablaDelUsuario", 6);
 		assertTrue(elementos != null);
 
-		List<WebElement> elementos = SeleniumUtils.esperaCargaPagina(driver,
-				"class", "sortable-column-icon", 4);
+		SeleniumUtils.esperaCargaPaginaxpath(driver,
+				"/html/body/form[3]/div[2]/div[2]/table/thead/tr/th[4]", 4).get(0).click();
+		String tarea = driver.findElement(By.id("tablaDelUsuario:tablaTareas:0:title")).getText();
+		assertTrue(tarea.equals("tarea21"));
 
-		elementos.get(3).click();
-		assertTrue(driver.findElement(By.id("tablaDelUsuario:tablaTareas:0:title"))
-				.getText().equals("tarea21"));
-
-		elementos.get(3).click();
-		SeleniumUtils.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas:0:title", 4);
-		assertTrue(driver.findElement(By.id("tablaDelUsuario:tablaTareas:0:title"))
+		SeleniumUtils.esperaCargaPaginaxpath(driver,
+				"/html/body/form[3]/div[2]/div[2]/table/thead/tr/th[4]", 4).get(0).click();
+		SeleniumUtils.esperaCargaPaginaxpath(driver, "/html/body/form[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/label/label", 4);
+		assertTrue(driver.findElement(By.xpath("/html/body/form[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/label/label"))
 				.getText().equals("tarea1"));
 	}
 
@@ -592,6 +591,7 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba18() {
 		// TODO Por hacer;
+		assertTrue(false);
 	}
 
 	// PR19: Funcionamiento correcto de la ordenación por categoría.
@@ -604,6 +604,7 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba20() {
 		// TODO Por hacer;
+		assertTrue(false);
 	}
 
 	// PR21: Comprobar que las tareas que no están en rojo son las de hoy y
@@ -656,6 +657,7 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba22() {
 		// TODO Por hacer;
+		assertTrue(false);
 	}
 
 	// PR23: Comprobar que las tareas de hoy y futuras no están en rojo y que
@@ -663,18 +665,21 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba23() {
 		// TODO Por hacer;
+		assertTrue(false);
 	}
 
 	// PR24: Funcionamiento correcto de la ordenación por día.
 	@Test
 	public void prueba24() {
 		// TODO Por hacer;
+		assertTrue(false);
 	}
 
 	// PR25: Funcionamiento correcto de la ordenación por nombre.
 	@Test
 	public void prueba25() {
 		// TODO Por hacer;
+		assertTrue(false);
 	}
 
 	// PR26: Confirmar una tarea, inhabilitar el filtro de tareas terminadas, ir
@@ -840,8 +845,10 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.clickButton(driver, "botonesListas:semana");
 
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page", 2);
-		SeleniumUtils.textoPresentePagina(driver, "tarea1Modificada");
-
+		//SeleniumUtils.textoPresentePagina(driver, "tarea1Modificada");
+		WebElement elemento = SeleniumUtils.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas:10:title" , 4).get(0);
+		
+		assertEquals("tarea1Modificada",elemento.getText());
 
 	}
 
@@ -860,19 +867,20 @@ public class PlantillaSDI2_Tests1617 {
 		// Esperamos que aparezcan los enlaces de paginacion y hacemos click
 		List<WebElement> paginacion = SeleniumUtils.esperaCargaPagina(driver,
 				"class", "ui-paginator-pages", 2);
-		SeleniumUtils.clickElement(driver, paginacion.get(2));
+		SeleniumUtils.clickElement(driver, paginacion.get(1));
 
 		// Click en editar tarea30 (tarea con categoria 3).
-		SeleniumUtils.esperaCargaPagina(driver, "id",
-				"tablaDelUsuario:tablaTareas:0:editar", 10);
-		SeleniumUtils.clickButton(driver, "tablaDelUsuario:tablaTareas:0:editar");
-		SeleniumUtils.esperaCargaPagina(driver, "id",
-				"j_idt7:form-editarTarea:Title", 10);
+		SeleniumUtils.esperaCargaPaginaxpath(driver,
+				"/html/body/form[3]/div[2]/div[2]/table/tbody/tr[2]/td[7]/button", 5);
+		driver.findElement(By.xpath("/html/body/form[3]/div[2]/div[2]/table/tbody/tr[2]/td[7]/button")).click();
+		
+		SeleniumUtils.esperaCargaPaginaxpath(driver, 
+				"/html/body/form[2]/table/tbody/tr[1]/td[2]/input", 5);
 
 		// TODO Ver como se soluciona lo de Editar tarea
 		// Rellenamos el formulario para editar tarea
 		new PO_FormCrearTarea().rellenaFormulario(driver, "tarea30Modificada",
-				null, null, "");
+				null, null, "Sin categoria");
 
 		/*
 		 * Al tener fecha para hoy y categoria: -No aparece en Inbox (Porque
@@ -1035,6 +1043,7 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba35() {
 		// TODO Por hacer;
+		assertTrue(false);
 	}
 
 	// PR36: Cambio del idioma por defecto a un segundo idioma y vuelta al
@@ -1042,6 +1051,7 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba36() {
 		// TODO Por hacer;
+		assertTrue(false);
 	}
 
 	// PR37: Intento de acceso a un URL privado de administrador con un usuario

@@ -49,10 +49,8 @@
                 class="w3-table w3-pink">
 			<p:column filterBy="#{tarea.title}"  sortBy="#{tarea.title}">
 				<f:facet name="header">#{msgs.titulo}</f:facet>
-				<p:outputLabel id="title">
-					<p:outputLabel  rendered="#{tareas.finalizada(tarea.finished)}" class="w3-text-green" value="#{tarea.title}"/>
-					<p:outputLabel rendered="#{tareas.finalizada(tarea.finished) eq false}" class="w3-text-black" value="#{tarea.title}"/>
-				</p:outputLabel>
+					<p:outputLabel id="title" style="#{tareas.finalizada(tarea.finished) ? 'color: green' : 'color: black'}"
+					 value="#{tarea.title}"/>
 				</p:column> 
 				<p:column filterBy="#{tarea.categoryId}" sortBy="#{tarea.categoryId}" rendered="#{!tareas.listaInbox }">
 					<f:facet name="header">#{msgs.categoria}</f:facet>

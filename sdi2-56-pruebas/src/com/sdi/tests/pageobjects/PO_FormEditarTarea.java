@@ -21,8 +21,7 @@ public class PO_FormEditarTarea {
 			e.printStackTrace();
 		}
 		
-		assertTrue(SeleniumUtils.existenTextosPagina(driver, "Editar tarea") ||
-				SeleniumUtils.existenTextosPagina(driver, "Edit task"));
+		assertTrue(SeleniumUtils.existenTextosPagina(driver, "Editar tarea"));
 
 		// Ponemos un comentario a la tarea
 		SeleniumUtils.rellenarTextField(driver, "Comment", comment);
