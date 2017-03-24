@@ -20,9 +20,10 @@ import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
+import com.sdi.tests.pageobjects.PO_FormEditarTarea;
 import com.sdi.tests.pageobjects.PO_FormLogin;
 import com.sdi.tests.pageobjects.PO_FormRegistro;
-import com.sdi.tests.pageobjects.PO_FormsTarea;
+import com.sdi.tests.pageobjects.PO_FormCrearTarea;
 import com.sdi.tests.utils.SeleniumUtils;
 
 //Ordenamos las pruebas por el nombre del método
@@ -502,7 +503,6 @@ public class PlantillaSDI2_Tests1617 {
 		 */
 		SeleniumUtils.esperaCargaPagina(driver, "id", "form-registro:mensajePass", 10);
 		SeleniumUtils.textoPresentePagina(driver, "el largo es inferior");
-		//TODO Error en el mensaje, cambiarlo
 
 		// Rellenamos el formulario con información incorrecta.
 		// Contraseña mal repetida
@@ -613,6 +613,11 @@ public class PlantillaSDI2_Tests1617 {
 		// TODO Por hacer;
 		//con esto
 		//elemento.getCssValue("color").equals(rbg(255,....);
+//		WebElement a = SeleniumUtils.esperaCargaPagina(driver, 
+//				"class", "ui-outputlabel ui-widget w3-text-red", 2)
+//				.get(0);
+//		
+//		a.getText().equals("2017-03-18 17:51:20.024");
 	}
 
 	// PR22: Comprobar que las tareas retrasadas están en rojo y son las que
@@ -649,18 +654,20 @@ public class PlantillaSDI2_Tests1617 {
 		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
 		
 		//Esperamos a la tabla de tareas
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt12:tablaTareas", 10);
+		SeleniumUtils.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		//Finalizamos la tarea21
 		SeleniumUtils.textoPresentePagina(driver, "tarea21");
-		SeleniumUtils.clickButton(driver, "j_idt12:tablaTareas:0:j_idt47");
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt12:tablaTareas", 10);
+		SeleniumUtils.clickButton(driver, "tablaDelUsuario:tablaTareas:0:finalizar");
+		SeleniumUtils.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 		
 		//Vamos a Inbox, última página. Allí estará la tarea finalizada.
-		SeleniumUtils.clickButton(driver, "j_idt8:theInbox");
-		SeleniumUtils.esperaCargaPagina(driver, "id", "j_idt12:tablaTareas", 10);
+		SeleniumUtils.clickButton(driver, "botonesListas:theInbox");
+		SeleniumUtils.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
+		SeleniumUtils.textoPresentePagina(driver, "Inbox terminadas");
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 0);
+				+ "ui-state-default ui-corner-all", 1);
+		SeleniumUtils.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "tarea21");
 		//TODO Comprobar que es verde dicho texto.
 		
@@ -680,13 +687,13 @@ public class PlantillaSDI2_Tests1617 {
 				"menu1:tareas");
 
 		// Rellenamos el formulario
-		new PO_FormsTarea().rellenaFormulario(driver, "NuevaTareaSinCategoria",
+		new PO_FormCrearTarea().rellenaFormulario(driver, "NuevaTareaSinCategoria",
 				"Tarea sin categoria", "31/05/2017  08:28:35",
 				"j_idt7:form-registro:Category_1");
 
 		// Nos debería redirigir a Inbox
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt12:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Inbox no terminadas");
 
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
@@ -716,13 +723,13 @@ public class PlantillaSDI2_Tests1617 {
 		String hoy = dateFormat.format(new Date()) + "  23:59:50";
 
 		// Rellenamos el formulario
-		new PO_FormsTarea().rellenaFormulario(driver,
+		new PO_FormCrearTarea().rellenaFormulario(driver,
 				"NuevaTareaCategoria1Hoy", "Tarea con categoria 1 para hoy",
 				hoy, "j_idt7:form-registro:Category_2");
 
 		// Nos debería redirigir a Hoy
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt12:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Lista de hoy");
 
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
@@ -752,14 +759,14 @@ public class PlantillaSDI2_Tests1617 {
 				System.currentTimeMillis() + 500000000)) + "  00:00:00";
 
 		// Rellenamos el formulario
-		new PO_FormsTarea().rellenaFormulario(driver,
+		new PO_FormCrearTarea().rellenaFormulario(driver,
 				"NuevaTareaCategoria1Semana",
 				"Tarea con categoria 1 para semana", hoy,
 				"j_idt7:form-registro:Category_2");
 
 		// Nos debería redirigir a Hoy
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "j_idt12:tablaTareas", 10);
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Lista esta semana");
 
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
@@ -783,17 +790,13 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.esperaCargaPagina(driver, "id", "botonesListas:theInbox", 10);
 		SeleniumUtils.clickButton(driver, "botonesListas:theInbox");
 
-		// Click en editar tarea1 (tarea sin categoria de inbox).
+		// Click en editar tarea20 (tarea sin categoria de inbox).
 		SeleniumUtils.esperaCargaPagina(driver, "id",
 				"tablaDelUsuario:tablaTareas:0:editar", 10);
 		SeleniumUtils.clickButton(driver, "tablaDelUsuario:tablaTareas:0:editar");
-		SeleniumUtils.esperaCargaPagina(driver, "id",
-				"form-editarTarea", 10);
 
-		// TODO Sin comprobar que funciona
-
-		// Rellenamos el formulario para editar tarea
-		new PO_FormsTarea().rellenaFormulario(driver, "tarea1Modificada", null,
+		// Rellenamos el formulario para editar la tarea20
+		new PO_FormEditarTarea().rellenaFormulario(driver, "tarea1Modificada", null,
 				null, "Categoria1");
 
 		/*
@@ -848,9 +851,9 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.esperaCargaPagina(driver, "id",
 				"j_idt7:form-editarTarea:Title", 10);
 
-		// TODO Esperar a que se pueda seleccionar Sin categoria
+		// TODO Ver como se soluciona lo de Editar tarea
 		// Rellenamos el formulario para editar tarea
-		new PO_FormsTarea().rellenaFormulario(driver, "tarea30Modificada",
+		new PO_FormCrearTarea().rellenaFormulario(driver, "tarea30Modificada",
 				null, null, "");
 
 		/*
@@ -865,7 +868,6 @@ public class PlantillaSDI2_Tests1617 {
 	// tres pseudolistas.
 	@Test
 	public void prueba32() {
-		// TODO Por hacer;
 		// Nos logueamos
 		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
 
@@ -913,6 +915,11 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page", 3);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
 		// Lista de semana
 		SeleniumUtils.clickButton(driver, "botonesListas:semana");
@@ -933,6 +940,13 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+		
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 3);
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
+
 
 		// Lista de Inbox
 		// Aqui debería estar la tarea finalizada al final de la lista

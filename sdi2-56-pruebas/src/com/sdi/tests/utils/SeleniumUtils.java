@@ -5,7 +5,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-import org.omg.CORBA.portable.IndirectionException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
