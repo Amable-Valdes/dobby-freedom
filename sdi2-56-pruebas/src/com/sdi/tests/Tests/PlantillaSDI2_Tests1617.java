@@ -544,8 +544,8 @@ public class PlantillaSDI2_Tests1617 {
 		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
 				"botonesListas", 6);
 		assertTrue(elementos != null);
-		
-		elementos.get(1).click();
+		SeleniumUtils.esperaCargaPagina(driver, "id",
+				"botonesListas:theInbox", 6).get(0).click();
 		SeleniumUtils.esperaCargaPagina(driver,
 				"id", "tablaDelUsuario:tablaTareas", 10);
 		//SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
@@ -553,14 +553,13 @@ public class PlantillaSDI2_Tests1617 {
 		//SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
 		SeleniumUtils.esperaCargaPagina(driver,
 				"class", "ui-paginator-next ", 5);
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 0);
-		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 1);
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page", 1);
 		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
 				+ "ui-state-default ui-corner-all", 2);
+		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
+				+ "ui-state-default ui-corner-all", 3);
 		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
 		
 	}
@@ -910,8 +909,7 @@ public class PlantillaSDI2_Tests1617 {
 				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page"
-				+ "ui-state-default", 2);
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page", 2);
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
@@ -920,14 +918,12 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.clickButton(driver, "botonesListas:semana");
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 0);
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page ", 1);
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
 
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 1);
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page", 2);
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");

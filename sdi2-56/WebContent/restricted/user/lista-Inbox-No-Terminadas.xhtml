@@ -21,16 +21,17 @@
 			<br></br>
 			<h:form id="botonesListas">
 			<div align="center">
-					<p:commandButton id ="theInbox" value="#{msgs.listaInbox}"
+					<p:commandButton id ="inboxFinish" value="#{msgs.inboxTerminadas}"
 						action="#{usuarios.inboxTerminadas}">
-					</p:commandButton>
+					</p:commandButton> 
 					<p:commandButton id = "hoy" value="#{msgs.listaHoy}"
 						action="#{usuarios.hoy}">
 					</p:commandButton>
 					<p:commandButton id = "semana" value="#{msgs.listaSemana}"
-						action="#{usuarios.semana}" >
+						action="#{usuarios.semana}">
 					</p:commandButton>
 				</div> 
+
 				</h:form>
 			
 			<br></br>
@@ -39,6 +40,8 @@
 			<center>
 					<h1>#{usuarios.login}</h1>
 					<br></br>
+					<p:outputLabel class="w3-pink">
+					#{msgs.inboxNoTerminadas}</p:outputLabel>
 				</center>
 				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 			<p:dataTable id="tablaTareas" var="tarea"
@@ -54,10 +57,6 @@
 					<p:outputLabel rendered="#{tareas.finalizada(tarea.finished) eq false}" class="w3-text-black" value="#{tarea.title}"/>
 				</p:outputLabel>
 				</p:column> 
-				<p:column filterBy="#{tarea.categoryId}" sortBy="#{tarea.categoryId}" rendered="#{!tareas.listaInbox }">
-					<f:facet name="header">#{msgs.categoria}</f:facet>
-						<p:outputLabel  id="categoria" rendered="#{!tareas.listaSemana}" class="w3-text-black" value="#{tarea.categoryId}"/>
-					</p:column>
 				<p:column filterBy="#{tarea.created}" sortBy="#{tarea.created}">
 					<f:facet name="header">#{msgs.fechaCreacion}</f:facet>#{tarea.created}</p:column>
 				<p:column filterBy="#{tarea.planned}" sortBy="#{tarea.planned}">
@@ -77,7 +76,7 @@
 				</p:column>
 				<p:column>
 								<p:commandButton id="finalizar" class="w3-pink" value="#{msgs.finalizar}" action="#{tareas.finalizarTask(tarea)}" type="submit" 
-					immediate="true"/>
+					immediate="true" update="tablaTareas"/>
 					</p:column>
 			</p:dataTable>
 			</h:form>

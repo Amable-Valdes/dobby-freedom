@@ -406,27 +406,27 @@ public class UsersBean implements Serializable {
 		}
 	}
 
-	public void inbox() {
+	public String inbox() {
 		finalizadas = true;
-		tasks.listarTaskInbox(user,finalizadas);
+		return tasks.listarTaskInbox(user,finalizadas);
 	}
 	
-	public void inboxTerminadas() {
+	public String inboxTerminadas() {
 		finalizadas = true;
-		tasks.listarTaskInbox(user,finalizadas);
+		return tasks.listarTaskInbox(user,finalizadas);
 	}
 	
-	public void inboxNoTerminadas() {
+	public String inboxNoTerminadas() {
 		finalizadas = false;
-		tasks.listarTaskInbox(user,finalizadas);
+		return tasks.listarTaskInbox(user,finalizadas);
 	}
 
-	public void hoy() {
-		tasks.listarTaskHoy(user);
+	public String hoy() {
+		return tasks.listarTaskHoy(user);
 	}
 
-	public void semana() {
-		tasks.listarTasksSemana(user);
+	public String semana() {
+		return tasks.listarTasksSemana(user);
 	}
 
 	

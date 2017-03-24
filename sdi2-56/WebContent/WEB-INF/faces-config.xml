@@ -88,24 +88,6 @@
 			<to-view-id>/index.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
-		<navigation-case>
-			<from-action>#{tareas.listarTaskInbox}</from-action>
-			<from-outcome>inbox</from-outcome>
-			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{tareas.listarTaskHoy}</from-action>
-			<from-outcome>hoy</from-outcome>
-			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{tareas.listarTaskSemana}</from-action>
-			<from-outcome>semana</from-outcome>
-			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/restricted/user/editarTarea.xhtml</from-view-id>
@@ -113,6 +95,33 @@
 			<from-action>#{tareas.editarTask}</from-action>
 			<from-outcome>usuario</from-outcome>
 			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-action>#{usuarios.inboxTerminadas}</from-action>
+			<from-outcome>inbox</from-outcome>
+			<to-view-id>/restricted/user/lista-Inbox-Terminadas.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarios.inboxNoTerminadas}</from-action>
+			<from-outcome>inbox</from-outcome>
+			<to-view-id>/restricted/user/lista-Inbox-No-Terminadas.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarios.hoy}</from-action>
+			<from-outcome>hoy</from-outcome>
+			<to-view-id>/restricted/user/lista-Hoy.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarios.semana}</from-action>
+			<from-outcome>semana</from-outcome>
+			<to-view-id>/restricted/user/lista-Semana.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
