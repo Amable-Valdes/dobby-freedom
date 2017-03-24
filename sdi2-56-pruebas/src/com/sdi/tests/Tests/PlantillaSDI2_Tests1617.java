@@ -3,6 +3,9 @@ package com.sdi.tests.Tests;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -116,6 +119,11 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba04() {
 		// TODO Por hacer;
+		//reiniciar base de datos y lueg
+		//static url de la base de datos 
+		//y luego con sql normal sacamos los datos de tareas, usuarios y categorias
+		//con prepared statements y mas mierdas
+		//y 3 sqls staticos con cada una de las consultas para sacar los datos
 	}
 
 	// PR05: Visualizar correctamente la lista de usuarios normales.
@@ -537,12 +545,14 @@ public class PlantillaSDI2_Tests1617 {
 				"botonesListas", 6);
 		assertTrue(elementos != null);
 		
-		SeleniumUtils.clickButton(driver, "botonesListas:theInbox");
+		elementos.get(1).click();
 		SeleniumUtils.esperaCargaPagina(driver,
-				"id", "tablaDelUsuario:tablaTareas_paginator_top", 10);
-		Thread.sleep(500);
-		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
-		
+				"id", "tablaDelUsuario:tablaTareas", 10);
+		//SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
+		SeleniumUtils.esperaCargaPaginaNoTexto(driver, "Categoria", 5);
+		//SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
+		SeleniumUtils.esperaCargaPagina(driver,
+				"class", "ui-paginator-next ", 5);
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
 				+ "ui-state-default ui-corner-all", 0);
 		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
@@ -602,6 +612,8 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba21() {
 		// TODO Por hacer;
+		//con esto
+		//elemento.getCssValue("color").equals(rbg(255,....);
 	}
 
 	// PR22: Comprobar que las tareas retrasadas están en rojo y son las que
@@ -859,10 +871,11 @@ public class PlantillaSDI2_Tests1617 {
 		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
 
 		// Click en Finalizar tarea21
-		SeleniumUtils.esperaCargaPagina(driver, "id",
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
 				"tablaDelUsuario:tablaTareas:0:finalizar", 10);
 		SeleniumUtils.textoPresentePagina(driver, "tarea21");
-		SeleniumUtils.clickButton(driver, "tablaDelUsuario:tablaTareas:0:finalizar");
+		elementos.get(0).click();
+		//SeleniumUtils.clickButton(driver, "tablaDelUsuario:tablaTareas:0:finalizar");
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoNoPresentePagina(driver, "tarea21");
