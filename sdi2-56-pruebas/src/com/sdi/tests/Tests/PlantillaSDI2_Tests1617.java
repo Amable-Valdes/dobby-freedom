@@ -46,9 +46,11 @@ public class PlantillaSDI2_Tests1617 {
 	private void reiniciarBBDD() {
 		// Nos logueamos como administrador
 		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+		SeleniumUtils.esperaCargaPaginaxpath(driver, "/html/body/form[1]/div/ul/li[2]/a/span[1]",4);
 		// Reiniciamos la BBDD
 		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:BBDD",
 				"menu1:ReiniciarBBDD");
+		SeleniumUtils.esperaCargaPaginaxpath(driver, "/html/body/form[1]/div/ul/li[1]/a/span[1]",4);
 		// Cerramos sesion con el admin
 		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
 				"menu1:cerrarSesion");
@@ -643,9 +645,23 @@ public class PlantillaSDI2_Tests1617 {
 
 	// PR18: Funcionamiento correcto del filtrado.
 	@Test
-	public void prueba18() {
-		// TODO Por hacer;
-		assertTrue(false);
+	public void prueba18() throws InterruptedException {
+
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+
+		SeleniumUtils.clickButton(driver, "botonesListas:theInbox");
+		SeleniumUtils.esperaCargaPaginaxpath(driver, "/html/body/form[3]/div[2]", 5);
+
+		elementos = SeleniumUtils.esperaCargaPaginaxpath(driver, "/html/body/form[3]", 6);
+		assertTrue(elementos != null);
+
+		SeleniumUtils.textoPresentePagina(driver, "tarea20");
+		SeleniumUtils.rellenarTextFieldxpath(driver, "html/body/form[3]/div[2]/div[2]/table/thead/tr/th[1]/input", "tarea11");
+		Thread.sleep(1000);
+		SeleniumUtils.textoNoPresentePagina(driver, "tarea20");
+		SeleniumUtils.textoPresentePagina(driver, "tarea11");
+		
+
 	}
 
 	// PR19: Funcionamiento correcto de la ordenación por categoría tabla Hoy.
@@ -693,8 +709,47 @@ public class PlantillaSDI2_Tests1617 {
 	// además las que deben ser.
 	@Test
 	public void prueba21() throws ParseException {
-		// con esto
-		// elemento.getCssValue("color").equals(rbg(255,....);
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"tablaDelUsuario", 6);
+		assertTrue(elementos != null);
+		SeleniumUtils.clickButton(driver, "botonesListas:hoy");
+		SeleniumUtils.esperaCargaPagina(driver, "id",
+				"tablaDelUsuario:tablaTareas", 10);
+		for (int i = 0; i < 8; i++) {
+			WebElement e = SeleniumUtils.esperaCargaPagina(driver, "id",
+					"tablaDelUsuario:tablaTareas:" + i + ":planificada", 5)
+					.get(0);
+			if (format.parse(e.getText()).compareTo(new Date()) > 1) {
+				assertEquals("rgba(79, 79,79 , 1)", e.getCssValue("color"));
+			}
+		}
+		driver.findElement(By.className("ui-paginator-next")).click();
+		for (int i = 8; i < 16; i++) {
+			WebElement e = SeleniumUtils.esperaCargaPagina(driver, "id",
+					"tablaDelUsuario:tablaTareas:" + i + ":planificada", 5)
+					.get(0);
+			if (format.parse(e.getText()).compareTo(new Date()) > 1) {
+				assertEquals("rgba(79, 79,79, 1)", e.getCssValue("color"));
+			}
+		}
+		driver.findElement(By.className("ui-paginator-next")).click();
+		for (int i = 16; i < 20; i++) {
+			WebElement e = SeleniumUtils.esperaCargaPagina(driver, "id",
+					"tablaDelUsuario:tablaTareas:" + i + ":planificada", 5)
+					.get(0);
+			if (format.parse(e.getText()).compareTo(new Date()) > 1) {
+				assertEquals("rgba(79, 79,79, 1)", e.getCssValue("color"));
+			}
+		}
+	}
+
+	// PR22: Comprobar que las tareas retrasadas están en rojo y son las que
+	// deben ser.
+	@Test
+	public void prueba22() throws ParseException {
 		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		// Encontrar elemento de la siguiente vista
@@ -717,7 +772,6 @@ public class PlantillaSDI2_Tests1617 {
 			WebElement e = SeleniumUtils.esperaCargaPagina(driver, "id",
 					"tablaDelUsuario:tablaTareas:" + i + ":planificada", 5)
 					.get(0);
-			System.out.println(format.parse(e.getText()) + " y " + new Date());
 			if (format.parse(e.getText()).compareTo(new Date()) < 1) {
 				assertEquals("rgba(255, 0, 0, 1)", e.getCssValue("color"));
 			}
@@ -727,41 +781,122 @@ public class PlantillaSDI2_Tests1617 {
 			WebElement e = SeleniumUtils.esperaCargaPagina(driver, "id",
 					"tablaDelUsuario:tablaTareas:" + i + ":planificada", 5)
 					.get(0);
-			System.out.println(e.getText() + " y " + format.format(new Date()));
 			if (format.parse(e.getText()).compareTo(new Date()) < 1) {
 				assertEquals("rgba(255, 0, 0, 1)", e.getCssValue("color"));
 			}
 		}
 	}
 
-	// PR22: Comprobar que las tareas retrasadas están en rojo y son las que
-	// deben ser.
-	@Test
-	public void prueba22() {
-		// TODO Por hacer;
-		assertTrue(false);
-	}
-
 	// PR23: Comprobar que las tareas de hoy y futuras no están en rojo y que
 	// son las que deben ser.
 	@Test
-	public void prueba23() {
-		// TODO Por hacer;
-		assertTrue(false);
+	public void prueba23() throws ParseException {
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// Encontrar elemento de la siguiente vista
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"tablaDelUsuario", 6);
+		assertTrue(elementos != null);
+		SeleniumUtils.clickButton(driver, "botonesListas:semana");
+		SeleniumUtils.esperaCargaPagina(driver, "id",
+				"tablaDelUsuario:tablaTareas", 10);
+		for (int i = 0; i < 8; i++) {
+			WebElement e = SeleniumUtils.esperaCargaPagina(driver, "id",
+					"tablaDelUsuario:tablaTareas:" + i + ":planificada", 5)
+					.get(0);
+			if (format.parse(e.getText()).compareTo(new Date()) > 1) {
+				assertEquals("rgba(79, 79,79 , 1)", e.getCssValue("color"));
+			}
+		}
+		driver.findElement(By.className("ui-paginator-next")).click();
+		for (int i = 8; i < 16; i++) {
+			WebElement e = SeleniumUtils.esperaCargaPagina(driver, "id",
+					"tablaDelUsuario:tablaTareas:" + i + ":planificada", 5)
+					.get(0);
+			if (format.parse(e.getText()).compareTo(new Date()) > 1) {
+				assertEquals("rgba(79, 79,79, 1)", e.getCssValue("color"));
+			}
+		}
+		driver.findElement(By.className("ui-paginator-next")).click();
+		for (int i = 16; i < 24; i++) {
+			WebElement e = SeleniumUtils.esperaCargaPagina(driver, "id",
+					"tablaDelUsuario:tablaTareas:" + i + ":planificada", 5)
+					.get(0);
+			if (format.parse(e.getText()).compareTo(new Date()) > 1) {
+				assertEquals("rgba(79, 79,79, 1)", e.getCssValue("color"));
+			}
+		}
+		driver.findElement(By.className("ui-paginator-next")).click();
+		for (int i = 24; i < 30; i++) {
+			WebElement e = SeleniumUtils.esperaCargaPagina(driver, "id",
+					"tablaDelUsuario:tablaTareas:" + i + ":planificada", 5)
+					.get(0);
+			if (format.parse(e.getText()).compareTo(new Date()) > 1) {
+				assertEquals("rgba(79, 79,79, 1)", e.getCssValue("color"));
+			}
+		}
 	}
 
 	// PR24: Funcionamiento correcto de la ordenación por día.
 	@Test
 	public void prueba24() {
-		// TODO Por hacer;
-		assertTrue(false);
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+
+		SeleniumUtils.clickButton(driver, "botonesListas:semana");
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"tablaDelUsuario:tablaTareas", 10);
+		// Encontrar elemento de la siguiente vista
+
+		assertTrue(elementos != null);
+
+		SeleniumUtils
+				.esperaCargaPaginaxpath(
+						driver,
+						"/html/body/form[3]/div[2]/div[2]/table/thead/tr/th[4]",
+						4).get(0).click();
+		SeleniumUtils
+				.esperaCargaPaginaxpath(
+						driver,
+						"/html/body/form[3]/div[2]/div[2]/table/thead/tr/th[4]",
+						4).get(0).click();
+
+		String tarea = SeleniumUtils
+				.esperaCargaPaginaxpath(
+						driver,
+						"/html/body/form[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/label",
+						4).get(0).getText();
+		assertEquals("tarea1", tarea);
 	}
 
 	// PR25: Funcionamiento correcto de la ordenación por nombre.
 	@Test
 	public void prueba25() {
-		// TODO Por hacer;
-		assertTrue(false);
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+
+		SeleniumUtils.clickButton(driver, "botonesListas:semana");
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"tablaDelUsuario:tablaTareas", 10);
+		// Encontrar elemento de la siguiente vista
+
+		assertTrue(elementos != null);
+
+		SeleniumUtils
+				.esperaCargaPaginaxpath(
+						driver,
+						"/html/body/form[3]/div[2]/div[2]/table/thead/tr/th[1]/span[2]",
+						4).get(0).click();
+		SeleniumUtils
+				.esperaCargaPaginaxpath(
+						driver,
+						"/html/body/form[3]/div[2]/div[2]/table/thead/tr/th[1]/span[2]",
+						4).get(0).click();
+
+		String tarea = SeleniumUtils
+				.esperaCargaPaginaxpath(
+						driver,
+						"/html/body/form[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/label",
+						4).get(0).getText();
+		assertEquals("tarea9", tarea);
 	}
 
 	// PR26: Confirmar una tarea, inhabilitar el filtro de tareas terminadas, ir
@@ -957,7 +1092,6 @@ public class PlantillaSDI2_Tests1617 {
 		SeleniumUtils.esperaCargaPaginaxpath(driver, 
 				"/html/body/form[2]/table/tbody/tr[1]/td[2]/input", 5);
 
-		// TODO Ver como se soluciona lo de Editar tarea
 		// Rellenamos el formulario para editar tarea
 		new PO_FormCrearTarea().rellenaFormulario(driver, "tarea30Modificada",
 				null, null, "Sin categoria");
@@ -1123,26 +1257,28 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba35() {
 		// TODO Por hacer;
-//		SeleniumUtils.esperaCargaPagina(driver, "id", "menu1", 5);
-//		SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
-//		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:options",
-//				"menu1:optionEnglish");
-//		SeleniumUtils.textoPresentePagina(driver, "Login");
-//
-//		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
-//		SeleniumUtils.esperaCargaPagina(driver, "id",
-//				"tablaDelUsuario:tablaTareas", 5);
-//		SeleniumUtils.textoPresentePagina(driver, "Login");
-//
-//		SeleniumUtils.clickButton(driver, "botonesListas:hoy");
-//		SeleniumUtils.esperaCargaPagina(driver, "id",
-//				"tablaDelUsuario:tablaTareas", 10);
-//		SeleniumUtils.textoPresentePagina(driver, "Today list");
-//		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
-//				"menu1:cerrarSesion");
-//
-//		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
-//		SeleniumUtils.textoPresentePagina(driver, "Administrator");
+		assertTrue(false);
+//		 SeleniumUtils.esperaCargaPagina(driver, "id", "menu1", 5);
+//		 SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
+//		 SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:options",
+//		 "menu1:optionEnglish");
+//		 SeleniumUtils.esperaCargaPagina(driver, "text", "Language", 4);
+//		 //SeleniumUtils.textoPresentePagina(driver, "Login");
+//		
+//		 new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+//		 SeleniumUtils.esperaCargaPagina(driver, "id",
+//		 "tablaDelUsuario:tablaTareas", 5);
+//		 SeleniumUtils.textoPresentePagina(driver, "Login");
+//		
+//		 SeleniumUtils.clickButton(driver, "botonesListas:hoy");
+//		 SeleniumUtils.esperaCargaPagina(driver, "id",
+//		 "tablaDelUsuario:tablaTareas", 10);
+//		 SeleniumUtils.textoPresentePagina(driver, "Today list");
+//		 SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
+//		 "menu1:cerrarSesion");
+//		
+//		 new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+//		 SeleniumUtils.textoPresentePagina(driver, "Administrator");
 		
 	}
 
