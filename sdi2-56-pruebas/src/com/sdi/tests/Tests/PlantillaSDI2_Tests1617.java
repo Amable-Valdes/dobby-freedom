@@ -37,9 +37,6 @@ public class PlantillaSDI2_Tests1617 {
 	boolean isInterno = true;
 
 	private String localhost() {
-		if (isInterno) {
-			return "http://localhost:8280";
-		}
 		return "http://localhost:8180";
 	}
 
@@ -1256,29 +1253,27 @@ public class PlantillaSDI2_Tests1617 {
 	// vistas)
 	@Test
 	public void prueba35() {
-		// TODO Por hacer;
-		assertTrue(false);
-//		 SeleniumUtils.esperaCargaPagina(driver, "id", "menu1", 5);
-//		 SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
-//		 SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:options",
-//		 "menu1:optionEnglish");
-//		 SeleniumUtils.esperaCargaPagina(driver, "text", "Language", 4);
-//		 //SeleniumUtils.textoPresentePagina(driver, "Login");
-//		
-//		 new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
-//		 SeleniumUtils.esperaCargaPagina(driver, "id",
-//		 "tablaDelUsuario:tablaTareas", 5);
-//		 SeleniumUtils.textoPresentePagina(driver, "Login");
-//		
-//		 SeleniumUtils.clickButton(driver, "botonesListas:hoy");
-//		 SeleniumUtils.esperaCargaPagina(driver, "id",
-//		 "tablaDelUsuario:tablaTareas", 10);
-//		 SeleniumUtils.textoPresentePagina(driver, "Today list");
-//		 SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
-//		 "menu1:cerrarSesion");
-//		
-//		 new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
-//		 SeleniumUtils.textoPresentePagina(driver, "Administrator");
+		 SeleniumUtils.esperaCargaPagina(driver, "id", "menu1", 5);
+		 SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
+		 SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:options",
+		 "menu1:optionEnglish");
+		 SeleniumUtils.esperaCargaPagina(driver, "text", "Language", 4);
+		 //SeleniumUtils.textoPresentePagina(driver, "Login");
+		
+		 new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+		 SeleniumUtils.esperaCargaPagina(driver, "id",
+		 "tablaDelUsuario:tablaTareas", 5);
+		 SeleniumUtils.textoPresentePagina(driver, "Login");
+		
+		 SeleniumUtils.clickButton(driver, "botonesListas:hoy");
+		 SeleniumUtils.esperaCargaPagina(driver, "id",
+		 "tablaDelUsuario:tablaTareas", 10);
+		 SeleniumUtils.textoPresentePagina(driver, "Today list");
+		 SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
+		 "menu1:cerrarSesion");
+		
+		 new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+		 SeleniumUtils.textoPresentePagina(driver, "Administrator");
 		
 	}
 
