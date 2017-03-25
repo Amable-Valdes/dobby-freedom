@@ -37,7 +37,7 @@ public class PlantillaSDI2_Tests1617 {
 	boolean isInterno = true;
 
 	private String localhost() {
-		return "http://localhost:8280";
+		return "http://localhost:8180";
 	}
 
 	private void reiniciarBBDD() {
