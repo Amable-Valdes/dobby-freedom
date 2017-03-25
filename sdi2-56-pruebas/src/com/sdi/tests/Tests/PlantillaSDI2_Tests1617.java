@@ -37,7 +37,7 @@ public class PlantillaSDI2_Tests1617 {
 	boolean isInterno = true;
 
 	private String localhost() {
-		return "http://localhost:8180";
+		return "http://localhost:8280";
 	}
 
 	private void reiniciarBBDD() {
@@ -74,8 +74,8 @@ public class PlantillaSDI2_Tests1617 {
 	@After
 	public void end() {
 		// Cerramos el navegador
-		// TODO Si se quieren cerrar todas las ventanas una vez terminen:
-		// driver.quit();
+		// Si se quieren cerrar todas las ventanas una vez terminen:
+		driver.quit();
 	}
 
 	// PRUEBAS
@@ -919,14 +919,18 @@ public class PlantillaSDI2_Tests1617 {
 				+ "ui-state-default ui-corner-all", 1);
 		SeleniumUtils.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "tarea21");
-		//TODO Comprobar que es verde dicho texto.
+		
+		WebElement e = SeleniumUtils.esperaCargaPaginaxpath(driver, "/html/body"
+				+ "/form[3]/div[2]/div[2]/table/tbody/tr[5]/td[1]/label/label", 5)
+				.get(0); 
+		assertEquals("rgba(76, 175, 80, 1)", e.getCssValue("color"));
 		
 	}
 
 	// PR27: Crear una tarea sin categoría y comprobar que se muestra en la
 	// lista Inbox.
 	@Test
-	public void prueba27() {
+	public void prueba27() { 
 		// Nos logueamos
 		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
 
@@ -1209,8 +1213,12 @@ public class PlantillaSDI2_Tests1617 {
 				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "tarea21");
 
-		// TODO comprobar color
-
+		WebElement e = SeleniumUtils
+				.esperaCargaPaginaxpath(
+						driver,
+						"/html/body/form[3]/div[2]/div[2]/table/tbody/tr[5]/td[1]/label/label",
+						4).get(0);
+		assertEquals("rgba(76, 175, 80, 1)", e.getCssValue("color"));
 	}
 
 	// PR33: Salir de sesión desde cuenta de administrador.
