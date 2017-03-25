@@ -138,8 +138,20 @@
 		<from-view-id>/restricted/user/crearTarea.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{tareas.crearTask}</from-action>
-			<from-outcome>exito</from-outcome>
-			<to-view-id>/restricted/user/usuario.xhtml</to-view-id>
+			<from-outcome>listaInbox</from-outcome>
+			<to-view-id>/restricted/user/lista-Inbox-Terminadas.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tareas.crearTask}</from-action>
+			<from-outcome>listaHoy</from-outcome>
+			<to-view-id>/restricted/user/lista-Hoy.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tareas.crearTask}</from-action>
+			<from-outcome>listaSemana</from-outcome>
+			<to-view-id>/restricted/user/lista-Semana.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>

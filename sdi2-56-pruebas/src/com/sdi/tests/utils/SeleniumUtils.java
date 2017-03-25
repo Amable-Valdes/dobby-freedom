@@ -54,6 +54,16 @@ public class SeleniumUtils {
 			}
 		}
 		
+		//Rellenar datos en un textField
+				static public void rellenarTextFieldxpath(WebDriver driver, String idTextField, String texto){
+					if(texto != null){
+						WebElement textField = driver.findElement(By.xpath(idTextField));
+						textField.click();
+						textField.clear();
+						textField.sendKeys(texto);
+					}
+				}
+		
 		//Seleccionar dato en comboBox
 		static public void selectComboBox(WebDriver driver, String idComboBox, String idSeleccion){
 			WebElement comboBox = driver.findElement(By.id(idComboBox));

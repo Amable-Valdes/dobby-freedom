@@ -6,6 +6,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -120,12 +121,67 @@ public class PlantillaSDI2_Tests1617 {
 	// conexión correcta a la base de datos.
 	@Test
 	public void prueba04() {
-		// TODO Por hacer;
-		//reiniciar base de datos y lueg
-		//static url de la base de datos 
-		//y luego con sql normal sacamos los datos de tareas, usuarios y categorias
-		//con prepared statements y mas mierdas
-		//y 3 sqls staticos con cada una de las consultas para sacar los datos
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+
+		// Hacemos clic en crear tarea
+		SeleniumUtils
+				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionTareas",
+				"menu1:tareas");
+
+		// Rellenamos el formulario
+		new PO_FormCrearTarea().rellenaFormulario(driver, "NuevaTareaSinCategoria",
+				"Tarea sin categoria", "31/05/2017  08:28:35",
+				"Category_1");
+		
+		SeleniumUtils
+		.esperaCargaPaginaxpath(driver, "/html/body/form[3]/div[2]", 5);
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion", "menu1:cerrarSesion");
+		reiniciarBBDD();
+		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+		List<WebElement> filas = new ArrayList<WebElement>();
+		for(int i =0;i<3;i++){
+			filas.add( SeleniumUtils.esperaCargaPagina(driver,"id","form-listado:tabla:"+i + ":login", 4).get(0));
+		}
+		assertEquals(3,filas.size());
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion", "menu1:cerrarSesion");
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+		filas = new ArrayList<WebElement>();
+		for(int i =0;i<8;i++){
+			filas.add(SeleniumUtils.esperaCargaPagina(driver,"id","tablaDelUsuario:tablaTareas:" + i +":title",5).get(0));
+		}
+		SeleniumUtils.esperaCargaPagina(driver, "class", "ui-paginator-next", 4).get(0).click();
+		for(int i =8;i<10;i++){
+			filas.add(SeleniumUtils.esperaCargaPagina(driver,"id","tablaDelUsuario:tablaTareas:" + i +":title",5).get(0));
+		}
+		assertEquals(10,filas.size());
+		
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion", "menu1:cerrarSesion");
+		new PO_FormLogin().rellenaFormulario(driver, "user2", "user2");
+		filas = new ArrayList<WebElement>();
+		for(int i =0;i<8;i++){
+			filas.add(SeleniumUtils.esperaCargaPagina(driver,"id","tablaDelUsuario:tablaTareas:" + i +":title",5).get(0));
+		}
+		SeleniumUtils.esperaCargaPagina(driver, "class", "ui-paginator-next", 4).get(0).click();
+		for(int i =8;i<10;i++){
+			filas.add(SeleniumUtils.esperaCargaPagina(driver,"id","tablaDelUsuario:tablaTareas:" + i +":title",5).get(0));
+		}
+		assertEquals(10,filas.size());
+		
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion", "menu1:cerrarSesion");
+		new PO_FormLogin().rellenaFormulario(driver, "user3", "user3");
+		filas = new ArrayList<WebElement>();
+		for(int i =0;i<8;i++){
+			filas.add(SeleniumUtils.esperaCargaPagina(driver,"id","tablaDelUsuario:tablaTareas:" + i +":title",5).get(0));
+		}
+		SeleniumUtils.esperaCargaPagina(driver, "class", "ui-paginator-next", 4).get(0).click();
+		for(int i =8;i<10;i++){
+			filas.add(SeleniumUtils.esperaCargaPagina(driver,"id","tablaDelUsuario:tablaTareas:" + i +":title",5).get(0));
+		}
+		assertEquals(10,filas.size());
+		
+		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion", "menu1:cerrarSesion");
+		
 	}
 
 	// PR05: Visualizar correctamente la lista de usuarios normales.
@@ -449,6 +505,7 @@ public class PlantillaSDI2_Tests1617 {
 		new PO_FormRegistro().rellenaFormulario(driver, "usuarioNuevo",
 				"emailErroneo", "NuevaContraseña123", "NuevaContraseña123");
 
+		SeleniumUtils.textoPresentePagina(driver, "Registro de usuarios");
 		/*
 		 * Ahora deberíamos estar en registro.xhtml y debería mostrar un mensaje
 		 * diciendo que el email no sigue los estandares de X@X.X
@@ -552,15 +609,12 @@ public class PlantillaSDI2_Tests1617 {
 		//SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
 		SeleniumUtils.esperaCargaPaginaNoTexto(driver, "Categoria", 5);
 		//SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
-		SeleniumUtils.esperaCargaPagina(driver,
-				"class", "ui-paginator-next ", 5);
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page", 1);
+		SeleniumUtils.esperaCargaPaginaxpath(driver,
+				"/html/body/form[3]/div[2]/div[1]/span[5]/span ", 5);
 		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 2);
+		SeleniumUtils.esperaCargaPaginaxpath(driver,"/html/body/form[3]/div[2]/div[1]/span[4]/span[2]", 4).get(0).click();
 		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 3);
+		SeleniumUtils.esperaCargaPaginaxpath(driver,"/html/body/form[3]/div[2]/div[1]/span[4]/span[2]", 4).get(0).click();
 		SeleniumUtils.textoNoPresentePagina(driver, "Categoria");
 		
 	}
@@ -570,21 +624,21 @@ public class PlantillaSDI2_Tests1617 {
 	public void prueba17(){
 		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
 
+		SeleniumUtils.clickButton(driver, "botonesListas:theInbox");
+		SeleniumUtils.esperaCargaPaginaxpath(driver, "/html/body/form[3]/div[2]", 5);
+		
 		// Encontrar elemento de la siguiente vista
-		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
-				"tablaDelUsuario", 6);
+		elementos = SeleniumUtils.esperaCargaPaginaxpath(driver, "/html/body/form[3]", 6);
 		assertTrue(elementos != null);
 
 		SeleniumUtils.esperaCargaPaginaxpath(driver,
-				"/html/body/form[3]/div[2]/div[2]/table/thead/tr/th[4]", 4).get(0).click();
-		String tarea = driver.findElement(By.id("tablaDelUsuario:tablaTareas:0:title")).getText();
-		assertTrue(tarea.equals("tarea21"));
-
+				"/html/body/form[3]/div[2]/div[2]/table/thead/tr/th[3]/span[2]", 4).get(0).click();
 		SeleniumUtils.esperaCargaPaginaxpath(driver,
-				"/html/body/form[3]/div[2]/div[2]/table/thead/tr/th[4]", 4).get(0).click();
-		SeleniumUtils.esperaCargaPaginaxpath(driver, "/html/body/form[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/label/label", 4);
-		assertTrue(driver.findElement(By.xpath("/html/body/form[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/label/label"))
-				.getText().equals("tarea1"));
+				"/html/body/form[3]/div[2]/div[2]/table/thead/tr/th[3]/span[2]", 4).get(0).click();
+		String tarea = SeleniumUtils.esperaCargaPaginaxpath(driver,
+				"/html/body/form[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/label", 4).get(0).getText();
+		assertTrue(tarea.equals("tarea1"));
+
 	}
 
 	// PR18: Funcionamiento correcto del filtrado.
@@ -594,17 +648,45 @@ public class PlantillaSDI2_Tests1617 {
 		assertTrue(false);
 	}
 
-	// PR19: Funcionamiento correcto de la ordenación por categoría.
+	// PR19: Funcionamiento correcto de la ordenación por categoría tabla Hoy.
 	@Test
-	public void prueba19() {
-		// TODO Por hacer;
+	public void prueba19(){
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+
+		SeleniumUtils.clickButton(driver, "botonesListas:hoy");
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"tablaDelUsuario:tablaTareas", 10);
+		// Encontrar elemento de la siguiente vista
+
+		assertTrue(elementos != null);
+
+		SeleniumUtils.esperaCargaPaginaxpath(driver,"/html/body/"
+				+ "form[3]/div[2]/div[2]/table/thead/tr/th[2]/span[2]", 4).get(0).click();
+		SeleniumUtils.esperaCargaPaginaxpath(driver,"/html/body/"
+				+ "form[3]/div[2]/div[2]/table/thead/tr/th[2]/span[2]", 4).get(0).click();
+
+		String tarea = SeleniumUtils.esperaCargaPaginaxpath(driver, "/html/body/form[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/label/label", 4).get(0).getText();
+		assertEquals("tarea20",tarea);
 	}
 
-	// PR20: Funcionamiento correcto de la ordenación por fecha planeada.
+	// PR20: Funcionamiento correcto de la ordenación por fecha planeada tabla Hoy.
 	@Test
 	public void prueba20() {
-		// TODO Por hacer;
-		assertTrue(false);
+		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+		
+		SeleniumUtils.clickButton(driver, "botonesListas:hoy");
+		elementos = SeleniumUtils.esperaCargaPagina(driver, "id",
+				"tablaDelUsuario:tablaTareas", 10);
+		
+
+				assertTrue(elementos != null);
+
+				SeleniumUtils.esperaCargaPaginaxpath(driver,
+						"/html/body/form[3]/div[2]/div[2]/table/thead/tr/th[4]", 4).get(0).click();
+				SeleniumUtils.esperaCargaPaginaxpath(driver,
+						"/html/body/form[3]/div[2]/div[2]/table/thead/tr/th[4]", 4).get(0).click();
+				String tarea = SeleniumUtils.esperaCargaPaginaxpath(driver, "/html/body/form[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/label/label",4).get(0).getText();
+				assertEquals("tarea11",tarea);
 	}
 
 	// PR21: Comprobar que las tareas que no están en rojo son las de hoy y
@@ -725,11 +807,11 @@ public class PlantillaSDI2_Tests1617 {
 		// Rellenamos el formulario
 		new PO_FormCrearTarea().rellenaFormulario(driver, "NuevaTareaSinCategoria",
 				"Tarea sin categoria", "31/05/2017  08:28:35",
-				"j_idt7:form-registro:Category_1");
+				"Category_1");
 
 		// Nos debería redirigir a Inbox
 		SeleniumUtils
-				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
+				.esperaCargaPaginaxpath(driver, "/html/body/form[3]/div[2]", 5);
 		SeleniumUtils.textoPresentePagina(driver, "Inbox no terminadas");
 
 		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
@@ -738,7 +820,8 @@ public class PlantillaSDI2_Tests1617 {
 		// En la última página debería estar dicha tarea
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
-		SeleniumUtils.textoPresentePagina(driver, "NuevaTareaSinCategoria");
+		String s = SeleniumUtils.esperaCargaPaginaxpath(driver,"/html/body/form[3]/div[2]/div[2]/table/tbody/tr[5]/td[1]/label/label", 4).get(0).getText();
+		assertEquals("NuevaTareaSinCategoria",s);
 
 	}
 
@@ -761,20 +844,17 @@ public class PlantillaSDI2_Tests1617 {
 		// Rellenamos el formulario
 		new PO_FormCrearTarea().rellenaFormulario(driver,
 				"NuevaTareaCategoria1Hoy", "Tarea con categoria 1 para hoy",
-				hoy, "j_idt7:form-registro:Category_2");
+				hoy, "Category_2");
 
 		// Nos debería redirigir a Hoy
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Lista de hoy");
 
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 0);
-
-		// En la última página debería estar dicha tarea
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
-		SeleniumUtils.textoPresentePagina(driver, "NuevaTareaCategoria1Hoy");
+		String s = SeleniumUtils.esperaCargaPaginaxpath(driver,"/html/body/form[3]/div[2]/div[2]/table/tbody/tr[3]/td[1]/label/label", 4).get(0).getText();
+		assertEquals("NuevaTareaCategoria1Hoy",s);
 	}
 
 	// PR29: Crear una tarea con categoría categoria1 y fecha planeada posterior
@@ -798,20 +878,20 @@ public class PlantillaSDI2_Tests1617 {
 		new PO_FormCrearTarea().rellenaFormulario(driver,
 				"NuevaTareaCategoria1Semana",
 				"Tarea con categoria 1 para semana", hoy,
-				"j_idt7:form-registro:Category_2");
+				"Category_2");
 
 		// Nos debería redirigir a Hoy
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "tablaDelUsuario:tablaTareas", 10);
 		SeleniumUtils.textoPresentePagina(driver, "Lista esta semana");
 
-		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page "
-				+ "ui-state-default ui-corner-all", 1);
+		SeleniumUtils.seleccionarPagina(driver, "ui-paginator-page ", 1);
 
 		// En la última página debería estar dicha tarea
 		SeleniumUtils
 				.esperaCargaPagina(driver, "id", "menu1:gestionSesion", 10);
-		SeleniumUtils.textoPresentePagina(driver, "NuevaTareaCategoria1Semana");
+		String s = SeleniumUtils.esperaCargaPaginaxpath(driver, "/html/body/form[3]/div[2]/div[2]/table/tbody/tr[3]/td[1]/label/label", 4).get(0).getText();
+		assertEquals( "NuevaTareaCategoria1Semana",s);
 	}
 
 	// PR30: Editar el nombre, y categoría de una tarea (se le cambia a
@@ -1043,7 +1123,27 @@ public class PlantillaSDI2_Tests1617 {
 	@Test
 	public void prueba35() {
 		// TODO Por hacer;
-		assertTrue(false);
+//		SeleniumUtils.esperaCargaPagina(driver, "id", "menu1", 5);
+//		SeleniumUtils.textoPresentePagina(driver, "Inicio de sesión");
+//		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:options",
+//				"menu1:optionEnglish");
+//		SeleniumUtils.textoPresentePagina(driver, "Login");
+//
+//		new PO_FormLogin().rellenaFormulario(driver, "user1", "user1");
+//		SeleniumUtils.esperaCargaPagina(driver, "id",
+//				"tablaDelUsuario:tablaTareas", 5);
+//		SeleniumUtils.textoPresentePagina(driver, "Login");
+//
+//		SeleniumUtils.clickButton(driver, "botonesListas:hoy");
+//		SeleniumUtils.esperaCargaPagina(driver, "id",
+//				"tablaDelUsuario:tablaTareas", 10);
+//		SeleniumUtils.textoPresentePagina(driver, "Today list");
+//		SeleniumUtils.clickSubopcionMenuHover(driver, "menu1:gestionSesion",
+//				"menu1:cerrarSesion");
+//
+//		new PO_FormLogin().rellenaFormulario(driver, "admin1", "admin1");
+//		SeleniumUtils.textoPresentePagina(driver, "Administrator");
+		
 	}
 
 	// PR36: Cambio del idioma por defecto a un segundo idioma y vuelta al
